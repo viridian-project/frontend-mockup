@@ -161,7 +161,7 @@ header a>span {
 /* The first header at the top with search bar */
 
 #header-top {
-  width: 200%;
+  width: 300%;
   height: 50px;
   /* background-color: #606060; */
   background-color: #40826d;
@@ -184,7 +184,11 @@ header a>span {
 }
 
 #header-top.slided-to-left>div {
-  left: -50%;
+  left: -33%;
+}
+
+#header-top.slided-to-left-2>div {
+  left: -66%;
 }
 
 #normal-header>div {
@@ -197,19 +201,33 @@ header a>span {
 }
 
 nav>ul>li>a,
-#search-header a {
+#search-header a,
+#search-textinput-header a {
   display: flex;
   align-items: center;
   padding: 10px;
 }
 
 nav>ul>li>a:hover,
-#search-header a:hover {
+#search-header a:hover,
+#search-textinput-header a:hover {
   background-color: #1ba679;
 }
 
 #search-header>nav {
   width: 100%;
+}
+
+#search-textinput-header>div {
+  width: 100%;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+#search-textinput-header>div>input {
+  width: 100%;
+  padding: 7px;
 }
 
 

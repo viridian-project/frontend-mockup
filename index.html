@@ -39,13 +39,19 @@
               </a>
             </li>
             <li>
-              <a title="Search by Product Name" href="#">
+              <a title="Search by Product Name" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left'); document.getElementById('header-top').classList.add('slided-to-left-2');">
                 <img src="icons/font.svg" alt="Search by Product Name"><span id="product-name-search-span">Search by
                   Product Name</span>
               </a>
             </li>
           </ul>
         </nav>
+      </div>
+      <div id="search-textinput-header">
+        <a title="Back" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left-2'); document.getElementById('header-top').classList.add('slided-to-left');">
+          <img src="icons/md-arrow-back.svg" alt="Back">
+        </a>
+        <div><input type="text" name="product-name" id="product-name"></div>
       </div>
     </div>
     <ul id="header-tabs">
