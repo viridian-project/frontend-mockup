@@ -135,6 +135,13 @@ header ul>li>a {
   text-decoration: inherit;
 }
 
+nav>ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 nav>ul>li {
   list-style: none;
 }
@@ -144,48 +151,71 @@ nav>ul>li {
 
 header img {
   height: 30px;
-  margin-right: 5px;
+}
+
+header a>span {
+  margin-left: 10px;
 }
 
 
 /* The first header at the top with search bar */
 
 #header-top {
+  width: 200%;
   height: 50px;
   /* background-color: #606060; */
   background-color: #40826d;
   color: #eee;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 16px;
-  padding-right: 16px;
   /* box-shadow: 0px 5px 15px -3px black; */
 }
 
 #header-top>div {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  transition: all 1s ease;
+}
+
+#header-top.slided-to-left>div {
+  left: -50%;
+}
+
+#normal-header>div {
   font-family: 'Comfortaa', cursive;
 }
 
-#header-top>div,
-nav>ul>li>a {
+#normal-header>div {
+  display: flex;
+  align-items: center;
+}
+
+nav>ul>li>a,
+#search-header a {
   display: flex;
   align-items: center;
   padding: 10px;
 }
 
-nav>ul>li>a:hover {
+nav>ul>li>a:hover,
+#search-header a:hover {
   background-color: #1ba679;
 }
 
-#header-tabs>li>a:hover {
-  background-color: #eee;
+#search-header>nav {
+  width: 100%;
 }
 
 
 /* Logo: */
 
-#header-top>div>img {
+#normal-header>div>img {
   height: 36px;
   margin-right: 10px;
 }
@@ -234,18 +264,24 @@ nav>ul>li>a:hover {
 
 /* Modify header for small screens: */
 
-@media (min-width: 465px) {
-  #products-span:after {
-    content: "Products";
+@media (max-width: 465px) {
+  #barcode-search-span {
+    display: none;
   }
-  #labels-span:after {
-    content: "Labels";
+  #product-name-search-span {
+    display: none;
   }
-  #companies-span:after {
-    content: "Companies";
+  #search-span {
+    display: none;
   }
-  #search-span:after {
-    content: "Search";
+  #products-span {
+    display: none;
+  }
+  #labels-span {
+    display: none;
+  }
+  #companies-span {
+    display: none;
   }
 }
 
@@ -283,23 +319,21 @@ body {
   /* background-color: #f5eadc; */
   background-color: #eee;
   color: #333;
-  /* overflow: hidden; */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
 .main-content {
-  /* margin-top: 110px;
-  margin-bottom: 110px; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 2000px;
   overflow: auto;
 }
 
 .main-content>section {
-  /* width: 80%; */
+  width: 90%;
   max-width: 900px;
 }
 
@@ -313,7 +347,8 @@ body {
 * Profile Card (of product/company/label) *
 *******************************************/
 
-.main-content>section>article {
+.main-content>section.product-cards>article {
+  height: 200px;
   margin: 16px;
   padding: 0 16px 16px 16px;
   border: 1px solid;
@@ -329,6 +364,7 @@ body {
 
 footer {
   background-color: #40826d;
+  text-align: center;
 }
 
 @media (max-width: 465px) {
