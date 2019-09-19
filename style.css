@@ -151,10 +151,6 @@ header img {
 /* The first header at the top with search bar */
 
 #header-top {
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  right: 0; */
   height: 50px;
   /* background-color: #606060; */
   background-color: #40826d;
@@ -198,10 +194,6 @@ nav>ul>li>a:hover {
 /* The second header with tabs */
 
 #header-tabs {
-  /* position: fixed;
-  top: 50px;
-  left: 0;
-  right: 0; */
   height: 50px;
   margin: 0;
   padding: 0;
@@ -227,7 +219,8 @@ nav>ul>li>a:hover {
   align-items: center;
 }
 
-#header-tabs>li>a:hover {
+#header-tabs>li>a:hover,
+#header-tabs>li>a:focus {
   /* background-color: #6bf; */
   background-color: #7cc5ff;
 }
@@ -253,6 +246,23 @@ nav>ul>li>a:hover {
   }
   #search-span:after {
     content: "Search";
+  }
+}
+
+#brand-small {
+  display: inherit;
+}
+
+#brand-big {
+  display: none;
+}
+
+@media (min-width: 300px) {
+  #brand-small {
+    display: none;
+  }
+  #brand-big {
+    display: inherit;
   }
 }
 
