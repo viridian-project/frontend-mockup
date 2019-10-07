@@ -365,11 +365,22 @@ body {
 * Profile Card (of product/company/label) *
 *******************************************/
 
-.main-content>section.product-cards>article {
+section.product-cards>article {
   height: 200px;
   margin: 16px;
-  padding: 0 16px 16px 16px;
+  padding: 16px;
   border: 1px solid;
+  /* display: flex;
+  justify-content: start; */
+}
+
+section.product-cards>article>img {
+  float: left;
+  margin-right: 16px;
+}
+
+section.product-cards>article>div.text>h2 {
+  margin-top: 0;
 }
 
 
