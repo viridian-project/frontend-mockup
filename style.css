@@ -372,6 +372,8 @@ section.product-cards>article {
   border: 1px solid;
   /* display: flex;
   justify-content: start; */
+  box-shadow: 0px 20px 22px -15px black;
+  background-color: #efefef;
 }
 
 section.product-cards>article>img {
