@@ -161,13 +161,20 @@ header a>span {
 /* The first header at the top with search bar */
 
 #header-top {
-  width: 300%;
   height: 50px;
   /* background-color: #606060; */
   background-color: #40826d;
   color: #eee;
   display: flex;
   /* box-shadow: 0px 5px 15px -3px black; */
+}
+
+.two-full-widths {
+  width: 200%;
+}
+
+.three-full-widths {
+  width: 300%;
 }
 
 #header-top>div {
@@ -184,11 +191,15 @@ header a>span {
 }
 
 #header-top.slided-to-left>div {
-  left: -33%;
+  left: -50%;
 }
 
-#header-top.slided-to-left-2>div {
-  left: -66%;
+#header-top.slided-to-left-1-of-2>div {
+  left: -33.333333%;
+}
+
+#header-top.slided-to-left-2-of-2>div {
+  left: -66.666666%;
 }
 
 #normal-header>div {
@@ -342,20 +353,21 @@ body {
   flex-direction: column;
 }
 
-.main-content {
+#main-content {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
 }
 
-.main-content>section {
+#main-content>section {
   width: 90%;
   max-width: 900px;
 }
 
-.main-content>aside {
+#main-content>aside {
   /* width: 20%; */
   padding: 16px;
 }
@@ -365,7 +377,7 @@ body {
 * Profile Card (of product/company/label) *
 *******************************************/
 
-section.product-cards>article {
+section#product-cards>article {
   height: 200px;
   margin: 16px;
   padding: 16px;
@@ -376,12 +388,12 @@ section.product-cards>article {
   background-color: #efefef;
 }
 
-section.product-cards>article>img {
+section#product-cards>article>img {
   float: left;
   margin-right: 16px;
 }
 
-section.product-cards>article>div.text>h2 {
+section#product-cards>article>div.text>h2 {
   margin-top: 0;
 }
 

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>The Viridian Network</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div id="header-top" class="two-full-widths">
+      <div id="normal-header">
+        <div>
+          <img src="images/viridian_logo_bw_offwhite.svg" alt="Viridian Logo">
+          <span id="brand-big">The Viridian Network</span>
+          <span id="brand-small">Viridian</span>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a title="Search" href="#" onclick="document.getElementById('header-top').classList.add('slided-to-left');">
+                <img src="icons/md-search.svg" alt="Search"><span id="search-span">Search</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div id="search-textinput-header">
+        <a title="Back" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left');">
+          <img src="icons/md-arrow-back.svg" alt="Back">
+        </a>
+        <div><input type="text" name="label-name" id="label-name"></div>
+      </div>
+    </div>
+    <ul id="header-tabs">
+      <li>
+        <a title="Products" href="products.html"><img src="icons/md-cube.svg" alt="Products"><span id="products-span">Products</span></a>
+      </li>
+      <li>
+        <a title="Labels" class="active-tab" href="labels.html"><img src="icons/award.svg" alt="Labels"><span id="labels-span">Labels</span></a>
+      </li>
+      <li>
+        <a title="Companies" href="companies.html"><img src="icons/building.svg" alt="Companies"><span id="companies-span">Companies</span></a>
+      </li>
+    </ul>
+  </header>
+  <div id="main-content">
+    <section id="label-cards">
+    </section>
+  </div>
+  <footer>
+    <p>Copyright 2019 The Viridian Project</p>
+  </footer>
+  <!-- development version, includes helpful console warnings -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+  <script src="js/vue.js"></script>
+  <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
+</body>
+
+</html>
