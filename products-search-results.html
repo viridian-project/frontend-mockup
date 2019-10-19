@@ -70,30 +70,25 @@
   <div id="main-content">
     <section id="product-cards">
       <article v-for="prod in products">
-        <img style="width: 200px; height: 200px; border: 1px solid;">
-        <div class="text">
+        <div class="card-img">
+          <img v-bind:src="prod.imgUrl">
+        </div>
+        <div class="card-header">
           <h2>{{ prod.name }}</h2>
+        </div>
+        <div class="card-quant">
+          <p>{{ prod.quant }}</p>
+        </div>
+        <div class="card-desc">
           <p>{{ prod.desc }}</p>
         </div>
-      </article>
-      <article>
-        <img style="width: 200px; height: 200px; border: 1px solid;">
-        <div class="text">
-          <h2>Ovomaltine crunchy cream 500 g</h2>
-          <p>Bla bla bla.</p>
-          <p>Bla Bla bla bla bla.</p>
+        <div class="card-score">
+          <p>Score: {{ prod.score }}<span class="score-bar"></span></p>
+        </div>
+        <div class="card-price">
+          <p>{{ prod.price }} {{ prod.curr }}</p>
         </div>
       </article>
-      <article></article>
-      <article></article>
-      <article></article>
-      <article></article>
-      <article></article>
-      <article></article>
-      <article></article>
-      <article></article>
-      <article></article>
-      <article></article>
     </section>
     <!-- 
     <aside>
@@ -155,21 +150,17 @@
       console.log(prefLocale);
       products.push({
         name: prefLocale.name,
-        desc: prefLocale.description
+        desc: prefLocale.description,
+        quant: prefLocale.quantities[0],
+        price: prefLocale.price,
+        curr: prefLocale.currency,
+        imgUrl: prefLocale.imageUrl,
+        score: calcTotalScore(product.score, preferences.scoreWeighting)
       });
     }
 
     var product_cards = new Vue({
       el: '#product-cards',
-      // data: {
-      //   products: [{
-      //     name: "Test 1",
-      //     desc: "Bla bla bla."
-      //   }, {
-      //     name: "Test 2",
-      //     desc: "Bla bla bla, bla bla bla bla."
-      //   }]
-      // }
       data: {
         products: products
       }
