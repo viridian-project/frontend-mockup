@@ -122,6 +122,15 @@
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
   <script src="data/products.js"></script>
   <script>
+    function calcTotalScore(score, weight) {
+      let totalScore = 0;
+      for (let key in score) {
+        console.log(key);
+        totalScore += score[key] * weight[key];
+      }
+      return Math.round(totalScore) / 100;
+    }
+
     var preferences = {
       preferredLang: "de",
       scoreWeighting: { // sum must be 1
