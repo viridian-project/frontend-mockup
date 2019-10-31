@@ -71,7 +71,7 @@
     <section id="product-cards">
       <article v-for="prod in products">
         <div class="card-img">
-          <img v-bind:src="prod.imgUrl">
+          <img v-bind:style="prod.imgStyle">
         </div>
         <div class="card-header">
           <h2>{{ prod.name }}</h2>
@@ -82,8 +82,19 @@
         <div class="card-desc">
           <p>{{ prod.desc }}</p>
         </div>
-        <div class="card-score">
-          <p>Score: {{ prod.score }}<span class="score-bar"></span></p>
+        <div class="card-score-text">
+          <p>Score: </p>
+        </div>
+        <div class="card-score-blob">
+          <div class="score-bar-indicator" v-bind:style="prod.color">
+            <span>{{ prod.score }}</span>
+          </div>
+        </div>
+        <div class="card-score-bar">
+          <p>
+            <div class="score-bar-indicator-gray"></div>
+            <div class="score-bar"></div>
+          </p>
         </div>
         <div class="card-price">
           <p>{{ prod.price }} {{ prod.curr }}</p>
@@ -122,13 +133,50 @@
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
   <script src="data/products.js"></script>
   <script>
+    const red_hex = "#ff0000";
+    const yellow_hex = "#ffff00";
+    const green_hex = "#008000";
+    const red = convertToRGB(red_hex);
+    const yellow = convertToRGB(yellow_hex);
+    const green = convertToRGB(green_hex);
+
     function calcTotalScore(score, weight) {
       let totalScore = 0;
       for (let key in score) {
-        console.log(key);
         totalScore += score[key] * weight[key];
       }
-      return Math.round(totalScore) / 100;
+      return Math.round(totalScore);
+    }
+
+    /* Credit: https://stackoverflow.com/questions/3080421/javascript-color-gradient */
+    function trim(s) {
+      return (s.charAt(0) == '#') ? s.substring(1, 7) : s
+    }
+
+    /* Convert a hex string to an RGB triplet */
+    function convertToRGB(hex) {
+      let color = [];
+      color[0] = parseInt((trim(hex)).substring(0, 2), 16);
+      color[1] = parseInt((trim(hex)).substring(2, 4), 16);
+      color[2] = parseInt((trim(hex)).substring(4, 6), 16);
+      return color;
+    }
+
+    function calcScoreColor(score) {
+      let color = [0, 0, 0];
+      score = score / 100;
+      if (score < 0) {
+        for (let i in [0, 1, 2]) {
+          color[i] = -score * red[i] + (1 + score) * yellow[i];
+        }
+      } else if (score > 0) {
+        for (let i in [0, 1, 2]) {
+          color[i] = (1 - score) * yellow[i] + score * green[i];
+        }
+      } else {
+        color = yellow;
+      }
+      return color;
     }
 
     var preferences = {
@@ -149,7 +197,7 @@
     for (let product of productSearchResults) {
       console.log(Object.keys(product.locale));
       /* Fetch the preferred locale */
-      var prefLocale = {};
+      let prefLocale = {};
       for (let lang of prefLanguages) {
         if (lang in product.locale) {
           prefLocale = product.locale[lang];
@@ -157,14 +205,17 @@
         }
       }
       console.log(prefLocale);
+      let score = calcTotalScore(product.score, preferences.scoreWeighting);
+      let color = calcScoreColor(score);
       products.push({
         name: prefLocale.name,
         desc: prefLocale.description,
         quant: prefLocale.quantities[0],
         price: prefLocale.price,
         curr: prefLocale.currency,
-        imgUrl: prefLocale.imageUrl,
-        score: calcTotalScore(product.score, preferences.scoreWeighting)
+        imgStyle: 'background-image: "' + prefLocale.imageUrl + '";',
+        score: score,
+        color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');'
       });
     }
 

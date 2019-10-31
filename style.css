@@ -388,59 +388,99 @@ section#product-cards>article {
   box-shadow: 0px 20px 22px -15px black;
   background-color: #efefef;
   display: grid;
-  grid-template-columns: 202px auto 100px;
+  grid-template-columns: 202px 80px 42px auto 100px;
   grid-template-rows: 85px auto 40px;
-  grid-template-areas: "card-img card-header card-quant" "card-img card-desc   card-desc" "card-img card-score  card-price";
+  grid-template-areas: "card-img card-header     card-header     card-header    card-quant" "card-img card-desc       card-desc       card-desc      card-desc" "card-img card-score-text card-score-blob card-score-bar card-price";
   grid-column-gap: 16px;
+  align-items: center;
 }
 
 section#product-cards>article>.card-img {
   grid-area: card-img;
 }
 
-section#product-cards>article>.card-img>img {
+.card-img>img {
   width: 200px;
   height: 200px;
   border-radius: 100px;
   border: 1px solid;
 }
 
-section#product-cards>article>.card-header {
+.card-header {
   grid-area: card-header;
 }
 
-section#product-cards>article>.card-header>h2 {
+.card-header>h2 {
   margin-top: 0;
 }
 
-section#product-cards>article>.card-desc {
+.card-desc {
   grid-area: card-desc;
 }
 
-section#product-cards>article>.card-quant,
-section#product-cards>article>.card-price,
-section#product-cards>article>.card-score {
+.card-quant,
+.card-price,
+.card-score-text,
+.card-score-blob {
   font-size: 0.9em;
   font-weight: bold;
 }
 
-section#product-cards>article>.card-quant {
+.card-quant,
+.card-price {
+  justify-self: end;
+}
+
+.card-quant {
   grid-area: card-quant;
 }
 
-section#product-cards>article>.card-price {
+.card-score-text {
+  grid-area: card-score-text;
+}
+
+.card-score-blob {
+  grid-area: card-score-blob;
+}
+
+.card-score-bar {
+  grid-area: card-score-bar;
+}
+
+.card-price {
   grid-area: card-price;
 }
 
 .score-bar {
-  width: 115px;
+  width: 100%;
   height: 16px;
-  margin-left: 16px;
-  background-image: linear-gradient(90deg, #008000, #ffff00, #ff0000);
+  background-image: linear-gradient(90deg, #ff0000, #ffff00, #008000);
   /* (same as green, yellow, red) */
   border: 1px solid gray;
   display: inline-block;
   vertical-align: middle;
+}
+
+.score-bar-indicator {
+  width: 40px;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.score-bar-indicator-gray {
+  width: 24px;
+  height: 24px;
+  border: 1px solid gray;
+  border-radius: 12px;
+  background-color: gray;
+  position: relative;
+  left: 50%;
+  top: 24px;
 }
 
 
