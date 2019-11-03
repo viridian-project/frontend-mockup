@@ -82,17 +82,19 @@
         <div class="card-desc">
           <p>{{ prod.desc }}</p>
         </div>
-        <div class="card-score-text">
-          <p>Score: </p>
-        </div>
-        <div class="card-score-blob">
-          <div class="score-bar-indicator" v-bind:style="prod.color">
-            <span>{{ prod.score }}</span>
+        <div class="card-score">
+          <div class="card-score-text">
+            <p>Score: </p>
           </div>
-        </div>
-        <div class="card-score-bar">
-          <div class="score-bar"></div>
-          <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
+          <div class="card-score-blob">
+            <div class="score-bar-indicator" v-bind:style="prod.color">
+              <span>{{ prod.score }}</span>
+            </div>
+          </div>
+          <div class="card-score-bar">
+            <div class="score-bar"></div>
+            <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
+          </div>
         </div>
         <div class="card-price">
           <p>{{ prod.price }} {{ prod.curr }}</p>
