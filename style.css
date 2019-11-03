@@ -468,6 +468,7 @@ section#product-cards>article>.card-img {
 
 .card-score-blob {
   grid-area: card-score-blob;
+  text-shadow: 0px 0px 2px black;
 }
 
 .card-score-bar {
