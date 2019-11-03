@@ -91,10 +91,8 @@
           </div>
         </div>
         <div class="card-score-bar">
-          <p>
-            <div class="score-bar-indicator-gray"></div>
-            <div class="score-bar"></div>
-          </p>
+          <div class="score-bar"></div>
+          <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
         </div>
         <div class="card-price">
           <p>{{ prod.price }} {{ prod.curr }}</p>
@@ -133,12 +131,12 @@
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
   <script src="data/products.js"></script>
   <script>
-    const red_hex = "#ff0000";
-    const yellow_hex = "#ffff00";
-    const green_hex = "#008000";
-    const red = convertToRGB(red_hex);
-    const yellow = convertToRGB(yellow_hex);
-    const green = convertToRGB(green_hex);
+    // const red_hex = "#ff0000";
+    // const yellow_hex = "#ffff00";
+    // const green_hex = "#008000";
+    const red = [255, 0, 0];
+    const yellow = [255, 255, 0];
+    const green = [0, 128, 0];
 
     function calcTotalScore(score, weight) {
       let totalScore = 0;
@@ -146,20 +144,6 @@
         totalScore += score[key] * weight[key];
       }
       return Math.round(totalScore);
-    }
-
-    /* Credit: https://stackoverflow.com/questions/3080421/javascript-color-gradient */
-    function trim(s) {
-      return (s.charAt(0) == '#') ? s.substring(1, 7) : s
-    }
-
-    /* Convert a hex string to an RGB triplet */
-    function convertToRGB(hex) {
-      let color = [];
-      color[0] = parseInt((trim(hex)).substring(0, 2), 16);
-      color[1] = parseInt((trim(hex)).substring(2, 4), 16);
-      color[2] = parseInt((trim(hex)).substring(4, 6), 16);
-      return color;
     }
 
     function calcScoreColor(score) {
@@ -215,7 +199,8 @@
         curr: prefLocale.currency,
         imgStyle: 'background-image: "' + prefLocale.imageUrl + '";',
         score: score,
-        color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');'
+        color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
+        position: 'left: ' + (score + 100) / 2 + '%'
       });
     }
 
