@@ -434,10 +434,9 @@ section#product-cards>article {
   box-shadow: 0px 20px 22px -15px black;
   background-color: #efefef;
   display: grid;
-  grid-template-columns: 202px auto 100px;
+  grid-template-columns: 202px 16px auto 100px;
   grid-template-rows: 85px auto 40px;
-  grid-template-areas: "card-img card-header card-quant" "card-img card-desc   card-desc" "card-img card-score  card-price";
-  grid-column-gap: 16px;
+  grid-template-areas: "card-img card-gap card-header card-quant" "card-img card-gap card-desc   card-desc" "card-img card-gap card-score  card-price";
   align-items: center;
 }
 
@@ -450,6 +449,10 @@ section#product-cards>article>.card-img {
   height: 200px;
   border-radius: 100px;
   border: 1px solid;
+}
+
+.card-gap {
+  grid-area: card-gap;
 }
 
 .card-header {
@@ -550,9 +553,9 @@ section#product-cards>article>.card-img {
     border: none;
     border-bottom: 1px solid;
     box-shadow: none;
-    grid-template-columns: 102px auto 100px;
+    grid-template-columns: 102px 16px auto 100px;
     grid-template-rows: 60px auto 40px;
-    grid-template-areas: "card-img   card-header card-quant" "card-img   card-desc   card-desc" "card-score card-score  card-price";
+    grid-template-areas: "card-img   card-gap   card-header card-quant" "card-img   card-gap   card-desc   card-desc" "card-score card-score card-score  card-price";
   }
   .card-img>img {
     width: 100px;
