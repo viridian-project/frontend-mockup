@@ -5,15 +5,42 @@
 
 /* Font for brand: */
 
-@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap'); */
+
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Comfortaa Regular'), local('Comfortaa-Regular'), url('fonts/Comfortaa/static/Comfortaa-Regular.ttf') format('truetype');
+}
+
 
 /* Font for headings: */
 
-@import url('https://fonts.googleapis.com/css?family=Cairo&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css?family=Cairo&display=swap'); */
+
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cairo'), local('Cairo-Regular'), url('fonts/Cairo/Cairo-Regular.ttf') format('truetype');
+}
+
 
 /* Font for paragraphs: */
 
-@import url('https://fonts.googleapis.com/css?family=Roboto:300&display=swap');
+
+/* @import url('https://fonts.googleapis.com/css?family=Roboto:300&display=swap'); */
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'), url('fonts/Roboto/Roboto-Light.ttf') format('truetype');
+}
+
 
 /* Font sizes according to https://typecast.com/blog/a-more-modern-scale-for-web-typography */
 

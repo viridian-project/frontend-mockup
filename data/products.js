@@ -30,7 +30,7 @@ const productSearchResults = [{
       "ingredients": "33% malzhaltiges Getränkepulver: Ovomaltine (Gerstenmalzextrakt, kondensierte Magermilch, kondensiertes Milchserum, fettarmer Kakao, Zucker, Fruktose, Magnesiumcarbonat, Calciumphosphat, Rapsöl, Vitamine [A, E, B1, B2, Pantothensäure, B6, Folsäure, B12, C, Biotin, Niacin], Kochsalz, Aroma Vanillin), Zucker, Pflanzenöle (Raps- und Palmöl), 2.6% Haselnüsse, Calciumphosphat, fettarmer Kakao, Emulgator Sonnenblumenlecithin, Aroma Vanillin.",
       "packagings": ["Glas", "Plastik"],
       "categories": ["Brotaufstriche", "Frühstück", "Nougatcremes"],
-      "imageUrl": "https://static.openfoodfacts.org/images/products/761/210/005/5557/front_de.21.200.jpg",
+      "imageUrl": "images/ovomaltine_crunchy_cream_400g.jpg",
       "url": "http://www.ovomaltine.de/produkte/ovomaltine-crunchy-cream-1/"
     }
   }
