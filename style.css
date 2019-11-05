@@ -457,6 +457,7 @@ section#product-cards>article>.card-img {
 
 .card-header {
   grid-area: card-header;
+  overflow: hidden;
 }
 
 .card-header>h2 {
@@ -465,6 +466,7 @@ section#product-cards>article>.card-img {
 
 .card-desc {
   grid-area: card-desc;
+  overflow: hidden;
 }
 
 .card-quant,
@@ -548,19 +550,49 @@ section#product-cards>article>.card-img {
 
 @media (max-width: 768px) {
   section#product-cards>article {
-    height: 175px;
+    height: 120px;
     margin: 0;
     border: none;
     border-bottom: 1px solid;
     box-shadow: none;
-    grid-template-columns: 102px 16px auto 100px;
-    grid-template-rows: 60px auto 40px;
+    grid-template-columns: 52px 16px auto 100px;
+    grid-template-rows: 30px auto 40px;
     grid-template-areas: "card-img   card-gap   card-header card-quant" "card-img   card-gap   card-desc   card-desc" "card-score card-score card-score  card-price";
   }
   .card-img>img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+  }
+}
+
+@media (max-width: 535px) {
+  .card-header>h2 {
+    font-size: 1.1em;
+  }
+  .card-desc {
+    font-size: 0.9em;
+  }
+  .card-quant,
+  .card-price,
+  .card-score-text,
+  .card-score-blob {
+    font-size: 0.8em;
+  }
+  .score-bar-indicator {
+    width: 30px;
+    height: 30px;
+  }
+  .score-bar-indicator-gray {
+    width: 20px;
+    height: 20px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    background-color: gray;
+    margin-top: -20px;
+    margin-left: -10px;
+    position: relative;
+    left: 50%;
   }
 }
 
