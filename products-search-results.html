@@ -73,15 +73,14 @@
         <div class="card-img">
           <img v-bind:style="prod.imgStyle">
         </div>
-        <div class="card-gap"></div>
         <div class="card-header">
-          <h2>{{ prod.name }}</h2>
+          <div class="card-heading">
+            <h2 v-bind:title="prod.name">{{ prod.name }}</h2>
+          </div>
+          <div class="card-quant">{{ prod.quant }}</div>
         </div>
-        <div class="card-quant">
-          <p>{{ prod.quant }}</p>
-        </div>
-        <div class="card-desc">
-          <p>{{ prod.desc }}</p>
+        <div class="card-desc" v-bind:title="prod.desc">
+          {{ prod.desc }}
         </div>
         <div class="card-score">
           <div class="card-score-text">
@@ -96,9 +95,7 @@
             <div class="score-bar"></div>
             <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
           </div>
-        </div>
-        <div class="card-price">
-          <p>{{ prod.price }} {{ prod.curr }}</p>
+          <div class="card-price">{{ prod.price }} {{ prod.curr }}</div>
         </div>
       </article>
     </section>

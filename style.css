@@ -434,9 +434,10 @@ section#product-cards>article {
   box-shadow: 0px 20px 22px -15px black;
   background-color: #efefef;
   display: grid;
-  grid-template-columns: 202px 16px auto 100px;
+  grid-template-columns: 202px auto;
   grid-template-rows: 85px auto 40px;
-  grid-template-areas: "card-img card-gap card-header card-quant" "card-img card-gap card-desc   card-desc" "card-img card-gap card-score  card-price";
+  grid-template-areas: "card-img card-header" "card-img card-desc" "card-img card-score";
+  column-gap: 16px;
   align-items: center;
 }
 
@@ -451,22 +452,45 @@ section#product-cards>article>.card-img {
   border: 1px solid;
 }
 
-.card-gap {
-  grid-area: card-gap;
-}
-
 .card-header {
   grid-area: card-header;
-  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto 50px;
+  grid-template-areas: "card-heading card-quant";
+  column-gap: 16px;
+  align-items: center;
+  /* justify-content: space-between; */
+  max-width: 100%;
 }
 
-.card-header>h2 {
+.card-heading {
+  grid-area: card-heading;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-heading>h2 {
   margin: 0;
+  /* display: block; */
+  /* overflow: hidden;
+  text-overflow: ellipsis; */
+  /* wrap over maximally 2 lines, then '...': (https://stackoverflow.com/questions/15909489/text-overflow-ellipsis-on-two-lines) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-desc {
   grid-area: card-desc;
+  /* wrap over maximally 2 lines, then '...': (https://stackoverflow.com/questions/15909489/text-overflow-ellipsis-on-two-lines) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-quant,
@@ -477,9 +501,16 @@ section#product-cards>article>.card-img {
   font-weight: bold;
 }
 
-.card-quant,
+
+/* .card-quant,
 .card-price {
   justify-self: end;
+} */
+
+.card-quant,
+.card-price {
+  white-space: nowrap;
+  text-align: right;
 }
 
 .card-quant {
@@ -488,11 +519,16 @@ section#product-cards>article>.card-img {
 
 .card-score {
   grid-area: card-score;
-  display: grid;
-  grid-template-columns: 80px 42px auto;
+  display: flex;
+  align-items: center;
+  /* grid-template-columns: 80px 42px auto;
   grid-template-areas: "card-score-text card-score-blob card-score-bar";
   grid-column-gap: 16px;
-  align-items: center;
+  align-items: center; */
+}
+
+.card-score>div {
+  margin-right: 16px;
 }
 
 .card-score-text {
@@ -506,10 +542,15 @@ section#product-cards>article>.card-img {
 
 .card-score-bar {
   grid-area: card-score-bar;
+  width: 100%;
 }
 
-.card-price {
-  grid-area: card-price;
+.card-score>.card-price {
+  margin-right: 0;
+}
+
+.card-price>p {
+  word-break: keep-all;
 }
 
 .score-bar {
@@ -550,14 +591,14 @@ section#product-cards>article>.card-img {
 
 @media (max-width: 768px) {
   section#product-cards>article {
-    height: 120px;
+    height: 150px;
     margin: 0;
     border: none;
     border-bottom: 1px solid;
     box-shadow: none;
-    grid-template-columns: 52px 16px auto 100px;
-    grid-template-rows: 30px auto 40px;
-    grid-template-areas: "card-img   card-gap   card-header card-quant" "card-img   card-gap   card-desc   card-desc" "card-score card-score card-score  card-price";
+    grid-template-columns: 52px auto;
+    grid-template-rows: 60px auto 40px;
+    grid-template-areas: "card-img   card-header" "card-img   card-desc" "card-score card-score";
   }
   .card-img>img {
     width: 50px;
@@ -567,7 +608,11 @@ section#product-cards>article>.card-img {
 }
 
 @media (max-width: 535px) {
-  .card-header>h2 {
+  section#product-cards>article {
+    height: 130px;
+    grid-template-rows: 40px auto 40px;
+  }
+  .card-heading>h2 {
     font-size: 1.1em;
   }
   .card-desc {
