@@ -96,10 +96,10 @@ const productSearchResults = [{
     "labels": ["label-42c2f586-a893-485f-8995-8639446bb6b8"],
     "locale": {
       "de": {
-        "name": "Ovomaltine Crunchy Cream",
+        "name": "Ovomaltine Crunchy Cream Ajsjsjs Qksjsjskjk Wksksksj Ekdjjdkd Rksksjdkk Jkdkdkkwk Kdkkdkld",
         "price": "4.99",
         "currency": "€",
-        "description": "Brotaufstrich mit malzhaltigem Getränkepulver Ovomaltine",
+        "description": "Brotaufstrich mit malzhaltigem Getränkepulver Ovomaltine kskskksk sksksk sk skks skkkskskks ksksksksksksksks skksksks sksksksk ksksksksksksk sks ksks",
         "quantities": ["400 g"],
         "ingredients": "33% malzhaltiges Getränkepulver: Ovomaltine (Gerstenmalzextrakt, kondensierte Magermilch, kondensiertes Milchserum, fettarmer Kakao, Zucker, Fruktose, Magnesiumcarbonat, Calciumphosphat, Rapsöl, Vitamine [A, E, B1, B2, Pantothensäure, B6, Folsäure, B12, C, Biotin, Niacin], Kochsalz, Aroma Vanillin), Zucker, Pflanzenöle (Raps- und Palmöl), 2.6% Haselnüsse, Calciumphosphat, fettarmer Kakao, Emulgator Sonnenblumenlecithin, Aroma Vanillin.",
         "packagings": ["Glas", "Plastik"],
