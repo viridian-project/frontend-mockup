@@ -97,7 +97,7 @@ blockquote {
 
 /* @media (min-width: 43.75em) { */
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   body {
     font-size: 1em;
     /* equivalent to 16px */
@@ -134,7 +134,7 @@ blockquote {
 
 /* @media (min-width: 56.25em) { */
 
-@media (min-width: 768px) {
+@media (min-width: 988px) {
   h1 {
     font-size: 3em;
     /* 3x body copy size = 48px */
@@ -359,7 +359,7 @@ nav>ul>li>a:hover,
   display: none;
 }
 
-@media (min-width: 300px) {
+@media (min-width: 301px) {
   #brand-small {
     display: none;
   }
@@ -427,16 +427,16 @@ body {
 /* CSS Grid Reference: https://css-tricks.com/snippets/css/complete-guide-grid/ */
 
 section#product-cards>article {
-  height: 200px;
+  height: 202px;
   margin: 16px;
   padding: 16px;
   border: 1px solid;
   box-shadow: 0px 20px 22px -15px black;
   background-color: #efefef;
   display: grid;
-  grid-template-columns: 202px auto;
-  grid-template-rows: 85px auto 40px;
-  grid-template-areas: "card-img card-header" "card-img card-desc" "card-img card-score";
+  grid-template-columns: 202px auto 60px;
+  grid-template-rows: 82px 60px 60px;
+  grid-template-areas: "card-img card-header card-quant" "card-img card-desc card-desc" "card-img card-score card-price";
   column-gap: 16px;
   align-items: center;
 }
@@ -454,27 +454,13 @@ section#product-cards>article>.card-img {
 
 .card-header {
   grid-area: card-header;
-  display: grid;
-  grid-template-columns: auto 50px;
-  grid-template-areas: "card-heading card-quant";
-  column-gap: 16px;
-  align-items: center;
-  /* justify-content: space-between; */
-  max-width: 100%;
-}
-
-.card-heading {
-  grid-area: card-heading;
-  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.card-heading>h2 {
+.card-header>h2 {
+  font-size: 2em;
   margin: 0;
-  /* display: block; */
-  /* overflow: hidden;
-  text-overflow: ellipsis; */
   /* wrap over maximally 2 lines, then '...': (https://stackoverflow.com/questions/15909489/text-overflow-ellipsis-on-two-lines) */
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -499,18 +485,16 @@ section#product-cards>article>.card-img {
 .card-score-blob {
   font-size: 0.9em;
   font-weight: bold;
+  white-space: nowrap;
 }
-
-
-/* .card-quant,
-.card-price {
-  justify-self: end;
-} */
 
 .card-quant,
 .card-price {
-  white-space: nowrap;
+  /* justify-self: end; */
   text-align: right;
+  /* need this instead of justify: end for overflow to work */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-quant {
@@ -521,10 +505,6 @@ section#product-cards>article>.card-img {
   grid-area: card-score;
   display: flex;
   align-items: center;
-  /* grid-template-columns: 80px 42px auto;
-  grid-template-areas: "card-score-text card-score-blob card-score-bar";
-  grid-column-gap: 16px;
-  align-items: center; */
 }
 
 .card-score>div {
@@ -545,12 +525,13 @@ section#product-cards>article>.card-img {
   width: 100%;
 }
 
-.card-score>.card-price {
+.card-score>.card-score-bar {
   margin-right: 0;
 }
 
-.card-price>p {
-  word-break: keep-all;
+.card-price {
+  grid-area: card-price;
+  /* word-break: keep-all; */
 }
 
 .score-bar {
@@ -596,27 +577,36 @@ section#product-cards>article>.card-img {
     border: none;
     border-bottom: 1px solid;
     box-shadow: none;
-    grid-template-columns: 52px auto;
+    grid-template-columns: 102px auto 60px;
     grid-template-rows: 60px auto 40px;
-    grid-template-areas: "card-img   card-header" "card-img   card-desc" "card-score card-score";
+    grid-template-areas: "card-img card-header card-quant" "card-img card-desc card-desc" "card-score card-score card-price";
+  }
+  .card-header>h2 {
+    font-size: 1.625em;
   }
   .card-img>img {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
   }
 }
 
 @media (max-width: 535px) {
   section#product-cards>article {
     height: 130px;
+    grid-template-columns: 52px auto 50px;
     grid-template-rows: 40px auto 40px;
   }
-  .card-heading>h2 {
+  .card-header>h2 {
     font-size: 1.1em;
   }
   .card-desc {
     font-size: 0.9em;
+  }
+  .card-img>img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
   }
   .card-quant,
   .card-price,
