@@ -450,6 +450,9 @@ section#product-cards>article>.card-img {
   height: 200px;
   border-radius: 100px;
   border: 1px solid;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .card-header {

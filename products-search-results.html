@@ -76,7 +76,7 @@
         <div class="card-header">
           <h2 v-bind:title="prod.name">{{ prod.name }}</h2>
         </div>
-        <div class="card-quant">{{ prod.quant }}</div>
+        <div class="card-quant" v-bind:title="prod.quant">{{ prod.quant }}</div>
         <div class="card-desc" v-bind:title="prod.desc">
           {{ prod.desc }}
         </div>
@@ -94,7 +94,7 @@
             <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
           </div>
         </div>
-        <div class="card-price">{{ prod.price }} {{ prod.curr }}</div>
+        <div class="card-price" v-bind:title="prod.priceCurr">{{ prod.priceCurr }}</div>
       </article>
     </section>
     <!-- 
@@ -129,9 +129,9 @@
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
   <script src="data/products.js"></script>
   <script>
-    // const red_hex = "#ff0000";
-    // const yellow_hex = "#ffff00";
-    // const green_hex = "#008000";
+    // const red_hex = '#ff0000';
+    // const yellow_hex = '#ffff00';
+    // const green_hex = '#008000';
     const red = [255, 0, 0];
     const yellow = [255, 210, 0]; // less biting, warmer yellow than [255, 255, 0]
     const green = [0, 128, 0];
@@ -161,8 +161,16 @@
       return color;
     }
 
+    function concatPriceAndCurrency(price, currency, lang) {
+      if (lang.startsWith('en')) {
+        return currency + ' ' + price;
+      } else {
+        return price.replace('.', ',') + ' ' + currency;
+      }
+    }
+
     var preferences = {
-      preferredLang: "de",
+      preferredLang: 'de',
       scoreWeighting: { // sum must be 1
         environment: 0.1666667,
         climate: 0.1666667,
@@ -172,7 +180,7 @@
         economy: 0.1666667
       }
     }
-    var prefLanguages = [preferences["preferredLang"], "en", "fr", "de"];
+    var prefLanguages = [preferences['preferredLang'], 'en', 'fr', 'de'];
 
     /* Build the products object based on preferences */
     var products = [];
@@ -195,7 +203,8 @@
         quant: prefLocale.quantities[0],
         price: prefLocale.price,
         curr: prefLocale.currency,
-        imgStyle: 'background-image: "' + prefLocale.imageUrl + '";',
+        priceCurr: concatPriceAndCurrency(prefLocale.price, prefLocale.currency, preferences['preferredLang']),
+        imgStyle: 'background-image: url("' + prefLocale.imageUrl + '");',
         score: score,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         position: 'left: ' + (score + 100) / 2 + '%'
