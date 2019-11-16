@@ -30,7 +30,7 @@ const productSearchResults = [{
         "ingredients": "65% extrait de malt d'ORGE, Lait écrémé condensé, cacao en poudre fortement dégraissé, sels minéraux (orthophosphate dicalcique, carbonate de magnésium, pyrophosphate de fer), huile de colza, 13 vitamines (A, D, E, K, C thiamine riboflavine.niacine, B6, acide folique, 812, biotine, acide pantothenique), sel de cuisine, arôme vanilline",
         "packagings": ["Beutel"],
         "categories": ["Getränke", "Süßigkeiten"],
-        "imageUrl": "",
+        "imageUrl": "images/ovomaltine_original_400g.jpg",
         "url": ""
       }
     }
@@ -67,7 +67,7 @@ const productSearchResults = [{
         "ingredients": "_Gersten-Malzextrakt_ 51%, _Magermilchkonzentrat_, _Milchserumkonzentrat_, fettarmes Kakaopulver 13%, Weisszucker, Fruktose, Magnesiummcarbonat, Calciumphosphat, Rapsöl, Vitamine (A, E, B1, B2, Pantothensäure, B6, Folsäure, B12, C, Biotin, Niacin), Speisesalz, Aroma Vanillin",
         "packagings": ["Plastik"],
         "categories": ["Getränke", "Süßigkeiten"],
-        "imageUrl": "",
+        "imageUrl": "images/ovomaltine_500g.jpg",
         "url": ""
       }
     }

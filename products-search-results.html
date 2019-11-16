@@ -210,6 +210,19 @@
         position: 'left: ' + (score + 100) / 2 + '%'
       });
     }
+    var maxPriceLength = 0;
+    for (let p of products) {
+      if (p.priceCurr.length > maxPriceLength) {
+        maxPriceLength = p.priceCurr.length;
+      }
+    }
+    if (maxPriceLength > 9) {
+      document.getElementById('product-cards').classList.add('price-10-chars');
+    } else if (maxPriceLength > 8) {
+      document.getElementById('product-cards').classList.add('price-9-chars');
+    } else if (maxPriceLength > 7) {
+      document.getElementById('product-cards').classList.add('price-8-chars');
+    }
 
     var product_cards = new Vue({
       el: '#product-cards',
