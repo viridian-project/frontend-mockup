@@ -89,12 +89,16 @@
               <span>{{ prod.score }}</span>
             </div>
           </div>
-          <div class="card-score-bar">
+          <div class="card-score-bar card-score-bar-regular">
             <div class="score-bar"></div>
             <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
           </div>
         </div>
         <div class="card-price" v-bind:title="prod.priceCurr">{{ prod.priceCurr }}</div>
+        <div class="card-score-bar card-score-bar-tiny-screens">
+          <div class="score-bar"></div>
+          <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
+        </div>
       </article>
     </section>
     <!-- 

@@ -506,8 +506,8 @@ section#product-cards>article>.card-img {
 .card-quant,
 .card-price {
   /* justify-self: end; */
+  /* need this instead of justify: end for overflow to work: */
   text-align: right;
-  /* need this instead of justify: end for overflow to work */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -526,17 +526,11 @@ section#product-cards>article>.card-img {
   margin-right: 16px;
 }
 
-.card-score-text {
-  grid-area: card-score-text;
-}
-
 .card-score-blob {
-  grid-area: card-score-blob;
   text-shadow: 0px 0px 2px black;
 }
 
 .card-score-bar {
-  grid-area: card-score-bar;
   width: 100%;
 }
 
@@ -546,7 +540,6 @@ section#product-cards>article>.card-img {
 
 .card-price {
   grid-area: card-price;
-  /* word-break: keep-all; */
 }
 
 .score-bar {
@@ -661,6 +654,30 @@ section#product-cards>article>.card-img {
   }
   section#product-cards.price-10-chars>article {
     grid-template-columns: 52px auto 85px;
+  }
+}
+
+
+/* super tiny screens: */
+
+@media (min-width: 301px) {
+  .card-score-bar-tiny-screens {
+    display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  section#product-cards>article {
+    height: 170px;
+    grid-template-areas: "card-img card-header card-quant" "card-img card-desc card-desc" "card-score card-score card-price" "card-score-bar card-score-bar card-score-bar";
+    /* grid-template-columns: 52px auto 50px; */
+    grid-template-rows: 40px auto 40px 40px;
+  }
+  .card-score-bar-tiny-screens {
+    grid-area: card-score-bar;
+  }
+  .card-score-bar-regular {
+    display: none;
   }
 }
 
