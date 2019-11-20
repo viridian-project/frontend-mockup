@@ -434,10 +434,11 @@ section#product-cards>article {
   box-shadow: 0px 20px 22px -15px black;
   background-color: #efefef;
   display: grid;
-  grid-template-columns: 202px auto 60px;
-  grid-template-rows: 82px 60px 60px;
   grid-template-areas: "card-img card-header card-quant" "card-img card-desc card-desc" "card-img card-score card-price";
+  grid-template-columns: 202px auto 60px;
+  grid-template-rows: 82px 45px 45px;
   column-gap: 16px;
+  row-gap: 15px;
   align-items: center;
 }
 
@@ -486,6 +487,7 @@ section#product-cards>article>.card-img {
 
 .card-desc {
   grid-area: card-desc;
+  align-self: baseline;
   /* wrap over maximally 2 lines, then '...': (https://stackoverflow.com/questions/15909489/text-overflow-ellipsis-on-two-lines) */
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -580,14 +582,15 @@ section#product-cards>article>.card-img {
 
 @media (max-width: 768px) {
   section#product-cards>article {
-    height: 150px;
+    height: 160px;
     margin: 0;
     border: none;
     border-bottom: 1px solid;
     box-shadow: none;
-    grid-template-columns: 102px auto 60px;
-    grid-template-rows: 60px auto 40px;
     grid-template-areas: "card-img card-header card-quant" "card-img card-desc card-desc" "card-score card-score card-price";
+    grid-template-columns: 102px auto 60px;
+    grid-template-rows: 60px 40px 40px;
+    row-gap: 10px;
   }
   .card-header>h2 {
     font-size: 1.625em;
@@ -611,8 +614,9 @@ section#product-cards>article>.card-img {
 @media (max-width: 535px) {
   section#product-cards>article {
     height: 130px;
+    padding: 10px;
     grid-template-columns: 52px auto 50px;
-    grid-template-rows: 40px auto 40px;
+    grid-template-rows: 40px 35px 35px;
   }
   .card-header>h2 {
     font-size: 1.1em;
@@ -669,9 +673,9 @@ section#product-cards>article>.card-img {
 @media (max-width: 300px) {
   section#product-cards>article {
     height: 170px;
-    grid-template-areas: "card-img card-header card-quant" "card-img card-desc card-desc" "card-score card-score card-price" "card-score-bar card-score-bar card-score-bar";
-    /* grid-template-columns: 52px auto 50px; */
-    grid-template-rows: 40px auto 40px 40px;
+    grid-template-areas: "card-img card-header card-header" "card-img card-desc card-desc" "card-quant . card-price" "card-score card-score card-score" "card-score-bar card-score-bar card-score-bar";
+    grid-template-rows: 40px 35px 15px 30px 30px;
+    row-gap: 5px;
   }
   .card-score-bar-tiny-screens {
     grid-area: card-score-bar;
