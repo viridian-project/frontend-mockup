@@ -1,4 +1,5 @@
 const productSearchResults = [{
+    "id": "418ff85c-ae31-448f-aebd-d77dd966a514",
     "createdBy": "openfoodfacts-contributors",
     "createdAt": "2016-02-10 16:58:18 UTC",
     "status": "Active",
@@ -17,9 +18,9 @@ const productSearchResults = [{
     },
     "docType": "product",
     "gtin": "7612100017487",
-    "producers": ["producer-afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
+    "producers": ["afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
     "containedProducts": [],
-    "labels": ["label-42c2f586-a893-485f-8995-8639446bb6b8"],
+    "labels": ["42c2f586-a893-485f-8995-8639446bb6b8"],
     "locale": {
       "de": {
         "name": "Ovomaltine Original",
@@ -36,6 +37,7 @@ const productSearchResults = [{
     }
   },
   {
+    "id": "cc536300-9bc9-465a-9df9-0b84b4f99050",
     "createdBy": "odoc",
     "createdAt": "2017-08-07 19:21:34 UTC",
     "status": "Active",
@@ -54,9 +56,9 @@ const productSearchResults = [{
     },
     "docType": "product",
     "gtin": "7612100054826",
-    "producers": ["producer-afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
+    "producers": ["afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
     "containedProducts": [],
-    "labels": ["label-42c2f586-a893-485f-8995-8639446bb6b8"],
+    "labels": ["42c2f586-a893-485f-8995-8639446bb6b8"],
     "locale": {
       "de": {
         "name": "Ovomaltine",
@@ -73,6 +75,7 @@ const productSearchResults = [{
     }
   },
   {
+    "id": "2cbd59c4-2e6d-4029-9660-b772363404ba",
     "createdBy": "zecourlis",
     "createdAt": "2018-12-24 12:11:54 UTC",
     "status": "Active",
@@ -91,9 +94,9 @@ const productSearchResults = [{
     },
     "docType": "product",
     "gtin": "7612100055557",
-    "producers": ["producer-afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
+    "producers": ["afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
     "containedProducts": [],
-    "labels": ["label-42c2f586-a893-485f-8995-8639446bb6b8"],
+    "labels": ["42c2f586-a893-485f-8995-8639446bb6b8"],
     "locale": {
       "de": {
         "name": "Ovomaltine Crunchy Cream Ajsjsjs Qksjsjskjk Wksksksj Ekdjjdkd Rksksjdkk Jkdkdkkwk Kdkkdkld",

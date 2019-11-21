@@ -70,35 +70,37 @@
   <div id="main-content">
     <section id="product-cards">
       <article v-for="prod in products">
-        <div class="card-img">
-          <img v-bind:style="prod.imgStyle">
-        </div>
-        <div class="card-header">
-          <h2 v-bind:title="prod.name">{{ prod.name }}</h2>
-        </div>
-        <div class="card-quant" v-bind:title="prod.quant">{{ prod.quant }}</div>
-        <div class="card-desc" v-bind:title="prod.desc">
-          {{ prod.desc }}
-        </div>
-        <div class="card-score">
-          <div class="card-score-text">
-            <p>Score: </p>
+        <a v-bind:href="prod.url">
+          <div class="card-img">
+            <img v-bind:style="prod.imgStyle">
           </div>
-          <div class="card-score-blob">
-            <div class="score-bar-indicator" v-bind:style="prod.color">
-              <span>{{ prod.score }}</span>
+          <div class="card-header">
+            <h2 v-bind:title="prod.name">{{ prod.name }}</h2>
+          </div>
+          <div class="card-quant" v-bind:title="prod.quant">{{ prod.quant }}</div>
+          <div class="card-desc" v-bind:title="prod.desc">
+            {{ prod.desc }}
+          </div>
+          <div class="card-score">
+            <div class="card-score-text">
+              <p>Score: </p>
+            </div>
+            <div class="card-score-blob">
+              <div class="score-bar-indicator" v-bind:style="prod.color">
+                <span>{{ prod.score }}</span>
+              </div>
+            </div>
+            <div class="card-score-bar card-score-bar-regular">
+              <div class="score-bar"></div>
+              <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
             </div>
           </div>
-          <div class="card-score-bar card-score-bar-regular">
+          <div class="card-price" v-bind:title="prod.priceCurr">{{ prod.priceCurr }}</div>
+          <div class="card-score-bar card-score-bar-tiny-screens">
             <div class="score-bar"></div>
             <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
           </div>
-        </div>
-        <div class="card-price" v-bind:title="prod.priceCurr">{{ prod.priceCurr }}</div>
-        <div class="card-score-bar card-score-bar-tiny-screens">
-          <div class="score-bar"></div>
-          <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
-        </div>
+        </a>
       </article>
     </section>
     <!-- 
@@ -211,7 +213,8 @@
         imgStyle: 'background-image: url("' + prefLocale.imageUrl + '");',
         score: score,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
-        position: 'left: ' + (score + 100) / 2 + '%'
+        position: 'left: ' + (score + 100) / 2 + '%',
+        url: 'product/' + product.id
       });
     }
     var maxPriceLength = 0;
