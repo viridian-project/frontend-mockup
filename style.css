@@ -695,6 +695,47 @@ section#product-cards>article>.card-img {
 }
 
 
+/*
+ * Github style hovercard (https://time2hack.com/jquery-tutorial-build-hovercards-for-your-website/)
+ */
+
+.hovercard {
+  display: none;
+  position: absolute;
+  width: 300px;
+  padding: 3px;
+  height: 150px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  background-color: #fff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
+  /* render hovercard on top: */
+  z-index: 1000;
+}
+
+.hovercard::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  /* left: 20px; */
+  border-bottom: 12px solid #aaa;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+
+.hovercard::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 5px;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}
+
+
 /**********
  * Footer *
  **********/
