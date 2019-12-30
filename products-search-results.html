@@ -70,16 +70,21 @@
   <div id="main-content">
     <section id="product-cards">
       <article v-for="prod in products">
-        <a v-bind:href="prod.url">
           <div class="card-img">
+          <a v-bind:href="prod.url">
             <img v-bind:style="prod.imgStyle">
+          </a>
           </div>
           <div class="card-header">
-            <h2 v-bind:title="prod.name">{{ prod.name }}</h2>
+          <h2 v-bind:title="prod.name">
+            <a v-bind:href="prod.url">{{ prod.name }}</a>
+          </h2>
           </div>
           <div class="card-quant" v-bind:title="prod.quant">{{ prod.quant }}</div>
           <div class="card-desc" v-bind:title="prod.desc">
+          <a v-bind:href="prod.url">
             {{ prod.desc }}
+          </a>
           </div>
           <div class="card-score">
             <div class="card-score-text">

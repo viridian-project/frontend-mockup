@@ -426,9 +426,12 @@ body {
 
 /* CSS Grid Reference: https://css-tricks.com/snippets/css/complete-guide-grid/ */
 
-section#product-cards>article>a {
+section#product-cards>article a {
   text-decoration: none;
   color: inherit;
+}
+
+section#product-cards>article {
   height: 202px;
   margin: 16px;
   padding: 16px;
@@ -443,27 +446,28 @@ section#product-cards>article>a {
   row-gap: 15px;
   align-items: center;
 }
-section#product-cards>article>a:hover {
+
+section#product-cards>article:hover {
   background-color: #ffffff;
 }
 
-section#product-cards.price-8-chars>article>a {
+section#product-cards.price-8-chars>article {
   grid-template-columns: 202px auto 70px;
 }
 
-section#product-cards.price-9-chars>article>a {
+section#product-cards.price-9-chars>article {
   grid-template-columns: 202px auto 80px;
 }
 
-section#product-cards.price-10-chars>article>a {
+section#product-cards.price-10-chars>article {
   grid-template-columns: 202px auto 85px;
 }
 
-section#product-cards>article>a>.card-img {
+section#product-cards>article>.card-img {
   grid-area: card-img;
 }
 
-.card-img>img {
+.card-img>a>img {
   width: 200px;
   height: 200px;
   border-radius: 100px;
@@ -586,7 +590,7 @@ section#product-cards>article>a>.card-img {
 /* Modify product cards for small screens: */
 
 @media (max-width: 768px) {
-  section#product-cards>article>a {
+  section#product-cards>article {
     height: 160px;
     margin: 0;
     border: none;
@@ -600,24 +604,24 @@ section#product-cards>article>a>.card-img {
   .card-header>h2 {
     font-size: 1.625em;
   }
-  .card-img>img {
+  .card-img>a>img {
     width: 100px;
     height: 100px;
     border-radius: 50px;
   }
-  section#product-cards.price-8-chars>article>a {
+  section#product-cards.price-8-chars>article {
     grid-template-columns: 102px auto 70px;
   }
-  section#product-cards.price-9-chars>article>a {
+  section#product-cards.price-9-chars>article {
     grid-template-columns: 102px auto 80px;
   }
-  section#product-cards.price-10-chars>article>a {
+  section#product-cards.price-10-chars>article {
     grid-template-columns: 102px auto 85px;
   }
 }
 
 @media (max-width: 535px) {
-  section#product-cards>article>a {
+  section#product-cards>article {
     height: 130px;
     padding: 10px;
     grid-template-columns: 52px auto 50px;
@@ -629,7 +633,7 @@ section#product-cards>article>a>.card-img {
   .card-desc {
     font-size: 0.9em;
   }
-  .card-img>img {
+  .card-img>a>img {
     width: 50px;
     height: 50px;
     border-radius: 25px;
@@ -655,13 +659,13 @@ section#product-cards>article>a>.card-img {
     position: relative;
     left: 50%;
   }
-  section#product-cards.price-8-chars>article>a {
+  section#product-cards.price-8-chars>article {
     grid-template-columns: 52px auto 70px;
   }
-  section#product-cards.price-9-chars>article>a {
+  section#product-cards.price-9-chars>article {
     grid-template-columns: 52px auto 80px;
   }
-  section#product-cards.price-10-chars>article>a {
+  section#product-cards.price-10-chars>article {
     grid-template-columns: 52px auto 85px;
   }
 }
@@ -676,7 +680,7 @@ section#product-cards>article>a>.card-img {
 }
 
 @media (max-width: 300px) {
-  section#product-cards>article>a {
+  section#product-cards>article {
     height: 170px;
     grid-template-areas: "card-img card-header card-header" "card-img card-desc card-desc" "card-quant . card-price" "card-score card-score card-score" "card-score-bar card-score-bar card-score-bar";
     grid-template-rows: 40px 35px 15px 30px 30px;
