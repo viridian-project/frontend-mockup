@@ -1,6 +1,6 @@
 /**************
- * Typography *
- **************/
+* Typography *
+**************/
 
 
 /* Font for brand: */
@@ -140,7 +140,7 @@ blockquote {
     /* 3x body copy size = 48px */
     line-height: 1.05;
     /* keep to a multiple of the 20px line height 
-    and something more appropriate for display headings */
+  and something more appropriate for display headings */
   }
   h2 {
     font-size: 2.25em;
@@ -370,8 +370,8 @@ nav>ul>li>a:hover,
 
 
 /*************
- * Page Body *
- *************/
+* Page Body *
+*************/
 
 html,
 body {
@@ -713,14 +713,15 @@ section#product-cards>article>.card-img {
 
 
 /*
- * Github style hovercard (https://time2hack.com/jquery-tutorial-build-hovercards-for-your-website/)
- */
+* Github style hovercard (https://time2hack.com/jquery-tutorial-build-hovercards-for-your-website/)
+*/
 
 .hovercard {
   display: none;
   position: absolute;
-  width: 300px;
-  padding: 3px;
+  width: 500px;
+  max-width: 85%;
+  padding: 10px;
   height: 150px;
   border: 1px solid #aaa;
   border-radius: 3px;
@@ -736,7 +737,7 @@ section#product-cards>article>.card-img {
   content: "";
   position: absolute;
   bottom: 100%;
-  /* left: 20px; */
+  left: 48px;
   border-bottom: 12px solid #aaa;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
@@ -746,16 +747,38 @@ section#product-cards>article>.card-img {
   content: "";
   position: absolute;
   bottom: 100%;
-  left: 5px;
+  left: 50px;
   border-bottom: 10px solid #fff;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
 
+@media (min-width: 769px) {
+  .hovercard::before {
+    left: 210px;
+  }
+  .hovercard::after {
+    left: 212px;
+  }
+}
+
+@media (max-width: 535px) {
+  .hovercard {
+    width: 300px;
+    max-width: 75%;
+  }
+  .hovercard::before {
+    left: 33px;
+  }
+  .hovercard::after {
+    left: 35px;
+  }
+}
+
 
 /**********
- * Footer *
- **********/
+* Footer *
+**********/
 
 
 /* Hide footer on small screens */

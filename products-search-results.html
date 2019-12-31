@@ -90,8 +90,8 @@
           <div class="card-score-text">
             <p>Score: </p>
           </div>
-          <div class="card-score-blob">
-            <div v-bind:id="'blob-'+prod.id" class="score-bar-indicator" v-bind:style="prod.color" v-on:click="hello(prod.id)">
+          <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id)">
+            <div v-bind:id="'blob-'+prod.id" class="score-bar-indicator" v-bind:style="prod.color">
               <span>{{ prod.score }}</span>
             </div>
           </div>
@@ -246,14 +246,19 @@
         products: products
       },
       methods: {
-        hello(id) {
+        placeHovercard(id) {
           let hovercard = document.getElementById('hovercard-' + id);
-          let blob = document.getElementById('blob-' + id);
-          let rect = blob.getBoundingClientRect();
-          console.log(rect.top, rect.left);
-          hovercard.style.top = (rect.top + blob.clientHeight) + 'px';
-          hovercard.style.left = (rect.left - blob.clientWidth) + 'px';
           if (hovercard.style.display == 'none') {
+            let blob = document.getElementById('blob-' + id);
+            let rect = blob.getBoundingClientRect();
+            let windowWidth = (window.innerWidth || document.documentElement.clientWidth ||
+              document.body.clientWidth);
+            let leftOffset = blob.clientWidth;
+            if (windowWidth > 768) {
+              leftOffset = 5 * leftOffset;
+            }
+            hovercard.style.top = (rect.top + blob.clientHeight + 10) + 'px';
+            hovercard.style.left = (rect.left - leftOffset) + 'px';
             hovercard.style.display = 'block';
           } else {
             hovercard.style.display = 'none';
