@@ -90,7 +90,7 @@
           <div class="card-score-text">
             <p>Score: </p>
           </div>
-          <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id)">
+          <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id)" v-on:mouseover="placeHovercard(prod.id)" v-on:mouseout="placeHovercard(prod.id)">
             <div v-bind:id="'blob-'+prod.id" class="score-bar-indicator" v-bind:style="prod.color">
               <span>{{ prod.score }}</span>
             </div>
