@@ -107,7 +107,14 @@
         </div>
         <!-- Hovercard with details on the product score: -->
         <div v-bind:id="'hovercard-'+prod.id" class="hovercard" style="display: none;">
-          <p>Hello</p>
+          <ul>
+            <li><strong>Environment:</strong> {{prod.detailedScore.environment}}</li>
+            <li><strong>Climate:</strong> {{prod.detailedScore.climate}}</li>
+            <li><strong>Society:</strong> {{prod.detailedScore.society}}</li>
+            <li><strong>Health:</strong> {{prod.detailedScore.health}}</li>
+            <li><strong>Animal welfare:</strong> {{prod.detailedScore.animalWelfare}}</li>
+            <li><strong>Economy:</strong> {{prod.detailedScore.economy}}</li>
+          </ul>
         </div>
       </article>
     </section>
@@ -223,6 +230,7 @@
         score: score,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         position: 'left: ' + (score + 100) / 2 + '%',
+        detailedScore: product.score,
         url: 'product/' + product.id
       });
     }
