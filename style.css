@@ -752,6 +752,15 @@ section#product-cards>article>.card-img {
   border-right: 10px solid transparent;
 }
 
+.hovercard>ul {
+  margin: 0;
+  padding: 0;
+}
+
+.hovercard>ul>li {
+  list-style: none;
+}
+
 @media (min-width: 769px) {
   .hovercard::before {
     left: 210px;
