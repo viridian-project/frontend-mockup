@@ -90,7 +90,7 @@
           <div class="card-score-text">
             <p>Score: </p>
           </div>
-          <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id)" v-on:mouseover="placeHovercard(prod.id)" v-on:mouseout="placeHovercard(prod.id)">
+          <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id, 'click')" v-on:mouseover="placeHovercard(prod.id, 'mouseover')" v-on:mouseout="placeHovercard(prod.id, 'mouseout')">
             <div v-bind:id="'blob-'+prod.id" class="score-bar-indicator" v-bind:style="prod.color">
               <span>{{ prod.score }}</span>
             </div>
@@ -106,7 +106,7 @@
           <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
         </div>
         <!-- Hovercard with details on the product score: -->
-        <div v-bind:id="'hovercard-'+prod.id" class="hovercard" style="display: none;">
+        <div v-bind:id="'hovercard-'+prod.id" class="hovercard" style="display: none;" data-permanent=false>
           <ul>
             <li><strong>Environment:</strong> {{prod.detailedScore.environment}}</li>
             <li><strong>Climate:</strong> {{prod.detailedScore.climate}}</li>
@@ -254,9 +254,21 @@
         products: products
       },
       methods: {
-        placeHovercard(id) {
+        placeHovercard(id, what) {
           let hovercard = document.getElementById('hovercard-' + id);
-          if (hovercard.style.display == 'none') {
+          let permanent = hovercard.getAttribute('data-permanent');
+          let show = false;
+          let hide = false;
+          if (permanent == "false" && what == 'mouseover') show = true;
+          else if (permanent == "false" && what == 'mouseout') hide = true;
+          else if (permanent == "false" && what == 'click') {
+            hovercard.setAttribute('data-permanent', true);
+            show = true;
+          } else if (permanent == "true" && what == 'click') {
+            hovercard.setAttribute('data-permanent', false);
+            show = false;
+          }
+          if (show) {
             let blob = document.getElementById('blob-' + id);
             let rect = blob.getBoundingClientRect();
             let windowWidth = (window.innerWidth || document.documentElement.clientWidth ||
@@ -268,7 +280,7 @@
             hovercard.style.top = (rect.top + blob.clientHeight + 10) + 'px';
             hovercard.style.left = (rect.left - leftOffset) + 'px';
             hovercard.style.display = 'block';
-          } else {
+          } else if (hide) {
             hovercard.style.display = 'none';
           }
         }
