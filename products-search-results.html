@@ -273,11 +273,25 @@
             let rect = blob.getBoundingClientRect();
             let windowWidth = (window.innerWidth || document.documentElement.clientWidth ||
               document.body.clientWidth);
+            let windowHeight = (window.innerHeight || document.documentElement.clientHeight ||
+              document.body.clientHeight);
             let leftOffset = blob.clientWidth;
             if (windowWidth > 768) {
               leftOffset = 5 * leftOffset;
             }
-            hovercard.style.top = (rect.top + blob.clientHeight + 10) + 'px';
+            let above = false;
+            if (windowHeight - rect.top < 200) {
+              above = true;
+            }
+            if (!above) {
+              hovercard.classList.remove('hovercard-above');
+              hovercard.style.top = (rect.bottom + 10) + 'px';
+              hovercard.style.bottom = null;
+            } else {
+              hovercard.classList.add('hovercard-above');
+              hovercard.style.top = null;
+              hovercard.style.bottom = (windowHeight - rect.top + 10) + 'px';
+            }
             hovercard.style.left = (rect.left - leftOffset) + 'px';
             hovercard.style.display = 'block';
           } else if (hide) {

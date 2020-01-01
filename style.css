@@ -752,6 +752,18 @@ section#product-cards>article>.card-img {
   border-right: 10px solid transparent;
 }
 
+.hovercard-above::before {
+  top: 100%;
+  border-top: 12px solid #aaa;
+  border-bottom: none;
+}
+
+.hovercard-above::after {
+  top: 100%;
+  border-top: 10px solid #fff;
+  border-bottom: none;
+}
+
 .hovercard>ul {
   margin: 0;
   padding: 0;
