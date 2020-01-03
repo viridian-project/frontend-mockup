@@ -538,7 +538,6 @@ section#product-cards>article>.card-img {
 }
 
 .card-score-blob {
-  text-shadow: 0px 0px 2px black;
   cursor: pointer;
 }
 
@@ -589,6 +588,12 @@ section#product-cards>article>.card-img {
   justify-content: center;
   align-items: center;
   color: white;
+  text-shadow: 0px 0px 2px black;
+}
+
+.score-bar-indicator-small {
+  width: 30px;
+  height: 30px;
 }
 
 .score-bar-indicator-gray {
@@ -665,16 +670,15 @@ section#product-cards>article>.card-img {
     width: 30px;
     height: 30px;
   }
+  .score-bar {
+    height: 12px;
+  }
   .score-bar-indicator-gray {
     width: 20px;
     height: 20px;
-    border: 1px solid gray;
     border-radius: 10px;
-    background-color: gray;
     margin-top: -20px;
     margin-left: -10px;
-    position: relative;
-    left: 50%;
   }
   section#product-cards.price-8-chars>article {
     grid-template-columns: 52px auto 70px;
@@ -728,8 +732,16 @@ section#product-cards>article>.card-img {
   -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
   -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
+  font-weight: bold;
+  font-size: 0.9em;
   /* render hovercard on top: */
   z-index: 1000;
+}
+
+@media (max-width: 535px) {
+  .hovercard {
+    font-size: 0.8em;
+  }
 }
 
 .hovercard::before {
@@ -764,13 +776,33 @@ section#product-cards>article>.card-img {
   border-bottom: none;
 }
 
-.hovercard>ul {
-  margin: 0;
-  padding: 0;
+.hovercard-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
-.hovercard>ul>li {
-  list-style: none;
+.hovercard-score {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.hovercard-score-bar {
+  width: 90%;
+}
+
+.hovercard-score-bar>.score-bar {
+  height: 12px;
+}
+
+.hovercard-score-bar>.score-bar-indicator-gray {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin-top: -20px;
+  margin-left: -10px;
 }
 
 @media (min-width: 769px) {
@@ -784,7 +816,7 @@ section#product-cards>article>.card-img {
 
 @media (max-width: 535px) {
   .hovercard {
-    width: 300px;
+    width: 200px;
     max-width: 75%;
   }
   .hovercard::before {
@@ -792,6 +824,12 @@ section#product-cards>article>.card-img {
   }
   .hovercard::after {
     left: 35px;
+  }
+  .hovercard-score-bar {
+    display: none;
+  }
+  .hovercard-score {
+    width: auto;
   }
 }
 

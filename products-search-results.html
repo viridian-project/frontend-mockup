@@ -90,7 +90,7 @@
           <div class="card-score-text">
             <p>Score: </p>
           </div>
-          <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id, 'click')" v-on:mouseover="placeHovercard(prod.id, 'mouseover')" v-on:mouseout="placeHovercard(prod.id, 'mouseout')">
+          <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id, 'click')" v-on:touchend="placeHovercard(prod.id, 'click')" v-on:mouseover="placeHovercard(prod.id, 'mouseover')" v-on:mouseout="placeHovercard(prod.id, 'mouseout')">
             <div v-bind:id="'blob-'+prod.id" class="score-bar-indicator" v-bind:style="prod.color">
               <span>{{ prod.score }}</span>
             </div>
@@ -107,14 +107,78 @@
         </div>
         <!-- Hovercard with details on the product score: -->
         <div v-bind:id="'hovercard-'+prod.id" class="hovercard" style="display: none;" data-permanent=false>
-          <ul>
-            <li><strong>Environment:</strong> {{prod.detailedScore.environment}}</li>
-            <li><strong>Climate:</strong> {{prod.detailedScore.climate}}</li>
-            <li><strong>Society:</strong> {{prod.detailedScore.society}}</li>
-            <li><strong>Health:</strong> {{prod.detailedScore.health}}</li>
-            <li><strong>Animal welfare:</strong> {{prod.detailedScore.animalWelfare}}</li>
-            <li><strong>Economy:</strong> {{prod.detailedScore.economy}}</li>
-          </ul>
+          <div class="hovercard-content">
+            <div>Environment:</div>
+            <div class="hovercard-score">
+              <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.environment">
+                <span>{{ prod.detailedScore.environment }}</span>
+              </div>
+              <div class="hovercard-score-bar">
+                <div class="score-bar"></div>
+                <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.environment"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hovercard-content">
+            <div>Climate:</div>
+            <div class="hovercard-score">
+              <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.climate">
+                <span>{{ prod.detailedScore.climate }}</span>
+              </div>
+              <div class="hovercard-score-bar">
+                <div class="score-bar"></div>
+                <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.climate"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hovercard-content">
+            <div>Society:</div>
+            <div class="hovercard-score">
+              <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.society">
+                <span>{{ prod.detailedScore.society }}</span>
+              </div>
+              <div class="hovercard-score-bar">
+                <div class="score-bar"></div>
+                <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.society"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hovercard-content">
+            <div>Health:</div>
+            <div class="hovercard-score">
+              <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.health">
+                <span>{{ prod.detailedScore.health }}</span>
+              </div>
+              <div class="hovercard-score-bar">
+                <div class="score-bar"></div>
+                <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.health"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hovercard-content">
+            <div>Animal welfare:</div>
+            <div class="hovercard-score">
+              <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.animalWelfare">
+                <span>{{ prod.detailedScore.animalWelfare }}</span>
+              </div>
+              <div class="hovercard-score-bar">
+                <div class="score-bar"></div>
+                <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.animalWelfare"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hovercard-content">
+            <div>Economy:</div>
+            <div class="hovercard-score">
+              <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.economy">
+                <span>{{ prod.detailedScore.economy }}</span>
+              </div>
+              <div class="hovercard-score-bar">
+                <div class="score-bar"></div>
+                <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.economy"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </article>
     </section>
@@ -206,7 +270,6 @@
     /* Build the products object based on preferences */
     var products = [];
     for (let product of productSearchResults) {
-      console.log(Object.keys(product.locale));
       /* Fetch the preferred locale */
       let prefLocale = {};
       for (let lang of prefLanguages) {
@@ -215,9 +278,15 @@
           break;
         }
       }
-      console.log(prefLocale);
       let score = calcTotalScore(product.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
+      let detailedColors = {};
+      let detailedPositions = {};
+      for (let key in product.score) {
+        let c = calcScoreColor(product.score[key]);
+        detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+        detailedPositions[key] = 'left: ' + (product.score[key] + 100) / 2 + '%';
+      }
       products.push({
         id: product.id,
         name: prefLocale.name,
@@ -231,6 +300,8 @@
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         position: 'left: ' + (score + 100) / 2 + '%',
         detailedScore: product.score,
+        detailedColors: detailedColors,
+        detailedPositions: detailedPositions,
         url: 'product/' + product.id
       });
     }
@@ -280,7 +351,7 @@
               leftOffset = 5 * leftOffset;
             }
             let above = false;
-            if (windowHeight - rect.top < 200) {
+            if (windowHeight - rect.top < 300) {
               above = true;
             }
             if (!above) {
