@@ -107,7 +107,7 @@
         </div>
         <!-- Hovercard with details on the product score: -->
         <div v-bind:id="'hovercard-'+prod.id" class="hovercard" style="display: none;" data-permanent=false>
-          <div class="hovercard-content">
+          <div class="hovercard-row">
             <div>Environment:</div>
             <div class="hovercard-score">
               <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.environment">
@@ -119,7 +119,7 @@
               </div>
             </div>
           </div>
-          <div class="hovercard-content">
+          <div class="hovercard-row">
             <div>Climate:</div>
             <div class="hovercard-score">
               <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.climate">
@@ -131,7 +131,7 @@
               </div>
             </div>
           </div>
-          <div class="hovercard-content">
+          <div class="hovercard-row">
             <div>Society:</div>
             <div class="hovercard-score">
               <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.society">
@@ -143,7 +143,7 @@
               </div>
             </div>
           </div>
-          <div class="hovercard-content">
+          <div class="hovercard-row">
             <div>Health:</div>
             <div class="hovercard-score">
               <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.health">
@@ -155,7 +155,7 @@
               </div>
             </div>
           </div>
-          <div class="hovercard-content">
+          <div class="hovercard-row">
             <div>Animal welfare:</div>
             <div class="hovercard-score">
               <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.animalWelfare">
@@ -167,7 +167,7 @@
               </div>
             </div>
           </div>
-          <div class="hovercard-content">
+          <div class="hovercard-row">
             <div>Economy:</div>
             <div class="hovercard-score">
               <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.economy">
@@ -213,60 +213,9 @@
   <script src="js/vue.js"></script>
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
   <script src="data/products.js"></script>
+  <script src="score-color.js"></script>
+  <script src="data/preferences.js"></script>
   <script>
-    // const red_hex = '#ff0000';
-    // const yellow_hex = '#ffff00';
-    // const green_hex = '#008000';
-    const red = [255, 0, 0];
-    const yellow = [255, 210, 0]; // less biting, warmer yellow than [255, 255, 0]
-    const green = [0, 128, 0];
-
-    function calcTotalScore(score, weight) {
-      let totalScore = 0;
-      for (let key in score) {
-        totalScore += score[key] * weight[key];
-      }
-      return Math.round(totalScore);
-    }
-
-    function calcScoreColor(score) {
-      let color = [0, 0, 0];
-      score = score / 100;
-      if (score < 0) {
-        for (let i in [0, 1, 2]) {
-          color[i] = -score * red[i] + (1 + score) * yellow[i];
-        }
-      } else if (score > 0) {
-        for (let i in [0, 1, 2]) {
-          color[i] = (1 - score) * yellow[i] + score * green[i];
-        }
-      } else {
-        color = yellow;
-      }
-      return color;
-    }
-
-    function concatPriceAndCurrency(price, currency, lang) {
-      if (lang.startsWith('en')) {
-        return currency + ' ' + price;
-      } else {
-        return price.replace('.', ',') + ' ' + currency;
-      }
-    }
-
-    var preferences = {
-      preferredLang: 'de',
-      scoreWeighting: { // sum must be 1
-        environment: 0.1666667,
-        climate: 0.1666667,
-        society: 0.1666667,
-        health: 0.1666667,
-        animalWelfare: 0.1666667,
-        economy: 0.1666667
-      }
-    }
-    var prefLanguages = [preferences['preferredLang'], 'en', 'fr', 'de'];
-
     /* Build the products object based on preferences */
     var products = [];
     for (let product of productSearchResults) {
@@ -302,7 +251,7 @@
         detailedScore: product.score,
         detailedColors: detailedColors,
         detailedPositions: detailedPositions,
-        url: 'product/' + product.id
+        url: 'product.html#' + product.id
       });
     }
     var maxPriceLength = 0;

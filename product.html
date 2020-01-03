@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>The Viridian Network</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div id="header-top" class="three-full-widths">
+      <div id="normal-header">
+        <div>
+          <img src="images/viridian_logo_bw_offwhite.svg" alt="Viridian Logo">
+          <span id="brand-big">The Viridian Network</span>
+          <span id="brand-small">Viridian</span>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a title="Search" href="#" onclick="document.getElementById('header-top').classList.add('slided-to-left-1-of-2');">
+                <img src="icons/md-search.svg" alt="Search"><span id="search-span">Search</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div id="search-header">
+        <a title="Back" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left-1-of-2');">
+          <img src="icons/md-arrow-back.svg" alt="Back">
+        </a>
+        <nav>
+          <ul>
+            <li>
+              <a title="Search by Barcode" href="#">
+                <img src="icons/barcode.svg" alt="Search by Barcode"><span id="barcode-search-span">Search by Barcode</span>
+              </a>
+            </li>
+            <li>
+              <a title="Search by Product Name" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left-1-of-2'); document.getElementById('header-top').classList.add('slided-to-left-2-of-2');">
+                <img src="icons/font.svg" alt="Search by Product Name"><span id="product-name-search-span">Search by Product Name</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div id="search-textinput-header">
+        <a title="Back" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left-2-of-2'); document.getElementById('header-top').classList.add('slided-to-left-1-of-2');">
+          <img src="icons/md-arrow-back.svg" alt="Back">
+        </a>
+        <div><input type="text" name="product-name" id="product-name"></div>
+        <a title="Submit" href="products-search-results.html">
+          <img src="icons/md-send.svg" alt="Submit">
+        </a>
+      </div>
+    </div>
+    <ul id="header-tabs">
+      <li>
+        <a title="Products" class="active-tab" href="products.html"><img src="icons/md-cube.svg" alt="Products"><span id="products-span">Products</span></a>
+      </li>
+      <li>
+        <a title="Labels" href="labels.html"><img src="icons/award.svg" alt="Labels"><span id="labels-span">Labels</span></a>
+      </li>
+      <li>
+        <a title="Companies" href="companies.html"><img src="icons/building.svg" alt="Companies"><span id="companies-span">Companies</span></a>
+      </li>
+    </ul>
+  </header>
+  <div id="main-content">
+    <section id="product">
+      <div class="hovercard-row">
+        <div>Environment:</div>
+        <div class="hovercard-score">
+          <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.environment">
+            <span>{{ prod.detailedScore.environment }}</span>
+          </div>
+          <div class="hovercard-score-bar">
+            <div class="score-bar"></div>
+            <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.environment"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hovercard-row">
+        <div>Climate:</div>
+        <div class="hovercard-score">
+          <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.climate">
+            <span>{{ prod.detailedScore.climate }}</span>
+          </div>
+          <div class="hovercard-score-bar">
+            <div class="score-bar"></div>
+            <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.climate"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hovercard-row">
+        <div>Society:</div>
+        <div class="hovercard-score">
+          <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.society">
+            <span>{{ prod.detailedScore.society }}</span>
+          </div>
+          <div class="hovercard-score-bar">
+            <div class="score-bar"></div>
+            <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.society"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hovercard-row">
+        <div>Health:</div>
+        <div class="hovercard-score">
+          <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.health">
+            <span>{{ prod.detailedScore.health }}</span>
+          </div>
+          <div class="hovercard-score-bar">
+            <div class="score-bar"></div>
+            <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.health"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hovercard-row">
+        <div>Animal welfare:</div>
+        <div class="hovercard-score">
+          <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.animalWelfare">
+            <span>{{ prod.detailedScore.animalWelfare }}</span>
+          </div>
+          <div class="hovercard-score-bar">
+            <div class="score-bar"></div>
+            <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.animalWelfare"></div>
+          </div>
+        </div>
+      </div>
+      <div class="hovercard-row">
+        <div>Economy:</div>
+        <div class="hovercard-score">
+          <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.economy">
+            <span>{{ prod.detailedScore.economy }}</span>
+          </div>
+          <div class="hovercard-score-bar">
+            <div class="score-bar"></div>
+            <div class="score-bar-indicator-gray" v-bind:style="prod.detailedPositions.economy"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <footer>
+    <p>Copyright 2019 The Viridian Project</p>
+  </footer>
+  <!-- development version, includes helpful console warnings -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+  <script src="js/vue.js"></script>
+  <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
+  <script src="data/products.js"></script>
+  <script src="score-color.js"></script>
+  <script src="data/preferences.js"></script>
+  <script>
+    var prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
+    let index = -1;
+    for (let i = 0; index < 0 && i < productSearchResults.length; i++) {
+      if (productSearchResults[i].id == prod_id) index = i;
+    }
+    var product = productSearchResults[index];
+    console.log(product);
+    /* Fetch the preferred locale */
+    let prefLocale = {};
+    for (let lang of prefLanguages) {
+      if (lang in product.locale) {
+        prefLocale = product.locale[lang];
+        break;
+      }
+    }
+    let score = calcTotalScore(product.score, preferences.scoreWeighting);
+    let color = calcScoreColor(score);
+    let detailedColors = {};
+    let detailedPositions = {};
+    for (let key in product.score) {
+      let c = calcScoreColor(product.score[key]);
+      detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+      detailedPositions[key] = 'left: ' + (product.score[key] + 100) / 2 + '%';
+    }
+    var prod = {
+      id: product.id,
+      name: prefLocale.name,
+      desc: prefLocale.description,
+      quant: prefLocale.quantities[0],
+      price: prefLocale.price,
+      curr: prefLocale.currency,
+      priceCurr: concatPriceAndCurrency(prefLocale.price, prefLocale.currency, preferences['preferredLang']),
+      imgStyle: 'background-image: url("' + prefLocale.imageUrl + '");',
+      score: score,
+      color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
+      position: 'left: ' + (score + 100) / 2 + '%',
+      detailedScore: product.score,
+      detailedColors: detailedColors,
+      detailedPositions: detailedPositions
+    };
+    console.log(prod);
+
+    var product = new Vue({
+      el: '#product',
+      data: {
+        prod: prod
+      }
+    });
+  </script>
+</body>
+
+</html>
