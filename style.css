@@ -724,8 +724,8 @@ section#product-cards>article>.card-img {
 .hovercard {
   display: none;
   position: absolute;
-  width: 500px;
-  max-width: 85%;
+  width: 200px;
+  max-width: 75%;
   padding: 10px;
   border: 1px solid #aaa;
   border-radius: 3px;
@@ -806,20 +806,7 @@ section#product-cards>article>.card-img {
   margin-left: -10px;
 }
 
-@media (min-width: 769px) {
-  .hovercard::before {
-    left: 210px;
-  }
-  .hovercard::after {
-    left: 212px;
-  }
-}
-
 @media (max-width: 535px) {
-  .hovercard {
-    width: 200px;
-    max-width: 75%;
-  }
   .hovercard::before {
     left: 33px;
   }
