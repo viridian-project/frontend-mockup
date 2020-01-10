@@ -562,6 +562,10 @@ section#product-cards>article>.card-img {
   width: 100%;
 }
 
+.card-score-bar-tiny-screens {
+  width: 90%;
+}
+
 .card-score>.card-score-bar {
   margin-right: 0;
 }
@@ -578,6 +582,8 @@ section#product-cards>article>.card-img {
   border: 1px solid gray;
   display: inline-block;
   vertical-align: middle;
+  /* parent (=score-bar) position relative means absolute position of child (=score-bar-tick) will be relative to parent */
+  position: relative;
 }
 
 .score-bar-indicator {
@@ -597,16 +603,93 @@ section#product-cards>article>.card-img {
   height: 30px;
 }
 
+.score-bar-tick {
+  width: 2px;
+  background-color: rgb(100, 100, 100);
+  /* border: 1px solid white; */
+  /* border-bottom: none; */
+  margin-left: -2px;
+  /* parent (=score-bar) position relative means absolute position of child (=score-bar-tick) will be relative to parent */
+  position: absolute;
+  bottom: 0;
+}
+
+.score-bar-tick-minusseventyfive {
+  height: 5px;
+  left: 12.5%;
+}
+
+.score-bar-tick-minusfifty {
+  height: 7px;
+  left: 25%;
+}
+
+.score-bar-tick-minustwentyfive {
+  height: 5px;
+  left: 37.5%;
+}
+
+.score-bar-tick-zero {
+  height: 10px;
+  left: 50%;
+}
+
+.score-bar-tick-twentyfive {
+  height: 5px;
+  left: 62.5%;
+}
+
+.score-bar-tick-fifty {
+  height: 7px;
+  left: 75%;
+}
+
+.score-bar-tick-seventyfive {
+  height: 5px;
+  left: 87.5%;
+}
+
 .score-bar-indicator-gray {
   width: 24px;
   height: 24px;
   border: 1px solid gray;
   border-radius: 12px;
   background-color: gray;
-  margin-top: -24px;
   margin-left: -12px;
-  position: relative;
+  /* parent (=score-bar) position relative means absolute position of child (=score-bar-indicator-gray) will be relative to parent */
+  position: absolute;
+  top: -5px;
   left: 50%;
+}
+
+.score-bar-label-row {
+  /* parent (=score-bar-label-row) position relative means absolute position of child (=score-bar-label) will be relative to parent */
+  position: relative;
+  /* border needed for positions to align, because score bar also has border, which makes it a bit wider */
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
+
+.score-bar-label {
+  font-weight: bold;
+  font-size: 0.9em;
+  width: 40px;
+  margin-left: -20px;
+  /* parent (=score-bar-label-row) position relative means absolute position of child (=score-bar-label) will be relative to parent */
+  position: absolute;
+  text-align: center;
+}
+
+.score-bar-label-min {
+  left: 0%;
+}
+
+.score-bar-label-zero {
+  left: 50%;
+}
+
+.score-bar-label-max {
+  left: 100%;
 }
 
 
@@ -664,7 +747,8 @@ section#product-cards>article>.card-img {
   .card-quant,
   .card-price,
   .card-score-text,
-  .card-score-blob {
+  .card-score-blob,
+  .score-bar-label {
     font-size: 0.8em;
   }
   .score-bar-indicator {
@@ -678,7 +762,6 @@ section#product-cards>article>.card-img {
     width: 20px;
     height: 20px;
     border-radius: 10px;
-    margin-top: -20px;
     margin-left: -10px;
   }
   section#product-cards.price-8-chars>article {
@@ -710,6 +793,8 @@ section#product-cards>article>.card-img {
   }
   .card-score-bar-tiny-screens {
     grid-area: card-score-bar;
+    align-self: start;
+    justify-self: center;
   }
   .card-score-bar-regular {
     display: none;
@@ -802,7 +887,6 @@ section#product-cards>article>.card-img {
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  margin-top: -20px;
   margin-left: -10px;
 }
 
