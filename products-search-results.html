@@ -4,7 +4,9 @@
 <head>
   <meta charset="utf-8">
   <title>The Viridian Network</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/cards.css">
+  <link rel="stylesheet" type="text/css" href="css/score-bar.css">
 </head>
 
 <body>
@@ -68,7 +70,7 @@
     </ul>
   </header>
   <div id="main-content">
-    <section id="product-cards">
+    <section id="cards">
       <article v-for="prod in products">
         <div class="card-img">
           <a v-bind:href="prod.url">
@@ -251,15 +253,15 @@
       }
     }
     if (maxPriceLength > 9) {
-      document.getElementById('product-cards').classList.add('price-10-chars');
+      document.getElementById('cards').classList.add('price-10-chars');
     } else if (maxPriceLength > 8) {
-      document.getElementById('product-cards').classList.add('price-9-chars');
+      document.getElementById('cards').classList.add('price-9-chars');
     } else if (maxPriceLength > 7) {
-      document.getElementById('product-cards').classList.add('price-8-chars');
+      document.getElementById('cards').classList.add('price-8-chars');
     }
 
     var product_cards = new Vue({
-      el: '#product-cards',
+      el: '#cards',
       data: {
         products: products
       },

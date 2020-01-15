@@ -1,0 +1,455 @@
+/**************
+* Typography *
+**************/
+
+
+/* Font for brand: */
+
+
+/* @import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap'); */
+
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Comfortaa Regular'), local('Comfortaa-Regular'), url('../fonts/Comfortaa/static/Comfortaa-Regular.ttf') format('truetype');
+}
+
+
+/* Font for headings: */
+
+
+/* @import url('https://fonts.googleapis.com/css?family=Cairo&display=swap'); */
+
+@font-face {
+  font-family: 'Cairo';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cairo'), local('Cairo-Regular'), url('../fonts/Cairo/Cairo-Regular.ttf') format('truetype');
+}
+
+
+/* Font for paragraphs: */
+
+
+/* @import url('https://fonts.googleapis.com/css?family=Roboto:300&display=swap'); */
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'), url('../fonts/Roboto/Roboto-Light.ttf') format('truetype');
+}
+
+
+/* Font sizes according to https://typecast.com/blog/a-more-modern-scale-for-web-typography */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  /* equivalent to 16px */
+  line-height: 1.25;
+  /* equivalent to 20px */
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Cairo', sans-serif;
+}
+
+h1 {
+  font-size: 2em;
+  /* 2x body copy size = 32px */
+  line-height: 1.25;
+  /* 45px / 36px */
+}
+
+h2 {
+  font-size: 1.625em;
+  /* 1.625x body copy size = 26px */
+  line-height: 1.15384615;
+  /* 30px / 26px */
+}
+
+h3 {
+  font-size: 1.375em;
+  /* 1.375x body copy size = 22px */
+  line-height: 1.13636364;
+  /* 25px / 22px */
+}
+
+h4 {
+  font-size: 1.125em;
+  /* 1.125x body copy size = 18px */
+  line-height: 1.11111111;
+  text-transform: uppercase;
+}
+
+blockquote {
+  font-size: 1.25em;
+  /* 20px / 16px */
+  line-height: 1.25;
+  /* 25px / 20px */
+}
+
+
+/* @media (min-width: 43.75em) { */
+
+@media (min-width: 769px) {
+  body {
+    font-size: 1em;
+    /* equivalent to 16px */
+    line-height: 1.375;
+    /* equivalent to 22px */
+  }
+  h1 {
+    font-size: 2.5em;
+    /* 2.5x body copy size = 40px */
+    line-height: 1.125;
+  }
+  h2 {
+    font-size: 2em;
+    /* 2x body copy size = 32px */
+    line-height: 1.25;
+  }
+  h3 {
+    font-size: 1.5em;
+    /* 1.5x body copy size = 24px */
+    line-height: 1.25;
+  }
+  h4 {
+    line-height: 1.22222222;
+    /* (22px / 18px */
+  }
+  blockquote {
+    font-size: 1.5em;
+    /* 24px / 16px = */
+    line-height: 1.45833333;
+    /* 35px / 24px */
+  }
+}
+
+
+/* @media (min-width: 56.25em) { */
+
+@media (min-width: 988px) {
+  h1 {
+    font-size: 3em;
+    /* 3x body copy size = 48px */
+    line-height: 1.05;
+    /* keep to a multiple of the 20px line height 
+  and something more appropriate for display headings */
+  }
+  h2 {
+    font-size: 2.25em;
+    /* 2.25x body copy size = 36px */
+    line-height: 1.25;
+  }
+  h3 {
+    font-size: 1.75em;
+    /* 1.75x body copy size = 28px */
+    line-height: 1.25;
+  }
+}
+
+
+/******************
+* The Header Bar *
+******************/
+
+
+/* General */
+
+header ul>li>a {
+  font-weight: bold;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+nav>ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+nav>ul>li {
+  list-style: none;
+}
+
+
+/* General icons: */
+
+header img {
+  height: 30px;
+}
+
+header a>span {
+  margin-left: 10px;
+}
+
+
+/* The first header at the top with search bar */
+
+#header-top {
+  height: 50px;
+  background-color: #40826d;
+  color: #eee;
+  display: flex;
+}
+
+.two-full-widths {
+  width: 200%;
+}
+
+.three-full-widths {
+  width: 300%;
+}
+
+#header-top>div {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  transition: all 1s ease;
+}
+
+#header-top.slided-to-left>div {
+  left: -50%;
+}
+
+#header-top.slided-to-left-1-of-2>div {
+  left: -33.333333%;
+}
+
+#header-top.slided-to-left-2-of-2>div {
+  left: -66.666666%;
+}
+
+#normal-header>div {
+  font-family: 'Comfortaa', cursive;
+}
+
+#normal-header>div {
+  display: flex;
+  align-items: center;
+}
+
+nav>ul>li>a,
+#search-header a,
+#search-textinput-header a {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: 30px;
+}
+
+nav>ul>li>a:hover,
+#search-header a:hover,
+#search-textinput-header a:hover {
+  background-color: #1ba679;
+}
+
+#search-header>nav {
+  width: 100%;
+}
+
+#search-textinput-header>div {
+  width: 100%;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+#search-textinput-header>div>input {
+  width: 100%;
+  padding: 7px;
+}
+
+
+/* Logo: */
+
+#normal-header>div>img {
+  height: 36px;
+  margin-right: 10px;
+}
+
+
+/* The second header with tabs */
+
+#header-tabs {
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  /* background-color: #606060; */
+  background-color: #fff;
+  display: flex;
+  justify-content: space-evenly;
+  box-shadow: 0px 20px 22px -15px black;
+}
+
+#header-tabs>li {
+  list-style: none;
+  width: 32%;
+  height: 46px;
+}
+
+#header-tabs>li>a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #ddd;
+  justify-content: center;
+  align-items: center;
+}
+
+#header-tabs>li>a:hover,
+#header-tabs>li>a:focus {
+  /* background-color: #6bf; */
+  background-color: #7cc5ff;
+}
+
+.active-tab {
+  /* border-bottom: 4px solid #6bf; */
+  border-bottom: 4px solid #7cc5ff;
+  /* border-radius: 20px; */
+}
+
+
+/* Modify header for small screens: */
+
+@media (max-width: 768px) {
+  #header-tabs {
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 465px) {
+  #barcode-search-span {
+    display: none;
+  }
+  #product-name-search-span {
+    display: none;
+  }
+  #search-span {
+    display: none;
+  }
+  #products-span {
+    display: none;
+  }
+  #labels-span {
+    display: none;
+  }
+  #companies-span {
+    display: none;
+  }
+}
+
+#brand-small {
+  display: inherit;
+}
+
+#brand-big {
+  display: none;
+}
+
+@media (min-width: 301px) {
+  #brand-small {
+    display: none;
+  }
+  #brand-big {
+    display: inherit;
+  }
+}
+
+
+/*************
+* Page Body *
+*************/
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* background-color: beige; */
+  /* background-color: #f5eadc; */
+  background-color: #eee;
+  color: #333;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#main-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
+
+#main-content>section {
+  width: 90%;
+  max-width: 1000px;
+}
+
+#main-content>aside {
+  /* width: 20%; */
+  padding: 16px;
+}
+
+
+/* Modify Page Body for small screens: */
+
+@media (max-width: 768px) {
+  #main-content>section {
+    width: 100%;
+  }
+}
+
+
+/**********
+* Footer *
+**********/
+
+
+/* Hide footer on small screens */
+
+footer {
+  background-color: #40826d;
+  text-align: center;
+}
+
+@media (max-height: 768px) {
+  footer {
+    display: none;
+  }
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                supported by Chrome, Opera and Firefox */
+}
