@@ -10,16 +10,46 @@
   box-shadow: 0px 20px 22px -15px black;
   background-color: #efefef;
   display: grid;
-  grid-template-areas: "detail-img detail-header" "detail-img detail-desc" "detail-data detail-score";
-  grid-template-columns: 202px auto;
-  grid-template-rows: 30px auto 222px;
-  column-gap: 16px;
-  row-gap: 15px;
-  align-items: center;
+  grid-template-areas: "detail-left-col detail-right-col";
+  grid-template-columns: 252px auto;
+  /* grid-template-rows: 30px auto 222px; */
+  column-gap: 32px;
+  /* row-gap: 15px; */
+  /* align-items: center; */
+}
+
+@media (max-width: 768px) {
+  #detail-overview {
+    grid-template-areas: "detail-header" "detail-img" "detail-desc" "detail-data" "detail-score";
+    grid-template-columns: auto;
+  }
+}
+
+.detail-left-col {
+  grid-area: detail-left-col;
+  display: grid;
+  grid-template-areas: "detail-img" "detail-data";
+  grid-template-rows: 252px auto;
+}
+
+.detail-right-col {
+  grid-area: detail-right-col;
+  display: grid;
+  grid-template-areas: "detail-header" "detail-desc" "detail-score";
 }
 
 .detail-img {
   grid-area: detail-img;
+}
+
+.detail-img>img {
+  width: 250px;
+  height: 250px;
+  border-radius: 125px;
+  border: 1px solid;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .detail-header {
@@ -45,32 +75,58 @@
   grid-area: detail-data;
 }
 
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
+/******************
+* Total Score Bar *
+*******************/
+
 .detail-score {
   grid-area: detail-score;
+  font-weight: bold;
 }
 
-.detail-img>img {
-  width: 200px;
-  height: 200px;
-  border-radius: 100px;
-  border: 1px solid;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+.detail-score-grid {
+  display: grid;
+  grid-template-columns: 130px 32px auto;
+  column-gap: 16px;
+  row-gap: 5px;
+  justify-items: end;
+  align-items: center;
 }
 
-.card-score-text,
-.card-score-blob {
-  font-size: 0.9em;
+.detail-score-label {
+  justify-self: start;
+}
+
+.detail-data-text {
   font-weight: bold;
   white-space: nowrap;
 }
 
+.total-score-blob {
+  font-size: 0.9em;
+}
+
 @media (max-width: 535px) {
-  .card-score-text,
-  .card-score-blob {
+  .total-score-blob {
     font-size: 0.8em;
   }
+}
+
+.total-score-bar-container {
+  display: flex;
+  justify-content: center;
+}
+
+.total-score-bar {
+  width: 90%;
 }
 
 
@@ -78,39 +134,28 @@
 * Detail Score Bar Rows *
 ************************/
 
-.score-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-.row-score {
-  display: flex;
-  justify-content: space-between;
-  width: 80%;
-}
-
-.row-score-bar {
+.detail-score-bar {
   width: 90%;
+  justify-self: center;
 }
 
-.row-score-bar>.score-bar {
+.detail-score-bar>.score-bar {
   height: 12px;
 }
 
-.row-score-bar>.score-bar-indicator-gray {
+.detail-score-bar>.score-bar-indicator-gray {
   width: 20px;
   height: 20px;
   border-radius: 10px;
   margin-left: -10px;
 }
 
-@media (max-width: 535px) {
-  .row-score-bar {
+@media (max-width: 640px) {
+  .detail-score-bar {
     display: none;
   }
-  .row-score {
-    width: auto;
+  .detail-score-grid {
+    display: grid;
+    grid-template-columns: 130px auto;
   }
 }

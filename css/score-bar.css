@@ -25,6 +25,7 @@
 .score-bar-indicator-small {
   width: 30px;
   height: 30px;
+  font-size: 0.9em;
 }
 
 .score-bar-tick {
