@@ -401,6 +401,7 @@ body {
 }
 
 #main-content>section {
+  box-sizing: border-box;
   width: 90%;
   max-width: 1000px;
 }

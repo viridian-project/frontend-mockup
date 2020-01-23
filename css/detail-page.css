@@ -2,13 +2,15 @@
 * Detail Page (of product/company/label) *
 *****************************************/
 
-#detail-overview {
-  /* height: 402px; */
+.detail-overview-box {
   margin: 16px;
   padding: 16px;
   border: 1px solid;
   box-shadow: 0px 20px 22px -15px black;
   background-color: #efefef;
+}
+
+#detail-overview-large {
   display: grid;
   grid-template-areas: "detail-left-col detail-right-col";
   grid-template-columns: 252px auto;
@@ -18,28 +20,21 @@
   /* align-items: center; */
 }
 
-@media (max-width: 768px) {
-  #detail-overview {
-    grid-template-areas: "detail-header" "detail-img" "detail-desc" "detail-data" "detail-score";
-    grid-template-columns: auto;
-  }
+#detail-overview-small {
+  display: none;
+  flex-direction: column;
 }
 
 .detail-left-col {
   grid-area: detail-left-col;
-  display: grid;
-  grid-template-areas: "detail-img" "detail-data";
-  grid-template-rows: 252px auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail-right-col {
   grid-area: detail-right-col;
-  display: grid;
-  grid-template-areas: "detail-header" "detail-desc" "detail-score";
-}
-
-.detail-img {
-  grid-area: detail-img;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail-img>img {
@@ -52,27 +47,32 @@
   background-position: center;
 }
 
-.detail-header {
-  grid-area: detail-header;
-}
-
 .detail-header>h2 {
   font-size: 2em;
   margin: 0;
-  /* wrap over maximally 2 lines, then '...': (https://stackoverflow.com/questions/15909489/text-overflow-ellipsis-on-two-lines) */
-  /* display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis; */
 }
 
-.detail-desc {
-  grid-area: detail-desc;
+@media (max-width: 768px) {
+  #detail-overview-large {
+    grid-template-columns: 152px auto;
+  }
+  .detail-img>img {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+  }
+  .detail-header>h2 {
+    margin-bottom: 16px;
+  }
 }
 
-.detail-data {
-  grid-area: detail-data;
+@media (max-width: 590px) {
+  #detail-overview-large {
+    display: none;
+  }
+  #detail-overview-small {
+    display: flex;
+  }
 }
 
 .data-row {
@@ -88,7 +88,6 @@
 *******************/
 
 .detail-score {
-  grid-area: detail-score;
   font-weight: bold;
 }
 
@@ -150,7 +149,8 @@
   margin-left: -10px;
 }
 
-@media (max-width: 640px) {
+
+/* @media (max-width: 640px) {
   .detail-score-bar {
     display: none;
   }
@@ -158,4 +158,4 @@
     display: grid;
     grid-template-columns: 130px auto;
   }
-}
+} */
