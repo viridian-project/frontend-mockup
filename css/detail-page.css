@@ -14,10 +14,7 @@
   display: grid;
   grid-template-areas: "detail-left-col detail-right-col";
   grid-template-columns: 252px auto;
-  /* grid-template-rows: 30px auto 222px; */
   column-gap: 32px;
-  /* row-gap: 15px; */
-  /* align-items: center; */
 }
 
 #detail-overview-small {
@@ -96,10 +93,6 @@
   padding-bottom: 8px;
 }
 
-.detail-score-label {
-  justify-self: start;
-}
-
 .detail-data-text {
   font-weight: bold;
   white-space: nowrap;
@@ -130,8 +123,7 @@
 ************************/
 
 .detail-score-bar {
-  width: 90%;
-  justify-self: center;
+  width: 100%;
 }
 
 .detail-score-bar>.score-bar {
