@@ -401,6 +401,7 @@ body {
 }
 
 #main-content>section {
+  /* this makes child elements with width: 100% not larger than screen: */
   box-sizing: border-box;
   width: 90%;
   max-width: 1000px;

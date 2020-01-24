@@ -91,13 +91,9 @@
   font-weight: bold;
 }
 
-.detail-score-grid {
-  display: grid;
-  grid-template-columns: 130px 32px auto;
-  column-gap: 16px;
-  row-gap: 5px;
-  justify-items: end;
-  align-items: center;
+.score-table>tbody>tr>td {
+  padding-right: 16px;
+  padding-bottom: 8px;
 }
 
 .detail-score-label {
