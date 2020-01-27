@@ -13,8 +13,7 @@
 #detail-overview-large {
   display: grid;
   grid-template-areas: "detail-left-col detail-right-col";
-  grid-template-columns: 252px auto;
-  column-gap: 32px;
+  grid-template-columns: 268px auto;
 }
 
 #detail-overview-small {
@@ -26,12 +25,16 @@
   grid-area: detail-left-col;
   display: flex;
   flex-direction: column;
+  padding-right: 16px;
 }
 
 .detail-right-col {
   grid-area: detail-right-col;
   display: flex;
   flex-direction: column;
+  border: 1px solid #c1c1c1;
+  border-width: 0 0 0 1px;
+  padding-left: 16px;
 }
 
 .detail-img>img {
@@ -51,7 +54,7 @@
 
 @media (max-width: 768px) {
   #detail-overview-large {
-    grid-template-columns: 152px auto;
+    grid-template-columns: 168px auto;
   }
   .detail-img>img {
     width: 150px;
