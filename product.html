@@ -78,9 +78,7 @@
           </div>
           <div class="detail-data">
             <div class="data-row">
-              <div class="detail-data-text">
-                <p>Score: </p>
-              </div>
+              <div class="detail-data-text">Score:</div>
               <div class="total-score-blob detail-data-text">
                 <div class="score-bar-indicator" v-bind:style="prod.color">
                   <span>{{ prod.score }}</span>
@@ -106,6 +104,14 @@
                 </div>
               </div>
             </div>
+            <div class="data-row">
+              <div class="detail-data-text">Quantity:</div>
+              <div class="detail-data-text">{{ prod.quant }}</div>
+            </div>
+            <div class="data-row">
+              <div class="detail-data-text">Price:</div>
+              <div class="detail-data-text">{{ prod.priceCurr }}</div>
+            </div>
           </div>
         </div>
         <div class="detail-right-col">
@@ -121,7 +127,7 @@
               <tbody>
                 <tr>
                   <td class="detail-score-label">Environment:</td>
-                  <td>
+                  <td class="detail-score-blob">
                     <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.environment">
                       <span>{{ prod.detailedScore.environment }}</span>
                     </div>
@@ -141,7 +147,7 @@
                 </tr>
                 <tr>
                   <td class="detail-score-label">Climate:</td>
-                  <td>
+                  <td class="detail-score-blob">
                     <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.climate">
                       <span>{{ prod.detailedScore.climate }}</span>
                     </div>
@@ -161,7 +167,7 @@
                 </tr>
                 <tr>
                   <td class="detail-score-label">Society:</td>
-                  <td>
+                  <td class="detail-score-blob">
                     <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.society">
                       <span>{{ prod.detailedScore.society }}</span>
                     </div>
@@ -181,7 +187,7 @@
                 </tr>
                 <tr>
                   <td class="detail-score-label">Health:</td>
-                  <td>
+                  <td class="detail-score-blob">
                     <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.health">
                       <span>{{ prod.detailedScore.health }}</span>
                     </div>
@@ -201,7 +207,7 @@
                 </tr>
                 <tr>
                   <td class="detail-score-label">Animal welfare:</td>
-                  <td>
+                  <td class="detail-score-blob">
                     <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.animalWelfare">
                       <span>{{ prod.detailedScore.animalWelfare }}</span>
                     </div>
@@ -221,7 +227,7 @@
                 </tr>
                 <tr>
                   <td class="detail-score-label">Economy:</td>
-                  <td>
+                  <td class="detail-score-blob">
                     <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.economy">
                       <span>{{ prod.detailedScore.economy }}</span>
                     </div>
@@ -261,9 +267,7 @@
         </div>
         <div class="detail-data">
           <div class="data-row">
-            <div class="detail-data-text">
-              <p>Score: </p>
-            </div>
+            <div class="detail-data-text">Score:</div>
             <div class="total-score-blob detail-data-text">
               <div class="score-bar-indicator" v-bind:style="prod.color">
                 <span>{{ prod.score }}</span>
@@ -289,6 +293,14 @@
               </div>
             </div>
           </div>
+          <div class="data-row">
+            <div class="detail-data-text">Quantity:</div>
+            <div class="detail-data-text">{{ prod.quant }}</div>
+          </div>
+          <div class="data-row">
+            <div class="detail-data-text">Price:</div>
+            <div class="detail-data-text">{{ prod.priceCurr }}</div>
+          </div>
         </div>
         <div class="detail-score">
           <h4>Detailed Score:</h4>
@@ -296,7 +308,7 @@
             <tbody>
               <tr>
                 <td class="detail-score-label">Environment:</td>
-                <td>
+                <td class="detail-score-blob">
                   <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.environment">
                     <span>{{ prod.detailedScore.environment }}</span>
                   </div>
@@ -316,7 +328,7 @@
               </tr>
               <tr>
                 <td class="detail-score-label">Climate:</td>
-                <td>
+                <td class="detail-score-blob">
                   <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.climate">
                     <span>{{ prod.detailedScore.climate }}</span>
                   </div>
@@ -336,7 +348,7 @@
               </tr>
               <tr>
                 <td class="detail-score-label">Society:</td>
-                <td>
+                <td class="detail-score-blob">
                   <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.society">
                     <span>{{ prod.detailedScore.society }}</span>
                   </div>
@@ -356,7 +368,7 @@
               </tr>
               <tr>
                 <td class="detail-score-label">Health:</td>
-                <td>
+                <td class="detail-score-blob">
                   <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.health">
                     <span>{{ prod.detailedScore.health }}</span>
                   </div>
@@ -376,7 +388,7 @@
               </tr>
               <tr>
                 <td class="detail-score-label">Animal welfare:</td>
-                <td>
+                <td class="detail-score-blob">
                   <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.animalWelfare">
                     <span>{{ prod.detailedScore.animalWelfare }}</span>
                   </div>
@@ -396,7 +408,7 @@
               </tr>
               <tr>
                 <td class="detail-score-label">Economy:</td>
-                <td>
+                <td class="detail-score-blob">
                   <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.economy">
                     <span>{{ prod.detailedScore.economy }}</span>
                   </div>

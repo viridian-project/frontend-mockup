@@ -93,6 +93,7 @@
   /* border needed for positions to align, because score bar also has border, which makes it a bit wider */
   border-left: 1px solid;
   border-right: 1px solid;
+  margin-bottom: 16px;
 }
 
 .score-bar-label {
