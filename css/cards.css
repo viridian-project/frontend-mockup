@@ -27,7 +27,7 @@ section#cards>article {
 }
 
 section#cards>article:hover {
-  background-color: #ffffff;
+  background-color: #fefefe;
 }
 
 section#cards.price-8-chars>article {
