@@ -11,9 +11,7 @@
 }
 
 #detail-overview-large {
-  display: grid;
-  grid-template-areas: "detail-left-col detail-right-col";
-  grid-template-columns: 268px auto;
+  display: flex;
 }
 
 #detail-overview-small {
@@ -22,14 +20,14 @@
 }
 
 .detail-left-col {
-  grid-area: detail-left-col;
+  width: 268px;
   display: flex;
   flex-direction: column;
   padding-right: 16px;
 }
 
 .detail-right-col {
-  grid-area: detail-right-col;
+  width: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid #c1c1c1;
@@ -53,13 +51,13 @@
 }
 
 @media (max-width: 768px) {
-  #detail-overview-large {
-    grid-template-columns: 168px auto;
+  .detail-left-col {
+    width: 188px;
   }
   .detail-img>img {
-    width: 150px;
-    height: 150px;
-    border-radius: 75px;
+    width: 170px;
+    height: 170px;
+    border-radius: 85px;
   }
   .detail-header>h2 {
     margin-bottom: 16px;
