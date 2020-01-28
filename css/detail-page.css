@@ -73,15 +73,11 @@
   }
 }
 
-.detail-data {
-  margin: 0 16px 0 16px;
-}
-
 .data-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  padding: 8px 16px 8px 16px;
 }
 
 
@@ -89,17 +85,10 @@
 * Total Score Bar *
 *******************/
 
-.detail-score {
-  font-weight: bold;
-}
-
-.score-table {
-  width: 100%;
-}
-
-.score-table>tbody>tr>td {
-  padding-right: 16px;
-  padding-bottom: 8px;
+.score-blob-row {
+  border: 1px solid #c1c1c1;
+  border-width: 1px 0 0 0;
+  margin-top: 8px;
 }
 
 .detail-data-text {
@@ -120,7 +109,10 @@
 .total-score-bar-container {
   display: flex;
   justify-content: center;
-  padding-bottom: 16px;
+  border: 1px solid #c1c1c1;
+  border-width: 0 0 1px 0;
+  padding: 8px 16px 16px 16px;
+  margin-bottom: 8px;
 }
 
 .total-score-bar {
@@ -131,6 +123,21 @@
 /************************
 * Detail Score Bar Rows *
 ************************/
+
+.detail-score {
+  font-weight: bold;
+  border: 1px solid #c1c1c1;
+  border-width: 1px 0 0 0;
+}
+
+.score-table {
+  width: 100%;
+}
+
+.score-table>tbody>tr>td {
+  padding-right: 16px;
+  padding-bottom: 8px;
+}
 
 .detail-score-bar {
   width: 100%;
