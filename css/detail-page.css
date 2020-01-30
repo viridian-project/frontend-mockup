@@ -165,3 +165,36 @@
     padding-right: 0;
   }
 }
+
+
+/**************
+ * User boxes *
+ **************/
+
+.user-created-box {
+  background: #ceddce;
+  padding: 8px;
+  font-size: 0.9em;
+  margin-top: 16px;
+}
+
+.user-infos {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+}
+
+.user-details {
+  margin-left: 8px;
+  word-wrap: anywhere;
+}
+
+.user-reputation {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}

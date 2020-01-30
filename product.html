@@ -112,6 +112,19 @@
               <div class="detail-data-text">Price:</div>
               <div class="detail-data-text">{{ prod.priceCurr }}</div>
             </div>
+            <div class="user-created-box">
+              <div class="user-date">created <span class="date" v-bind:title="prod.createDateUTC">{{ prod.createDate }}</span> by:</div>
+              <div class="user-infos">
+                <img class="avatar" v-bind:src="prod.createUserAvatar">
+                <div class="user-details">
+                  <a v-bind:href="prod.createUserURL" class="user-name">{{ prod.createUser }}</a>
+                  <div class="user-reputation" title="User's reputation score: 12">
+                    <img src="icons/md-heart.svg" alt="Reputation" class="inline-icon">
+                    <span>12</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="detail-right-col">
@@ -434,6 +447,19 @@
             </tbody>
           </table>
         </div>
+        <div class="user-created-box">
+          <div class="user-date">created <span class="date" v-bind:title="prod.createDateUTC">{{ prod.createDate }}</span> by:</div>
+          <div class="user-infos">
+            <img class="avatar" v-bind:src="prod.createUserAvatar">
+            <div class="user-details">
+              <a v-bind:href="prod.createUserURL" class="user-name">{{ prod.createUser }}</a>
+              <div class="user-reputation" title="User's reputation score: 12">
+                <img src="icons/md-heart.svg" alt="Reputation" class="inline-icon">
+                <span>12</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     <section id="detail-infos">
@@ -478,8 +504,19 @@
       detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
       detailedPositions[key] = 'left: ' + (product.score[key] + 100) / 2 + '%';
     }
+    let createDate = new Date(product.createdAt);
+    console.log(createDate);
+    let options = {
+      year: 'numeric', // or: '2-digit',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    };
+    let createDateInLocale = new Intl.DateTimeFormat(
+      preferences.locale, options).format(createDate);
+    console.log(createDateInLocale);
     var prod = {
-      id: product.id,
       name: prefLocale.name,
       desc: prefLocale.description,
       quant: prefLocale.quantities[0],
@@ -492,7 +529,12 @@
       position: 'left: ' + (score + 100) / 2 + '%',
       detailedScore: product.score,
       detailedColors: detailedColors,
-      detailedPositions: detailedPositions
+      detailedPositions: detailedPositions,
+      createDateUTC: 'UTC timestamp: ' + product.createdAt,
+      createDate: createDateInLocale,
+      createUser: product.createdBy,
+      createUserAvatar: 'images/avatars/' + product.createdBy + '.png',
+      createUserURL: 'user.html#' + product.createdBy
     };
     console.log(prod);
 

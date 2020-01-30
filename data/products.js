@@ -1,7 +1,8 @@
 const productSearchResults = [{
     "id": "418ff85c-ae31-448f-aebd-d77dd966a514",
     "createdBy": "openfoodfacts-contributors",
-    "createdAt": "2016-02-10 16:58:18 UTC",
+    // "createdBy": "openfoodfactscontributorsgobbledigobbjabberdiwock",
+    "createdAt": "2016-02-10 16:58:18Z",
     "status": "Active",
     "updatedBy": "",
     "updatedAt": "",
@@ -39,7 +40,7 @@ const productSearchResults = [{
   {
     "id": "cc536300-9bc9-465a-9df9-0b84b4f99050",
     "createdBy": "odoc",
-    "createdAt": "2017-08-07 19:21:34 UTC",
+    "createdAt": "2017-08-07 19:21:34Z",
     "status": "Active",
     "updatedBy": "",
     "updatedAt": "",
@@ -77,10 +78,10 @@ const productSearchResults = [{
   {
     "id": "2cbd59c4-2e6d-4029-9660-b772363404ba",
     "createdBy": "zecourlis",
-    "createdAt": "2018-12-24 12:11:54 UTC",
+    "createdAt": "2018-12-24 12:11:54Z",
     "status": "Active",
     "updatedBy": "user123",
-    "updatedAt": "2019-02-10 18:33:39 UTC",
+    "updatedAt": "2019-02-10 18:33:39Z",
     "supersedes": "product-bc36d43e-c40c-40c0-8086-dc19bc000fe1",
     "supersededBy": "",
     "changeReason": "Wrong quantity information.",

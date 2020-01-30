@@ -87,6 +87,14 @@ h4 {
   text-transform: uppercase;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0055ff;
+}
+
 blockquote {
   font-size: 1.25em;
   /* 20px / 16px */
@@ -188,6 +196,11 @@ header img {
 
 header a>span {
   margin-left: 10px;
+}
+
+.inline-icon {
+  /* this is the typical line-height: */
+  height: 1.25em;
 }
 
 

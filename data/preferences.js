@@ -1,5 +1,10 @@
 var preferences = {
   preferredLang: 'de',
+  locale: undefined,
+  // locale: 'en-US',
+  // locale: 'de-DE',
+  // locale: 'ja-JP',
+  // locale: 'ar-EG',
   scoreWeighting: { // sum must be 1
     environment: 0.1666667,
     climate: 0.1666667,

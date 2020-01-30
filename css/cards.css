@@ -246,7 +246,6 @@ section#cards>article>.card-img {
   border-radius: 3px;
   background-color: #fff;
   -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 3px 4px;
   font-weight: bold;
   font-size: 0.9em;
