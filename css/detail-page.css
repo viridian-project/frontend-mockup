@@ -125,7 +125,11 @@
 * Detail Score Bar Rows *
 ************************/
 
-.detail-score {
+.detail-score,
+.producers,
+.product-categories,
+.contained-products,
+.labels {
   font-weight: bold;
   border-top: 1px solid #c1c1c1;
 }
@@ -197,4 +201,16 @@
   display: flex;
   align-items: center;
   font-weight: bold;
+}
+
+
+/***********************
+* Producers/Labels/... *
+***********************/
+
+.producers,
+.product-categories,
+.contained-products,
+.labels {
+  display: flex;
 }

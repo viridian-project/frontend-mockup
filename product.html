@@ -134,6 +134,25 @@
           <div class="detail-desc">
             <p>{{ prod.desc }}</p>
           </div>
+          <div class="producers" v-if="producers.length > 0">
+            <h4 v-if="producers.length > 1">Producers:</h4>
+            <h4 v-else>Producer:</h4>
+            <div v-for="producer in producers">
+              {{ producer.name }}
+            </div>
+          </div>
+          <div class="product-categories" v-if="productCategories.length > 0">
+            <h4 v-if="productCategories.length > 1">Product Categories:</h4>
+            <h4 v-else>Product Category:</h4>
+          </div>
+          <div class="contained-products" v-if="containedProducts.length > 0">
+            <h4 v-if="containedProducts.length > 1">Contained Products:</h4>
+            <h4 v-else>Contained Product:</h4>
+          </div>
+          <div class="labels" v-if="labels.length > 0">
+            <h4 v-if="labels.length > 1">Labels:</h4>
+            <h4 v-else>Label:</h4>
+          </div>
           <div class="detail-score">
             <h4>Detailed Score:</h4>
             <table class="score-table">
@@ -476,9 +495,11 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
   <script src="js/vue.js"></script>
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
-  <script src="data/products.js"></script>
   <script src="score-color.js"></script>
   <script src="data/preferences.js"></script>
+  <script src="data/products.js"></script>
+  <script src="data/producers.js"></script>
+  <script src="data/labels.js"></script>
   <script>
     var prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
     let index = -1;
@@ -505,7 +526,6 @@
       detailedPositions[key] = 'left: ' + (product.score[key] + 100) / 2 + '%';
     }
     let createDate = new Date(product.createdAt);
-    console.log(createDate);
     let options = {
       year: 'numeric', // or: '2-digit',
       month: 'short',
@@ -515,7 +535,7 @@
     };
     let createDateInLocale = new Intl.DateTimeFormat(
       preferences.locale, options).format(createDate);
-    console.log(createDateInLocale);
+
     var prod = {
       name: prefLocale.name,
       desc: prefLocale.description,
@@ -538,10 +558,17 @@
     };
     console.log(prod);
 
+    var productCategories = [];
+    var containedProducts = [];
+
     var product = new Vue({
       el: '#main-content',
       data: {
-        prod: prod
+        prod: prod,
+        producers: producers,
+        productCategories: productCategories,
+        containedProducts: containedProducts,
+        labels: labels
       }
     });
   </script>
