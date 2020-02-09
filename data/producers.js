@@ -19,17 +19,23 @@ const producers = [{
   "locales": {
     "de": {
       "name": "Wander AG",
+      "description": "",
       "address": "Fabrikstrasse 10, Postfach, 3176 Neuenegg, Schweiz",
+      "logoUrls": ["https://www.wander.ch/themes/custom/wander_ch/assets/images/wander-logo.svg"],
       "urls": ["https://www.wander.ch/"]
     },
     "en": {
       "name": "WANDER AG",
+      "description": "",
       "address": "Fabrikstrasse 10, Postfach, 3176 Neuenegg, Switzerland",
+      "logoUrls": ["https://www.wander.ch/themes/custom/wander_ch/assets/images/wander-logo.svg"],
       "urls": ["https://www.wander.ch/en"]
     },
     "fr": {
       "name": "WANDER SA",
+      "description": "",
       "address": "Fabrikstrasse 10, Postfach, 3176 Neuenegg, Suisse",
+      "logoUrls": ["https://www.wander.ch/themes/custom/wander_ch/assets/images/wander-logo.svg"],
       "urls": ["https://www.wander.ch/fr"]
     }
   },
