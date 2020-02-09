@@ -22,7 +22,7 @@ const productSearchResults = [{
     "producers": ["afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
     "containedProducts": [],
     "labels": ["42c2f586-a893-485f-8995-8639446bb6b8"],
-    "locale": {
+    "locales": {
       "de": {
         "name": "Ovomaltine Original",
         "price": "3.99",
@@ -60,7 +60,7 @@ const productSearchResults = [{
     "producers": ["afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
     "containedProducts": [],
     "labels": ["42c2f586-a893-485f-8995-8639446bb6b8"],
-    "locale": {
+    "locales": {
       "de": {
         "name": "Ovomaltine",
         "price": "4.69",
@@ -98,7 +98,7 @@ const productSearchResults = [{
     "producers": ["afd05a40-4ed6-4ae5-8120-eb7daebc336c"],
     "containedProducts": [],
     "labels": ["42c2f586-a893-485f-8995-8639446bb6b8"],
-    "locale": {
+    "locales": {
       "de": {
         "name": "Ovomaltine Crunchy Cream Ajsjsjs Qksjsjskjk Wksksksj Ekdjjdkd Rksksjdkk Jkdkdkkwk Kdkkdkld",
         "price": "4.99",

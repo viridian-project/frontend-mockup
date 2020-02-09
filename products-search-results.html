@@ -214,8 +214,8 @@
       /* Fetch the preferred locale */
       let prefLocale = {};
       for (let lang of prefLanguages) {
-        if (lang in product.locale) {
-          prefLocale = product.locale[lang];
+        if (lang in product.locales) {
+          prefLocale = product.locales[lang];
           break;
         }
       }
