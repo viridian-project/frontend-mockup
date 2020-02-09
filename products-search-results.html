@@ -236,7 +236,7 @@
         price: prefLocale.price,
         curr: prefLocale.currency,
         priceCurr: concatPriceAndCurrency(prefLocale.price, prefLocale.currency, preferences['preferredLang']),
-        imgStyle: 'background-image: url("' + prefLocale.imageUrl + '");',
+        imgStyle: 'background-image: url("' + prefLocale.imageUrls[0] + '");',
         score: score,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         position: 'left: ' + (score + 100) / 2 + '%',
