@@ -31,12 +31,7 @@ function calcScoreColor(score) {
 }
 
 function concatPriceAndCurrency(price, currency, locale) {
-  // if (locale.startsWith('en')) {
-  //   return currency + ' ' + price.toLocaleString(locale);
-  // } else {
-  //   return price.toLocaleString(locale) + ' ' + currency;
-  // }
-  return price.toLocaleString(locale, { style: 'currency', currency: currency });
+  return parseFloat(price).toLocaleString(locale, { style: 'currency', currency: currency });
 }
 
 function setDefaultIfEmpty(prefLocale) {
