@@ -14,4 +14,4 @@ var preferences = {
     economy: 0.1666667
   }
 }
-var prefLanguages = [preferences['preferredLang'], 'en', 'fr', 'de'];
+var prefLanguages = [preferences['preferredLang'], 'en'];

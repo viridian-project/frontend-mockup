@@ -516,6 +516,13 @@
         break;
       }
     }
+    // if no preferred locale is present, fall back to first existing locale
+    if (Object.keys(prefLocale).length == 0 && Object.keys(product.locales).length > 0) { // is there easier way to access object length?
+      prefLocale = Object.values(product.locales)[0];
+    }
+    // if still undefined, create default empty locale
+    prefLocale = setDefaultIfEmpty(prefLocale);
+    console.log(prefLocale);
     let score = calcTotalScore(product.score, preferences.scoreWeighting);
     let color = calcScoreColor(score);
     let detailedColors = {};
@@ -542,8 +549,8 @@
       quant: prefLocale.quantities[0],
       price: prefLocale.price,
       curr: prefLocale.currency,
-      priceCurr: concatPriceAndCurrency(prefLocale.price, prefLocale.currency, preferences['preferredLang']),
-      imgStyle: 'background-image: url("' + prefLocale.imageUrl + '");',
+      priceCurr: concatPriceAndCurrency(prefLocale.price, prefLocale.currency, preferences.locale),
+      imgStyle: 'background-image: url("' + prefLocale.imageUrls[0] + '");',
       score: score,
       color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
       position: 'left: ' + (score + 100) / 2 + '%',
@@ -561,11 +568,37 @@
     var productCategories = [];
     var containedProducts = [];
 
+    var prdcrs = [];
+    for (let producer of producers) {
+      /* Fetch the preferred locale */
+      prefLocale = {};
+      for (let lang of prefLanguages) {
+        if (lang in producer.locales) {
+          prefLocale = producer.locales[lang];
+          break;
+        }
+      }
+      // if no preferred locale is not present, fall back to first existing locale
+      if (Object.keys(prefLocale).length == 0 && Object.keys(producer.locales).length > 0) { // is there easier way to access object length?
+        prefLocale = Object.values(producer.locales)[0];
+      }
+      // if still undefined, create default empty locale
+      prefLocale = setDefaultIfEmpty(prefLocale);
+      let score = calcTotalScore(producer.score, preferences.scoreWeighting);
+      let color = calcScoreColor(producer.score);
+      prdcrs.push({
+        name: prefLocale.name,
+        score: score,
+        color: color
+      })
+    }
+    console.log(prdcrs);
+
     var product = new Vue({
       el: '#main-content',
       data: {
         prod: prod,
-        producers: producers,
+        producers: prdcrs,
         productCategories: productCategories,
         containedProducts: containedProducts,
         labels: labels

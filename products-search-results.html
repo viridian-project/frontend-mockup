@@ -219,6 +219,12 @@
           break;
         }
       }
+      // if no preferred locale is not present, fall back to first existing locale
+      if (Object.keys(prefLocale).length == 0 && Object.keys(product.locales).length > 0) { // is there easier way to access object length?
+        prefLocale = Object.values(product.locales)[0];
+      }
+      // if still undefined, create default empty locale
+      prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(product.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
       let detailedColors = {};

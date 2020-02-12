@@ -30,10 +30,25 @@ function calcScoreColor(score) {
   return color;
 }
 
-function concatPriceAndCurrency(price, currency, lang) {
-  if (lang.startsWith('en')) {
-    return currency + ' ' + price;
-  } else {
-    return price.replace('.', ',') + ' ' + currency;
+function concatPriceAndCurrency(price, currency, locale) {
+  // if (locale.startsWith('en')) {
+  //   return currency + ' ' + price.toLocaleString(locale);
+  // } else {
+  //   return price.toLocaleString(locale) + ' ' + currency;
+  // }
+  return price.toLocaleString(locale, { style: 'currency', currency: currency });
+}
+
+function setDefaultIfEmpty(prefLocale) {
+  if (Object.keys(prefLocale).length == 0) {
+    prefLocale = {
+      name: '',
+      description: '',
+      quantities: [],
+      price: '',
+      currency: '',
+      imageUrls: []
+    }
   }
+  return prefLocale;
 }
