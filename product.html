@@ -138,7 +138,29 @@
             <h4 v-if="producers.length > 1">Producers:</h4>
             <h4 v-else>Producer:</h4>
             <div v-for="producer in producers">
-              {{ producer.name }}
+              <table class="score-table">
+                <tbody>
+                  <tr>
+                    <td class="hcenter">
+                      <div class="vote-wedge vote-wedge-up"></div>
+                      <div class="vote-balance">12</div>
+                      <div class="vote-wedge vote-wedge-down"></div>
+                    </td>
+                    <td class="total-score-blob detail-data-text">
+                      <div class="score-bar-indicator" v-bind:style="producer.color">
+                        <span>{{ producer.score }}</span>
+                      </div>
+                    </td>
+                    <td class="entity-name">
+                      <div>{{ producer.name }} Schießmichtotundgut</div>
+                    </td>
+                    <td>
+                      <!-- <img v-bind:src="producer.logo" v-bind:alt="producer.name" class="logo"> -->
+                      <div style="width: 80px;background-color: gray;height: 80px;"></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="product-categories" v-if="productCategories.length > 0">
@@ -507,7 +529,6 @@
       if (productSearchResults[i].id == prod_id) index = i;
     }
     var product = productSearchResults[index];
-    console.log(product);
     /* Fetch the preferred locale */
     let prefLocale = {};
     for (let lang of prefLanguages) {
@@ -522,7 +543,6 @@
     }
     // if still undefined, create default empty locale
     prefLocale = setDefaultIfEmpty(prefLocale);
-    console.log(prefLocale);
     let score = calcTotalScore(product.score, preferences.scoreWeighting);
     let color = calcScoreColor(score);
     let detailedColors = {};
@@ -571,7 +591,7 @@
     var prdcrs = [];
     for (let producer of producers) {
       /* Fetch the preferred locale */
-      prefLocale = {};
+      let prefLocale = {};
       for (let lang of prefLanguages) {
         if (lang in producer.locales) {
           prefLocale = producer.locales[lang];
@@ -589,7 +609,8 @@
       prdcrs.push({
         name: prefLocale.name,
         score: score,
-        color: color
+        color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
+        logo: prefLocale.logoUrls[0]
       })
     }
     console.log(prdcrs);

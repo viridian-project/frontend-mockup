@@ -213,4 +213,72 @@
 .contained-products,
 .labels {
   display: flex;
+  flex-direction: column;
+}
+
+.entity-name {
+  width: 100%;
+  /* max-width has proper size (found by trial and error) so that entity name does not get
+     too wide also in narrowest case, max-width is needed so that ellipsis comes into play */
+  max-width: 110px;
+}
+
+.entity-name>div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logo {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+
+/*****************
+* Voting         *
+*****************/
+
+.vote-wedge {
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+}
+
+.vote-wedge-up {
+  border-bottom: 20px solid #aaa;
+  margin-bottom: 8px;
+}
+
+.vote-wedge-down {
+  border-top: 20px solid #aaa;
+  margin-top: 8px;
+}
+
+
+/* .vote-wedge::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
+
+.vote-wedge-up::after {
+  border-bottom: 20px solid #aaa;
+} */
+
+
+/* the darker border: */
+
+
+/* .vote-wedge-up::before {
+  content: "";
+  position: absolute;
+  border-bottom: 22px solid gray;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+} */
+
+.vote-balance {
+  color: dimgray;
 }

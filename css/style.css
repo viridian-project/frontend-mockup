@@ -468,3 +468,20 @@ footer {
   /* Non-prefixed version, currently
                                 supported by Chrome, Opera and Firefox */
 }
+
+
+/***************************
+* Generally useful classes *
+***************************/
+
+.hcenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.vcenter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

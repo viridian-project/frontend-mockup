@@ -26,7 +26,7 @@ const productSearchResults = [{
       "de": {
         "name": "Ovomaltine Original",
         "price": "3.99",
-        "currency": "€",
+        "currency": "EUR",
         "description": "Getränkepulver aus Gerstenmalz und Kakao",
         "quantities": ["400 g"],
         "ingredients": "65% extrait de malt d'ORGE, Lait écrémé condensé, cacao en poudre fortement dégraissé, sels minéraux (orthophosphate dicalcique, carbonate de magnésium, pyrophosphate de fer), huile de colza, 13 vitamines (A, D, E, K, C thiamine riboflavine.niacine, B6, acide folique, 812, biotine, acide pantothenique), sel de cuisine, arôme vanilline",
@@ -64,7 +64,7 @@ const productSearchResults = [{
       "de": {
         "name": "Ovomaltine",
         "price": "4.69",
-        "currency": "€",
+        "currency": "EUR",
         "description": "Getränkepulver mit Gerstenmalz-Extrakt",
         "quantities": ["500 g"],
         "ingredients": "_Gersten-Malzextrakt_ 51%, _Magermilchkonzentrat_, _Milchserumkonzentrat_, fettarmes Kakaopulver 13%, Weisszucker, Fruktose, Magnesiummcarbonat, Calciumphosphat, Rapsöl, Vitamine (A, E, B1, B2, Pantothensäure, B6, Folsäure, B12, C, Biotin, Niacin), Speisesalz, Aroma Vanillin",
@@ -102,7 +102,7 @@ const productSearchResults = [{
       "de": {
         "name": "Ovomaltine Crunchy Cream Ajsjsjs Qksjsjskjk Wksksksj Ekdjjdkd Rksksjdkk Jkdkdkkwk Kdkkdkld",
         "price": "4.99",
-        "currency": "€",
+        "currency": "EUR",
         "description": "Brotaufstrich mit malzhaltigem Getränkepulver Ovomaltine kskskksk sksksk sk skks skkkskskks ksksksksksksksks skksksks sksksksk ksksksksksksk sks ksks",
         "quantities": ["400 g"],
         "ingredients": "33% malzhaltiges Getränkepulver: Ovomaltine (Gerstenmalzextrakt, kondensierte Magermilch, kondensiertes Milchserum, fettarmer Kakao, Zucker, Fruktose, Magnesiumcarbonat, Calciumphosphat, Rapsöl, Vitamine [A, E, B1, B2, Pantothensäure, B6, Folsäure, B12, C, Biotin, Niacin], Kochsalz, Aroma Vanillin), Zucker, Pflanzenöle (Raps- und Palmöl), 2.6% Haselnüsse, Calciumphosphat, fettarmer Kakao, Emulgator Sonnenblumenlecithin, Aroma Vanillin.",
