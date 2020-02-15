@@ -142,9 +142,9 @@
                 <tbody>
                   <tr>
                     <td class="hcenter">
-                      <div class="vote-wedge vote-wedge-up"></div>
-                      <div class="vote-balance">12</div>
-                      <div class="vote-wedge vote-wedge-down"></div>
+                      <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: producer.vote === 1 }" v-on:click="if (producer.vote < 1) { producer.voteBalance += 1; producer.vote += 1; }"></div>
+                      <div class="vote-balance">{{ producer.voteBalance }}</div>
+                      <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: producer.vote === -1 }" v-on:click="if (producer.vote > -1) { producer.voteBalance -= 1; producer.vote -= 1; }"></div>
                     </td>
                     <td class="total-score-blob detail-data-text">
                       <div class="score-bar-indicator" v-bind:style="producer.color">
@@ -152,11 +152,10 @@
                       </div>
                     </td>
                     <td class="entity-name">
-                      <div>{{ producer.name }} Schießmichtotundgut</div>
+                      <div>{{ producer.name }}</div>
                     </td>
                     <td>
-                      <!-- <img v-bind:src="producer.logo" v-bind:alt="producer.name" class="logo"> -->
-                      <div style="width: 80px;background-color: gray;height: 80px;"></div>
+                      <img v-bind:src="producer.logo" v-bind:alt="producer.name" class="logo">
                     </td>
                   </tr>
                 </tbody>
@@ -609,6 +608,8 @@
       prdcrs.push({
         name: prefLocale.name,
         score: score,
+        voteBalance: 12,
+        vote: 0,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         logo: prefLocale.logoUrls[0]
       })

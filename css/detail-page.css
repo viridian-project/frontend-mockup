@@ -219,8 +219,8 @@
 .entity-name {
   width: 100%;
   /* max-width has proper size (found by trial and error) so that entity name does not get
-     too wide also in narrowest case, max-width is needed so that ellipsis comes into play */
-  max-width: 110px;
+     too wide also in narrowest case (max-width is needed so that ellipsis comes into play) */
+  max-width: 100px;
 }
 
 .entity-name>div {
@@ -243,6 +243,12 @@
   border-right: 16px solid transparent;
 }
 
+.vote-wedge:hover {
+  border-bottom-color: #888;
+  border-top-color: #888;
+  cursor: pointer;
+}
+
 .vote-wedge-up {
   border-bottom: 20px solid #aaa;
   margin-bottom: 8px;
@@ -251,6 +257,17 @@
 .vote-wedge-down {
   border-top: 20px solid #aaa;
   margin-top: 8px;
+}
+
+.voted {
+  border-bottom-color: #f80;
+  border-top-color: #f80;
+}
+
+.voted:hover {
+  border-bottom-color: #f80;
+  border-top-color: #f80;
+  cursor: default;
 }
 
 
