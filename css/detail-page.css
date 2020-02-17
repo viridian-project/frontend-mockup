@@ -238,6 +238,17 @@
 * Voting         *
 *****************/
 
+.vote {
+  position: relative;
+}
+
+.vote-info {
+  width: 25px;
+  position: absolute;
+  top: -10px;
+  left: 30px;
+}
+
 .vote-wedge {
   border-left: 16px solid transparent;
   border-right: 16px solid transparent;

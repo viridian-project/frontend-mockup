@@ -141,7 +141,8 @@
               <table class="score-table">
                 <tbody>
                   <tr>
-                    <td class="hcenter">
+                    <td class="vote hcenter">
+                      <img class="vote-info" src="icons/md-information-circle.svg" alt="information">
                       <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: producer.vote === 1 }" v-on:click="if (producer.vote < 1) { producer.voteBalance += 1; producer.vote += 1; }"></div>
                       <div class="vote-balance">{{ producer.voteBalance }}</div>
                       <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: producer.vote === -1 }" v-on:click="if (producer.vote > -1) { producer.voteBalance -= 1; producer.vote -= 1; }"></div>
@@ -155,7 +156,7 @@
                       <div>{{ producer.name }}</div>
                     </td>
                     <td>
-                      <img v-bind:src="producer.logo" v-bind:alt="producer.name" class="logo">
+                      <img v-bind:src="producer.logo" v-bind:alt="producer.name + ' Logo'" class="logo">
                     </td>
                   </tr>
                 </tbody>
@@ -623,7 +624,8 @@
         producers: prdcrs,
         productCategories: productCategories,
         containedProducts: containedProducts,
-        labels: labels
+        labels: labels,
+        informations: []
       }
     });
   </script>
