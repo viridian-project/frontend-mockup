@@ -663,8 +663,8 @@
               document.body.clientHeight);
             let leftOffset = blob.clientWidth;
             let above = true;
-            if (windowHeight - rect.top < 300) {
-              above = true;
+            if (rect.top < 225) {
+              above = false;
             }
             if (!above) {
               hovercard.classList.remove('hovercard-above');

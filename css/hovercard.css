@@ -77,3 +77,11 @@
   width: 300px;
   font-weight: normal;
 }
+
+.hovercard-info::after {
+  left: 27px;
+}
+
+.hovercard-info::before {
+  left: 25px;
+}
