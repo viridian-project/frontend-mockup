@@ -5,8 +5,9 @@
   <meta charset="utf-8">
   <title>The Viridian Network</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="stylesheet" type="text/css" href="css/detail-page.css">
   <link rel="stylesheet" type="text/css" href="css/score-bar.css">
+  <link rel="stylesheet" type="text/css" href="css/hovercard.css">
+  <link rel="stylesheet" type="text/css" href="css/detail-page.css">
 </head>
 
 <body>
@@ -137,12 +138,17 @@
           <div class="producers" v-if="producers.length > 0">
             <h4 v-if="producers.length > 1">Producers:</h4>
             <h4 v-else>Producer:</h4>
+            <div id="producer-info-hovercard" class="hovercard hovercard-info" style="display: none;" data-permanent=false>
+              <strong>How important</strong> is it that the product is produced by this producer? <strong>Vote up</strong> if you think that the producer's score should <strong>influence</strong> the product's score. <strong>Vote down</strong> if you
+              think it's <strong>not appropriate</strong></strong>.
+            </div>
             <div v-for="producer in producers">
               <table class="score-table">
                 <tbody>
                   <tr>
                     <td class="vote hcenter">
-                      <img class="vote-info" src="icons/md-information-circle.svg" alt="information">
+                      <img v-bind:id="'info-'+producer.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'click')" v-on:touchend="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'click')"
+                        v-on:mouseover="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'mouseout')">
                       <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: producer.vote === 1 }" v-on:click="if (producer.vote < 1) { producer.voteBalance += 1; producer.vote += 1; }"></div>
                       <div class="vote-balance">{{ producer.voteBalance }}</div>
                       <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: producer.vote === -1 }" v-on:click="if (producer.vote > -1) { producer.voteBalance -= 1; producer.vote -= 1; }"></div>
@@ -152,11 +158,15 @@
                         <span>{{ producer.score }}</span>
                       </div>
                     </td>
-                    <td class="entity-name">
-                      <div>{{ producer.name }}</div>
+                    <td class="entity-name" v-bind:title="producer.name">
+                      <a v-bind:href="producer.url">
+                        {{ producer.name }}
+                      </a>
                     </td>
                     <td>
-                      <img v-bind:src="producer.logo" v-bind:alt="producer.name + ' Logo'" class="logo">
+                      <a v-bind:href="producer.url">
+                        <img v-bind:src="producer.logo" v-bind:alt="producer.name + ' Logo'" class="logo">
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -607,12 +617,14 @@
       let score = calcTotalScore(producer.score, preferences.scoreWeighting);
       let color = calcScoreColor(producer.score);
       prdcrs.push({
+        id: producer.id,
         name: prefLocale.name,
         score: score,
         voteBalance: 12,
         vote: 0,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
-        logo: prefLocale.logoUrls[0]
+        logo: prefLocale.logoUrls[0],
+        url: 'producer.html#' + producer.id
       })
     }
     console.log(prdcrs);
@@ -626,6 +638,49 @@
         containedProducts: containedProducts,
         labels: labels,
         informations: []
+      },
+      methods: {
+        placeInfoHovercard(hovercard_id, button_id, what) {
+          let hovercard = document.getElementById(hovercard_id);
+          let permanent = hovercard.getAttribute('data-permanent');
+          let show = false;
+          let hide = false;
+          if (permanent == "false" && what == 'mouseover') show = true;
+          else if (permanent == "false" && what == 'mouseout') hide = true;
+          else if (permanent == "false" && what == 'click') {
+            hovercard.setAttribute('data-permanent', true);
+            show = true;
+          } else if (permanent == "true" && what == 'click') {
+            hovercard.setAttribute('data-permanent', false);
+            show = false;
+          }
+          if (show) {
+            let blob = document.getElementById(button_id);
+            let rect = blob.getBoundingClientRect();
+            let windowWidth = (window.innerWidth || document.documentElement.clientWidth ||
+              document.body.clientWidth);
+            let windowHeight = (window.innerHeight || document.documentElement.clientHeight ||
+              document.body.clientHeight);
+            let leftOffset = blob.clientWidth;
+            let above = true;
+            if (windowHeight - rect.top < 300) {
+              above = true;
+            }
+            if (!above) {
+              hovercard.classList.remove('hovercard-above');
+              hovercard.style.top = (rect.bottom + 10) + 'px';
+              hovercard.style.bottom = null;
+            } else {
+              hovercard.classList.add('hovercard-above');
+              hovercard.style.top = null;
+              hovercard.style.bottom = (windowHeight - rect.top + 10) + 'px';
+            }
+            hovercard.style.left = (rect.left - leftOffset) + 'px';
+            hovercard.style.display = 'block';
+          } else if (hide) {
+            hovercard.style.display = 'none';
+          }
+        }
       }
     });
   </script>

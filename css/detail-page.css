@@ -138,6 +138,11 @@
   width: 100%;
 }
 
+.score-table a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .score-table>tbody>tr>td {
   padding-right: 16px;
   padding-bottom: 8px;
@@ -246,7 +251,7 @@
   width: 25px;
   position: absolute;
   top: -10px;
-  left: 30px;
+  left: 32px;
 }
 
 .vote-wedge {
@@ -271,13 +276,13 @@
 }
 
 .voted {
-  border-bottom-color: #f80;
-  border-top-color: #f80;
+  border-bottom-color: #40826d;
+  border-top-color: #40826d;
 }
 
 .voted:hover {
-  border-bottom-color: #f80;
-  border-top-color: #f80;
+  border-bottom-color: #40826d;
+  border-top-color: #40826d;
   cursor: default;
 }
 
