@@ -5,7 +5,7 @@ const red = [255, 0, 0];
 const yellow = [255, 210, 0]; // less biting, warmer yellow than [255, 255, 0]
 const green = [0, 128, 0];
 
-function calcTotalScore(score, weight) {
+const calcTotalScore = (score, weight) => {
   let totalScore = 0;
   for (let key in score) {
     totalScore += score[key] * weight[key];
@@ -13,7 +13,7 @@ function calcTotalScore(score, weight) {
   return Math.round(totalScore);
 }
 
-function calcScoreColor(score) {
+const calcScoreColor = (score) => {
   let color = [0, 0, 0];
   score = score / 100;
   if (score < 0) {
@@ -30,11 +30,11 @@ function calcScoreColor(score) {
   return color;
 }
 
-function concatPriceAndCurrency(price, currency, locale) {
+const concatPriceAndCurrency = (price, currency, locale) => {
   return parseFloat(price).toLocaleString(locale, { style: 'currency', currency: currency });
 }
 
-function setDefaultIfEmpty(prefLocale) {
+const setDefaultIfEmpty = (prefLocale) => {
   if (Object.keys(prefLocale).length == 0) {
     prefLocale = {
       name: '',

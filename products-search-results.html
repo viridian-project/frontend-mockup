@@ -210,7 +210,7 @@
   <script src="data/preferences.js"></script>
   <script>
     /* Build the products object based on preferences */
-    var products = [];
+    let products = [];
     for (let product of productSearchResults) {
       /* Fetch the preferred locale */
       let prefLocale = {};
@@ -253,7 +253,7 @@
         url: 'product.html#' + product.id
       });
     }
-    var maxPriceLength = 0;
+    let maxPriceLength = 0;
     for (let p of products) {
       if (p.priceCurr.length > maxPriceLength) {
         maxPriceLength = p.priceCurr.length;
@@ -267,13 +267,13 @@
       document.getElementById('cards').classList.add('price-8-chars');
     }
 
-    var product_cards = new Vue({
+    let productCards = new Vue({
       el: '#cards',
       data: {
         products: products
       },
       methods: {
-        placeHovercard(id, what) {
+        placeHovercard: (id, what) => {
           let hovercard = document.getElementById('hovercard-' + id);
           let permanent = hovercard.getAttribute('data-permanent');
           let show = false;

@@ -573,12 +573,12 @@
   <script src="data/producers.js"></script>
   <script src="data/labels.js"></script>
   <script>
-    var prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
+    let prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
     let index = -1;
     for (let i = 0; index < 0 && i < productSearchResults.length; i++) {
       if (productSearchResults[i].id == prod_id) index = i;
     }
-    var product = productSearchResults[index];
+    let product = productSearchResults[index];
     /* Fetch the preferred locale */
     let prefLocale = {};
     for (let lang of prefLanguages) {
@@ -613,7 +613,7 @@
     let createDateInLocale = new Intl.DateTimeFormat(
       preferences.locale, options).format(createDate);
 
-    var prod = {
+    let prod = {
       name: prefLocale.name,
       desc: prefLocale.description,
       quant: prefLocale.quantities[0],
@@ -635,10 +635,10 @@
     };
     console.log(prod);
 
-    var productCategories = [];
-    var containedProducts = [];
+    let productCategories = [];
+    let containedProducts = [];
 
-    var prdcrs = [];
+    let prdcrs = [];
     for (let producer of producers) {
       /* Fetch the preferred locale */
       let prefLocale = {};
@@ -676,7 +676,7 @@
     }
     console.log(prdcrs);
 
-    var product = new Vue({
+    let productPage = new Vue({
       el: '#main-content',
       data: {
         prod: prod,
