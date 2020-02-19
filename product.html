@@ -80,7 +80,7 @@
           <div class="detail-data">
             <div class="data-row score-blob-row">
               <div class="detail-data-text">Score:</div>
-              <div class="total-score-blob detail-data-text">
+              <div class="total-score-blob detail-data-text noselect">
                 <div class="score-bar-indicator" v-bind:style="prod.color">
                   <span>{{ prod.score }}</span>
                 </div>
@@ -153,10 +153,11 @@
                       <div class="vote-balance">{{ producer.voteBalance }}</div>
                       <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: producer.vote === -1 }" v-on:click="if (producer.vote > -1) { producer.voteBalance -= 1; producer.vote -= 1; }"></div>
                     </td>
-                    <td class="total-score-blob detail-data-text">
-                      <div class="score-bar-indicator" v-bind:style="producer.color">
+                    <td class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard(producer.id, 'click')" v-on:touchend="placeScoreHovercard(producer.id, 'click')" v-on:mouseover="placeScoreHovercard(producer.id, 'mouseover')" v-on:mouseout="placeScoreHovercard(producer.id, 'mouseout')">
+                      <div v-bind:id="'blob-'+producer.id" class="score-bar-indicator" v-bind:style="producer.color">
                         <span>{{ producer.score }}</span>
                       </div>
+                      <!-- <div class="card-score-blob" > -->
                     </td>
                     <td class="entity-name" v-bind:title="producer.name">
                       <a v-bind:href="producer.url">
@@ -171,6 +172,45 @@
                   </tr>
                 </tbody>
               </table>
+              <!-- Hovercard with details on the producer score: -->
+              <div v-bind:id="'hovercard-'+producer.id" class="hovercard" style="display: none;" data-permanent=false>
+                <div class="hovercard-row">
+                  <div>Environment:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="producer.detailedColors.environment">
+                    <span>{{ producer.detailedScore.environment }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Climate:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="producer.detailedColors.climate">
+                    <span>{{ producer.detailedScore.climate }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Society:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="producer.detailedColors.society">
+                    <span>{{ producer.detailedScore.society }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Health:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="producer.detailedColors.health">
+                    <span>{{ producer.detailedScore.health }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Animal welfare:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="producer.detailedColors.animalWelfare">
+                    <span>{{ producer.detailedScore.animalWelfare }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Economy:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="producer.detailedColors.economy">
+                    <span>{{ producer.detailedScore.economy }}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="product-categories" v-if="productCategories.length > 0">
@@ -332,7 +372,7 @@
         <div class="detail-data">
           <div class="data-row score-blob-row">
             <div class="detail-data-text">Score:</div>
-            <div class="total-score-blob detail-data-text">
+            <div class="total-score-blob detail-data-text noselect">
               <div class="score-bar-indicator" v-bind:style="prod.color">
                 <span>{{ prod.score }}</span>
               </div>
@@ -616,6 +656,11 @@
       prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(producer.score, preferences.scoreWeighting);
       let color = calcScoreColor(producer.score);
+      let detailedColors = {};
+      for (let key in producer.score) {
+        let c = calcScoreColor(producer.score[key]);
+        detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+      }
       prdcrs.push({
         id: producer.id,
         name: prefLocale.name,
@@ -623,6 +668,8 @@
         voteBalance: 12,
         vote: 0,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
+        detailedScore: producer.score,
+        detailedColors: detailedColors,
         logo: prefLocale.logoUrls[0],
         url: 'producer.html#' + producer.id
       })
@@ -640,7 +687,7 @@
         informations: []
       },
       methods: {
-        placeInfoHovercard(hovercard_id, button_id, what) {
+        placeInfoHovercard: (hovercard_id, button_id, what) => {
           let hovercard = document.getElementById(hovercard_id);
           let permanent = hovercard.getAttribute('data-permanent');
           let show = false;
@@ -665,6 +712,47 @@
             let above = true;
             if (rect.top < 225) {
               above = false;
+            }
+            if (!above) {
+              hovercard.classList.remove('hovercard-above');
+              hovercard.style.top = (rect.bottom + 10) + 'px';
+              hovercard.style.bottom = null;
+            } else {
+              hovercard.classList.add('hovercard-above');
+              hovercard.style.top = null;
+              hovercard.style.bottom = (windowHeight - rect.top + 10) + 'px';
+            }
+            hovercard.style.left = (rect.left - leftOffset) + 'px';
+            hovercard.style.display = 'block';
+          } else if (hide) {
+            hovercard.style.display = 'none';
+          }
+        },
+        placeScoreHovercard: (id, what) => {
+          let hovercard = document.getElementById('hovercard-' + id);
+          let permanent = hovercard.getAttribute('data-permanent');
+          let show = false;
+          let hide = false;
+          if (permanent == "false" && what == 'mouseover') show = true;
+          else if (permanent == "false" && what == 'mouseout') hide = true;
+          else if (permanent == "false" && what == 'click') {
+            hovercard.setAttribute('data-permanent', true);
+            show = true;
+          } else if (permanent == "true" && what == 'click') {
+            hovercard.setAttribute('data-permanent', false);
+            show = false;
+          }
+          if (show) {
+            let blob = document.getElementById('blob-' + id);
+            let rect = blob.getBoundingClientRect();
+            let windowWidth = (window.innerWidth || document.documentElement.clientWidth ||
+              document.body.clientWidth);
+            let windowHeight = (window.innerHeight || document.documentElement.clientHeight ||
+              document.body.clientHeight);
+            let leftOffset = blob.clientWidth;
+            let above = false;
+            if (windowHeight - rect.top < 300) {
+              above = true;
             }
             if (!above) {
               hovercard.classList.remove('hovercard-above');

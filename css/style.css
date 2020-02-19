@@ -453,6 +453,11 @@ footer {
   }
 }
 
+
+/***************************
+* Generally useful classes *
+***************************/
+
 .noselect {
   -webkit-touch-callout: none;
   /* iOS Safari */
@@ -469,10 +474,9 @@ footer {
                                 supported by Chrome, Opera and Firefox */
 }
 
-
-/***************************
-* Generally useful classes *
-***************************/
+.pointer {
+  cursor: pointer;
+}
 
 .hcenter {
   display: flex;
