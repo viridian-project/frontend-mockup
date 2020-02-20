@@ -135,7 +135,7 @@
           <div class="detail-desc">
             <p>{{ prod.desc }}</p>
           </div>
-          <div class="producers" v-if="producers.length > 0">
+          <div class="producers" v-if="producers.length > 0" v-bind:style="'background-color: '+alternatingColors[colorIndex]+';'">
             <h4 v-if="producers.length > 1">Producers:</h4>
             <h4 v-else>Producer:</h4>
             <div id="producer-info-hovercard" class="hovercard hovercard-info" style="display: none;" data-permanent=false>
@@ -149,9 +149,9 @@
                     <td class="vote hcenter">
                       <img v-bind:id="'info-'+producer.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'click')" v-on:touchend="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'click')"
                         v-on:mouseover="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('producer-info-hovercard', 'info-'+producer.id, 'mouseout')">
-                      <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: producer.vote === 1 }" v-on:click="if (producer.vote < 1) { producer.voteBalance += 1; producer.vote += 1; }"></div>
+                      <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: producer.vote === 1 }" v-on:click="voteUp(producer)"></div>
                       <div class="vote-balance">{{ producer.voteBalance }}</div>
-                      <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: producer.vote === -1 }" v-on:click="if (producer.vote > -1) { producer.voteBalance -= 1; producer.vote -= 1; }"></div>
+                      <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: producer.vote === -1 }" v-on:click="voteDown(producer)"></div>
                     </td>
                     <td class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard(producer.id, 'click')" v-on:touchend="placeScoreHovercard(producer.id, 'click')" v-on:mouseover="placeScoreHovercard(producer.id, 'mouseover')" v-on:mouseout="placeScoreHovercard(producer.id, 'mouseout')">
                       <div v-bind:id="'blob-'+producer.id" class="score-bar-indicator" v-bind:style="producer.color">
@@ -213,6 +213,83 @@
               </div>
             </div>
           </div>
+          <div class="labels" v-if="labels.length > 0">
+            <h4 v-if="labels.length > 1">Labels:</h4>
+            <h4 v-else>Label:</h4>
+            <div id="label-info-hovercard" class="hovercard hovercard-info" style="display: none;" data-permanent=false>
+              <strong>How important</strong> is it that the product bears this label? <strong>Vote up</strong> if you think that the label's score should <strong>influence</strong> the product's score. <strong>Vote down</strong> if you think it's <strong>not appropriate</strong></strong>.
+            </div>
+            <div v-for="label in labels">
+              <table class="score-table">
+                <tbody>
+                  <tr>
+                    <td class="vote hcenter">
+                      <img v-bind:id="'info-'+label.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('label-info-hovercard', 'info-'+label.id, 'click')" v-on:touchend="placeInfoHovercard('label-info-hovercard', 'info-'+label.id, 'click')"
+                        v-on:mouseover="placeInfoHovercard('label-info-hovercard', 'info-'+label.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('label-info-hovercard', 'info-'+label.id, 'mouseout')">
+                      <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: label.vote === 1 }" v-on:click="voteUp(label)"></div>
+                      <div class="vote-balance">{{ label.voteBalance }}</div>
+                      <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: label.vote === -1 }" v-on:click="voteDown(label)"></div>
+                    </td>
+                    <td class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard(label.id, 'click')" v-on:touchend="placeScoreHovercard(label.id, 'click')" v-on:mouseover="placeScoreHovercard(label.id, 'mouseover')" v-on:mouseout="placeScoreHovercard(label.id, 'mouseout')">
+                      <div v-bind:id="'blob-'+label.id" class="score-bar-indicator" v-bind:style="label.color">
+                        <span>{{ label.score }}</span>
+                      </div>
+                      <!-- <div class="card-score-blob" > -->
+                    </td>
+                    <td class="entity-name" v-bind:title="label.name">
+                      <a v-bind:href="label.url">
+                        {{ label.name }}
+                      </a>
+                    </td>
+                    <td>
+                      <a v-bind:href="label.url">
+                        <img v-bind:src="label.logo" v-bind:alt="label.name + ' Logo'" class="logo">
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- Hovercard with details on the label score: -->
+              <div v-bind:id="'hovercard-'+label.id" class="hovercard" style="display: none;" data-permanent=false>
+                <div class="hovercard-row">
+                  <div>Environment:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="label.detailedColors.environment">
+                    <span>{{ label.detailedScore.environment }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Climate:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="label.detailedColors.climate">
+                    <span>{{ label.detailedScore.climate }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Society:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="label.detailedColors.society">
+                    <span>{{ label.detailedScore.society }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Health:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="label.detailedColors.health">
+                    <span>{{ label.detailedScore.health }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Animal welfare:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="label.detailedColors.animalWelfare">
+                    <span>{{ label.detailedScore.animalWelfare }}</span>
+                  </div>
+                </div>
+                <div class="hovercard-row">
+                  <div>Economy:</div>
+                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="label.detailedColors.economy">
+                    <span>{{ label.detailedScore.economy }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="product-categories" v-if="productCategories.length > 0">
             <h4 v-if="productCategories.length > 1">Product Categories:</h4>
             <h4 v-else>Product Category:</h4>
@@ -220,10 +297,6 @@
           <div class="contained-products" v-if="containedProducts.length > 0">
             <h4 v-if="containedProducts.length > 1">Contained Products:</h4>
             <h4 v-else>Contained Product:</h4>
-          </div>
-          <div class="labels" v-if="labels.length > 0">
-            <h4 v-if="labels.length > 1">Labels:</h4>
-            <h4 v-else>Label:</h4>
           </div>
           <div class="detail-score">
             <h4>Detailed Score:</h4>
@@ -572,6 +645,7 @@
   <script src="data/products.js"></script>
   <script src="data/producers.js"></script>
   <script src="data/labels.js"></script>
+  <script src="data/score-inheritance.js"></script>
   <script>
     let prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
     let index = -1;
@@ -654,9 +728,9 @@
       }
       // if still undefined, create default empty locale
       prefLocale = setDefaultIfEmpty(prefLocale);
-      let score = calcTotalScore(producer.score, preferences.scoreWeighting);
-      let color = calcScoreColor(producer.score);
-      let detailedColors = {};
+      score = calcTotalScore(producer.score, preferences.scoreWeighting);
+      color = calcScoreColor(producer.score);
+      detailedColors = {};
       for (let key in producer.score) {
         let c = calcScoreColor(producer.score[key]);
         detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
@@ -676,14 +750,54 @@
     }
     console.log(prdcrs);
 
+    let labs = [];
+    for (let lab of labels) {
+      /* Fetch the preferred locale */
+      let prefLocale = {};
+      for (let lang of prefLanguages) {
+        if (lang in lab.locales) {
+          prefLocale = lab.locales[lang];
+          break;
+        }
+      }
+      // if no preferred locale is not present, fall back to first existing locale
+      if (Object.keys(prefLocale).length == 0 && Object.keys(lab.locales).length > 0) { // is there easier way to access object length?
+        prefLocale = Object.values(lab.locales)[0];
+      }
+      // if still undefined, create default empty locale
+      prefLocale = setDefaultIfEmpty(prefLocale);
+      score = calcTotalScore(lab.score, preferences.scoreWeighting);
+      color = calcScoreColor(lab.score);
+      detailedColors = {};
+      for (let key in lab.score) {
+        let c = calcScoreColor(lab.score[key]);
+        detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+      }
+      labs.push({
+        id: lab.id,
+        name: prefLocale.name,
+        score: score,
+        voteBalance: 8,
+        vote: 0,
+        color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
+        detailedScore: lab.score,
+        detailedColors: detailedColors,
+        logo: prefLocale.logoUrls[0],
+        url: 'lab.html#' + lab.id
+      })
+    }
+    console.log(labs);
+
     let productPage = new Vue({
       el: '#main-content',
       data: {
+        alternatingColors: ['whitesmoke', 'lavender'],
+        colorIndex: 0,
         prod: prod,
         producers: prdcrs,
         productCategories: productCategories,
         containedProducts: containedProducts,
-        labels: labels,
+        labels: labs,
         informations: []
       },
       methods: {
@@ -768,8 +882,22 @@
           } else if (hide) {
             hovercard.style.display = 'none';
           }
+        },
+        voteUp: (entity) => {
+          if (entity.vote < 1) {
+            entity.voteBalance += 1;
+            entity.vote += 1;
+          }
+          // return entity;
+        },
+        voteDown: (entity) => {
+          if (entity.vote > -1) {
+            entity.voteBalance -= 1;
+            entity.vote -= 1;
+          }
+          // return entity;
         }
-      }
+      },
     });
   </script>
 </body>
