@@ -125,11 +125,11 @@
 * Detail Score Bar Rows *
 ************************/
 
-.detail-score,
-.producers,
-.product-categories,
-.contained-products,
-.labels {
+.detail-desc {
+  border-bottom: 1px solid #c1c1c1;
+}
+
+.detail-score {
   font-weight: bold;
   border-top: 1px solid #c1c1c1;
 }
@@ -213,12 +213,19 @@
 * Producers/Labels/... *
 ***********************/
 
-.producers,
-.product-categories,
-.contained-products,
-.labels {
+.alternating-boxes>div {
   display: flex;
   flex-direction: column;
+  font-weight: bold;
+  padding-left: 16px;
+}
+
+.alternating-boxes>div:nth-child(odd) {
+  background-color: whitesmoke;
+}
+
+.alternating-boxes>div:nth-child(even) {
+  background-color: lavender;
 }
 
 .entity-name {
