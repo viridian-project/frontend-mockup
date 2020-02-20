@@ -731,7 +731,7 @@
       // if still undefined, create default empty locale
       prefLocale = setDefaultIfEmpty(prefLocale);
       score = calcTotalScore(producer.score, preferences.scoreWeighting);
-      color = calcScoreColor(producer.score);
+      color = calcScoreColor(score);
       detailedColors = {};
       for (let key in producer.score) {
         let c = calcScoreColor(producer.score[key]);
@@ -769,7 +769,7 @@
       // if still undefined, create default empty locale
       prefLocale = setDefaultIfEmpty(prefLocale);
       score = calcTotalScore(lab.score, preferences.scoreWeighting);
-      color = calcScoreColor(lab.score);
+      color = calcScoreColor(score);
       detailedColors = {};
       for (let key in lab.score) {
         let c = calcScoreColor(lab.score[key]);
