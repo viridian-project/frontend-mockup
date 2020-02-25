@@ -81,7 +81,7 @@
         <div class="detail-right-col">
           <prod-header v-bind:prod="prod"></prod-header>
           <prod-desc v-bind:prod="prod"></prod-desc>
-          <prod-inherited v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
+          <prod-inherited screen="wide" v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
           <prod-detailed v-bind:prod="prod"></prod-detailed>
         </div>
       </div>
@@ -90,7 +90,7 @@
         <prod-img v-bind:prod="prod"></prod-img>
         <prod-desc v-bind:prod="prod"></prod-desc>
         <prod-data v-bind:prod="prod"></prod-data>
-        <prod-inherited v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
+        <prod-inherited screen="narrow" v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
         <prod-detailed v-bind:prod="prod"></prod-detailed>
         <prod-created v-bind:prod="prod"></prod-created>
       </div>
@@ -339,9 +339,9 @@
       `
     });
     Vue.component('score-hovercard', {
-      props: ['entity'],
+      props: ['screen', 'entity'],
       template: `
-        <div v-bind:id="'hovercard-'+entity.id" class="hovercard" style="display: none;" data-permanent=false>
+        <div v-bind:id="'hovercard-' + screen + '-' + entity.id" class="hovercard" style="display: none;" data-permanent=false>
           <div class="hovercard-row">
             <div>Environment:</div>
             <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="entity.detailedColors.environment">
@@ -382,7 +382,7 @@
       `
     });
     Vue.component('entity-listing', {
-      props: ['entity-name', 'entity-name-long', 'entities', 'entity-product-connection'],
+      props: ['screen', 'entity-name', 'entity-name-long', 'entities', 'entity-product-connection'],
       methods: {
         placeInfoHovercard: (hovercard_id, button_id, what) => {
           let hovercard = document.getElementById(hovercard_id);
@@ -425,8 +425,8 @@
             hovercard.style.display = 'none';
           }
         },
-        placeScoreHovercard: (id, what) => {
-          let hovercard = document.getElementById('hovercard-' + id);
+        placeScoreHovercard: (hovercard_id, button_id, what) => {
+          let hovercard = document.getElementById(hovercard_id);
           let permanent = hovercard.getAttribute('data-permanent');
           let show = false;
           let hide = false;
@@ -440,7 +440,7 @@
             show = false;
           }
           if (show) {
-            let blob = document.getElementById('blob-' + id);
+            let blob = document.getElementById(button_id);
             let rect = blob.getBoundingClientRect();
             let windowWidth = (window.innerWidth || document.documentElement.clientWidth ||
               document.body.clientWidth);
@@ -481,7 +481,7 @@
       },
       template: `
         <div>
-          <div v-bind:id="'info-hovercard-' + entityName" class="hovercard hovercard-info" style="display: none;" data-permanent=false>
+          <div v-bind:id="'info-hovercard-' + screen + '-' + entityName" class="hovercard hovercard-info" style="display: none;" data-permanent=false>
             <strong>How important</strong> is it that the product <span v-html="entityProductConnection"></span>? <strong>Vote up</strong> if you think that the {{ entityNameLong }}'s score should <strong>influence</strong> the product's score. <strong>Vote down</strong> if you
             think it's <strong>not appropriate</strong>.
           </div>
@@ -490,14 +490,14 @@
               <tbody>
                 <tr>
                   <td class="vote hcenter">
-                    <img v-bind:id="'info-'+entity.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('info-hovercard-' + entityName, 'info-'+entity.id, 'click')" v-on:touchend="placeInfoHovercard('info-hovercard-' + entityName, 'info-'+entity.id, 'click')"
-                      v-on:mouseover="placeInfoHovercard('info-hovercard-' + entityName, 'info-'+entity.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('info-hovercard-' + entityName, 'info-'+entity.id, 'mouseout')">
+                    <img v-bind:id="'info-' + screen + '-' + entity.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')"
+                      v-on:mouseover="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseout')">
                     <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: entity.vote === 1 }" v-on:click="voteUp(entity)"></div>
                     <div class="vote-balance">{{ entity.voteBalance }}</div>
                     <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: entity.vote === -1 }" v-on:click="voteDown(entity)"></div>
                   </td>
-                  <td class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard(entity.id, 'click')" v-on:touchend="placeScoreHovercard(entity.id, 'click')" v-on:mouseover="placeScoreHovercard(entity.id, 'mouseover')" v-on:mouseout="placeScoreHovercard(entity.id, 'mouseout')">
-                    <div v-bind:id="'blob-'+entity.id" class="score-bar-indicator" v-bind:style="entity.color">
+                  <td class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:mouseover="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseout')">
+                    <div v-bind:id="'blob-' + screen + '-' + entity.id" class="score-bar-indicator" v-bind:style="entity.color">
                       <span>{{ entity.score }}</span>
                     </div>
                     <!-- <div class="card-score-blob" > -->
@@ -516,24 +516,24 @@
               </tbody>
             </table>
             <!-- Hovercard with details on the entity score: -->
-            <score-hovercard v-bind:entity="entity"></score-hovercard>
+            <score-hovercard v-bind:screen="screen" v-bind:entity="entity"></score-hovercard>
           </div>
         </div>
       `
     })
     Vue.component('prod-inherited', {
-      props: ['producers', 'labels', 'product-categories', 'contained-products'],
+      props: ['screen', 'producers', 'labels', 'product-categories', 'contained-products'],
       template: `
         <div class="alternating-boxes">
           <div class="producers" v-if="producers.length > 0">
             <h4 v-if="producers.length > 1">Producers:</h4>
             <h4 v-else>Producer:</h4>
-            <entity-listing entity-name="producer" entity-name-long="producer" v-bind:entities="producers" entity-product-connection="is produced by this producer"></entity-listing>
+            <entity-listing v-bind:screen="screen" entity-name="producer" entity-name-long="producer" v-bind:entities="producers" entity-product-connection="is produced by this producer"></entity-listing>
           </div>
           <div class="labels" v-if="labels.length > 0">
             <h4 v-if="labels.length > 1">Labels:</h4>
             <h4 v-else>Label:</h4>
-            <entity-listing entity-name="label" entity-name-long="label" v-bind:entities="labels" entity-product-connection="bears this label"></entity-listing>
+            <entity-listing v-bind:screen="screen" entity-name="label" entity-name-long="label" v-bind:entities="labels" entity-product-connection="bears this label"></entity-listing>
           </div>
           <div class="product-categories" v-if="productCategories.length > 0">
             <h4 v-if="productCategories.length > 1">Product Categories:</h4>
