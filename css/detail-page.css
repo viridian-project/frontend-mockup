@@ -138,11 +138,6 @@
   width: 100%;
 }
 
-.score-table a {
-  text-decoration: none;
-  color: inherit;
-}
-
 .score-table>tbody>tr>td {
   padding-right: 16px;
   padding-bottom: 8px;
@@ -232,10 +227,8 @@
   width: 100%;
   /* max-width has proper size (found by trial and error) so that entity name does not get
      too wide also in narrowest case (max-width is needed so that ellipsis comes into play) */
-  max-width: 100px;
-}
-
-.entity-name>div {
+  /* with 50px, smallest supported screen width is about 300px */
+  max-width: 50px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -243,6 +236,33 @@
 .logo {
   max-width: 80px;
   max-height: 80px;
+}
+
+.entity-table {
+  width: 100%;
+}
+
+.entity-table a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.entity-table>tbody>tr>td {
+  padding-right: 16px;
+  padding-bottom: 8px;
+}
+
+@media (max-width: 535px) {
+  .logo {
+    max-width: 50px;
+    max-height: 50px;
+  }
+  .alternating-boxes>div {
+    padding-left: 8px;
+  }
+  .entity-table>tbody>tr>td {
+    padding-right: 8px;
+  }
 }
 
 
@@ -322,4 +342,13 @@
 
 .vote-balance {
   color: dimgray;
+}
+
+@media (max-width: 535px) {
+  /* .vote-wedge {
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 10px;
+    border-top-width: 10px;
+  } */
 }
