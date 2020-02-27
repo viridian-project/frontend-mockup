@@ -2,7 +2,7 @@
 * Detail Page (of product/company/label) *
 *****************************************/
 
-.detail-overview-box {
+.detail-box {
   margin: 16px;
   padding: 16px;
   border: 1px solid;
@@ -125,13 +125,8 @@
 * Detail Score Bar Rows *
 ************************/
 
-.detail-desc {
-  border-bottom: 1px solid #c1c1c1;
-}
-
 .detail-score {
   font-weight: bold;
-  border-top: 1px solid #c1c1c1;
 }
 
 .score-table {
@@ -207,6 +202,11 @@
 /***********************
 * Producers/Labels/... *
 ***********************/
+
+.alternating-boxes {
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px solid #c1c1c1;
+}
 
 .alternating-boxes>div {
   display: flex;

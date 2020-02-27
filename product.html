@@ -72,7 +72,7 @@
   </header>
   <div id="main-content">
     <section id="detail-overview">
-      <div id="detail-overview-large" class="detail-overview-box">
+      <div id="detail-overview-large" class="detail-box">
         <div class="detail-left-col">
           <prod-img v-bind:prod="prod"></prod-img>
           <prod-data v-bind:prod="prod"></prod-data>
@@ -85,7 +85,7 @@
           <prod-detailed v-bind:prod="prod"></prod-detailed>
         </div>
       </div>
-      <div id="detail-overview-small" class="detail-overview-box">
+      <div id="detail-overview-small" class="detail-box">
         <prod-header v-bind:prod="prod"></prod-header>
         <prod-img v-bind:prod="prod"></prod-img>
         <prod-desc v-bind:prod="prod"></prod-desc>
@@ -93,6 +93,11 @@
         <prod-inherited screen="narrow" v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
         <prod-detailed v-bind:prod="prod"></prod-detailed>
         <prod-created v-bind:prod="prod"></prod-created>
+      </div>
+    </section>
+    <section id="detail-comments">
+      <div class="detail-box">
+        <h4>General comments:</h4>
       </div>
     </section>
     <section id="detail-infos">
