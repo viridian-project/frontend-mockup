@@ -2,7 +2,7 @@ const informations = [{
   "id": "ab4dd3e2-a5b0-475c-92dc-ba6cfa5917fa",
   "createdBy": "user8402819102",
   "createdAt": "2016-06-21 17:02:31Z",
-  "status": "Active",
+  "status": "ACTIVE",
   "updatedBy": "",
   "updatedAt": "",
   "supersedes": "",

@@ -2,7 +2,7 @@ const producers = [{
   "id": "afd05a40-4ed6-4ae5-8120-eb7daebc336c",
   "createdBy": "openfoodfacts-contributors",
   "createdAt": "2016-02-10 16:47:58Z",
-  "status": "Active",
+  "status": "ACTIVE",
   "updatedBy": "",
   "updatedAt": "",
   "supersedes": "",
