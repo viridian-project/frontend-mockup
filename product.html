@@ -119,7 +119,7 @@
     let prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
     let index = -1;
     for (let i = 0; index < 0 && i < productSearchResults.length; i++) {
-      if (productSearchResults[i].id == prod_id) index = i;
+      if (productSearchResults[i].id === prod_id) index = i;
     }
     let product = productSearchResults[index];
     /* Fetch the preferred locale */
@@ -131,7 +131,7 @@
       }
     }
     // if no preferred locale is present, fall back to first existing locale
-    if (Object.keys(prefLocale).length == 0 && Object.keys(product.locales).length > 0) { // is there easier way to access object length?
+    if (Object.keys(prefLocale).length === 0 && Object.keys(product.locales).length > 0) { // is there easier way to access object length?
       prefLocale = Object.values(product.locales)[0];
     }
     // if still undefined, create default empty locale
@@ -192,23 +192,30 @@
         }
       }
       // if no preferred locale is not present, fall back to first existing locale
-      if (Object.keys(prefLocale).length == 0 && Object.keys(producer.locales).length > 0) { // is there easier way to access object length?
+      if (Object.keys(prefLocale).length === 0 && Object.keys(producer.locales).length > 0) { // is there easier way to access object length?
         prefLocale = Object.values(producer.locales)[0];
       }
       // if still undefined, create default empty locale
       prefLocale = setDefaultIfEmpty(prefLocale);
-      score = calcTotalScore(producer.score, preferences.scoreWeighting);
-      color = calcScoreColor(score);
-      detailedColors = {};
+      let score = calcTotalScore(producer.score, preferences.scoreWeighting);
+      let color = calcScoreColor(score);
+      let detailedColors = {};
       for (let key in producer.score) {
         let c = calcScoreColor(producer.score[key]);
         detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+      }
+      let voteBalance = 0;
+      for (let si of scoreInheritance) {
+        if (si.source === 'producer-' + producer.id) {
+          voteBalance = si.weight;
+          break;
+        }
       }
       prdcrs.push({
         id: producer.id,
         name: prefLocale.name,
         score: score,
-        voteBalance: 12,
+        voteBalance: voteBalance,
         vote: 0,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         detailedScore: producer.score,
@@ -230,29 +237,36 @@
         }
       }
       // if no preferred locale is not present, fall back to first existing locale
-      if (Object.keys(prefLocale).length == 0 && Object.keys(lab.locales).length > 0) { // is there easier way to access object length?
+      if (Object.keys(prefLocale).length === 0 && Object.keys(lab.locales).length > 0) { // is there easier way to access object length?
         prefLocale = Object.values(lab.locales)[0];
       }
       // if still undefined, create default empty locale
       prefLocale = setDefaultIfEmpty(prefLocale);
-      score = calcTotalScore(lab.score, preferences.scoreWeighting);
-      color = calcScoreColor(score);
-      detailedColors = {};
+      let score = calcTotalScore(lab.score, preferences.scoreWeighting);
+      let color = calcScoreColor(score);
+      let detailedColors = {};
       for (let key in lab.score) {
         let c = calcScoreColor(lab.score[key]);
         detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+      }
+      let voteBalance = 0;
+      for (let si of scoreInheritance) {
+        if (si.source === 'label-' + lab.id) {
+          voteBalance = si.weight;
+          break;
+        }
       }
       labs.push({
         id: lab.id,
         name: prefLocale.name,
         score: score,
-        voteBalance: 8,
+        voteBalance: voteBalance,
         vote: 0,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         detailedScore: lab.score,
         detailedColors: detailedColors,
         logo: prefLocale.logoUrls[0],
-        url: 'lab.html#' + lab.id
+        url: 'label.html#' + lab.id
       })
     }
     console.log(labs);
@@ -389,12 +403,12 @@
           let permanent = hovercard.getAttribute('data-permanent');
           let show = false;
           let hide = false;
-          if (permanent == "false" && what == 'mouseover') show = true;
-          else if (permanent == "false" && what == 'mouseout') hide = true;
-          else if (permanent == "false" && what == 'click') {
+          if (permanent === "false" && what === 'mouseover') show = true;
+          else if (permanent === "false" && what === 'mouseout') hide = true;
+          else if (permanent === "false" && what === 'click') {
             hovercard.setAttribute('data-permanent', true);
             show = true;
-          } else if (permanent == "true" && what == 'click') {
+          } else if (permanent === "true" && what === 'click') {
             hovercard.setAttribute('data-permanent', false);
             show = false;
           }
@@ -430,12 +444,12 @@
           let permanent = hovercard.getAttribute('data-permanent');
           let show = false;
           let hide = false;
-          if (permanent == "false" && what == 'mouseover') show = true;
-          else if (permanent == "false" && what == 'mouseout') hide = true;
-          else if (permanent == "false" && what == 'click') {
+          if (permanent === "false" && what === 'mouseover') show = true;
+          else if (permanent === "false" && what === 'mouseout') hide = true;
+          else if (permanent === "false" && what === 'click') {
             hovercard.setAttribute('data-permanent', true);
             show = true;
-          } else if (permanent == "true" && what == 'click') {
+          } else if (permanent === "true" && what === 'click') {
             hovercard.setAttribute('data-permanent', false);
             show = false;
           }
