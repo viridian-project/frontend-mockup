@@ -81,8 +81,8 @@
         <div class="detail-right-col">
           <prod-header v-bind:prod="prod"></prod-header>
           <prod-desc v-bind:prod="prod"></prod-desc>
-          <prod-inherited screen="wide" v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
           <prod-detailed v-bind:prod="prod"></prod-detailed>
+          <prod-inherited screen="wide" v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
         </div>
       </div>
       <div id="detail-overview-small" class="detail-box">
@@ -90,14 +90,28 @@
         <prod-img v-bind:prod="prod"></prod-img>
         <prod-desc v-bind:prod="prod"></prod-desc>
         <prod-data v-bind:prod="prod"></prod-data>
-        <prod-inherited screen="narrow" v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
         <prod-detailed v-bind:prod="prod"></prod-detailed>
+        <prod-inherited screen="narrow" v-bind:producers="producers" v-bind:labels="labels" v-bind:product-categories="productCategories" v-bind:contained-products="containedProducts"></prod-inherited>
         <prod-created v-bind:prod="prod"></prod-created>
       </div>
     </section>
     <section id="detail-comments">
       <div class="detail-box">
-        <h4>General comments:</h4>
+        <h4>General comments on the product:</h4>
+        <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
+          <div class="vote hcenter">
+            <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: comment.vote === 1 }" v-on:click="voteUp(comment)"></div>
+            <div class="vote-balance">{{ comment.voteBalance }}</div>
+            <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: comment.vote === -1 }" v-on:click="voteDown(comment)"></div>
+          </div>
+          <div class="comment-column">
+            <p>{{ comment.text }}</p>
+            <div class="comment-meta"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+          </div>
+          <div>
+
+          </div>
+        </div>
       </div>
     </section>
     <section id="detail-infos">
@@ -132,15 +146,18 @@
     let product = productSearchResults[index];
     /* Fetch the preferred locale */
     let prefLocale = {};
-    for (let lang of prefLanguages) {
-      if (lang in product.locales) {
-        prefLocale = product.locales[lang];
+    let lang = undefined;
+    for (let language of prefLanguages) {
+      if (language in product.locales) {
+        prefLocale = product.locales[language];
+        lang = language;
         break;
       }
     }
     // if no preferred locale is present, fall back to first existing locale
     if (Object.keys(prefLocale).length === 0 && Object.keys(product.locales).length > 0) { // is there easier way to access object length?
       prefLocale = Object.values(product.locales)[0];
+      lang = Object.keys(product.locales)[0];
     }
     // if still undefined, create default empty locale
     prefLocale = setDefaultIfEmpty(prefLocale);
@@ -191,20 +208,14 @@
 
     let prdcrs = [];
     for (let producer of producers) {
-      /* Fetch the preferred locale */
-      let prefLocale = {};
-      for (let lang of prefLanguages) {
-        if (lang in producer.locales) {
-          prefLocale = producer.locales[lang];
-          break;
-        }
+      /* Fetch the preferred locale, matching the product's preferred locale (s.a.) */
+      let prefLocale = {}
+      if (lang in producer.locales) {
+        prefLocale = producer.locales[lang];
+      } else {
+        // if undefined, create default empty locale
+        prefLocale = setDefaultIfEmpty(prefLocale);
       }
-      // if no preferred locale is not present, fall back to first existing locale
-      if (Object.keys(prefLocale).length === 0 && Object.keys(producer.locales).length > 0) { // is there easier way to access object length?
-        prefLocale = Object.values(producer.locales)[0];
-      }
-      // if still undefined, create default empty locale
-      prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(producer.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
       let detailedColors = {};
@@ -230,26 +241,20 @@
         detailedColors: detailedColors,
         logo: prefLocale.logoUrls[0],
         url: 'producer.html#' + producer.id
-      })
+      });
     }
     console.log(prdcrs);
 
     let labs = [];
     for (let lab of labels) {
-      /* Fetch the preferred locale */
-      let prefLocale = {};
-      for (let lang of prefLanguages) {
-        if (lang in lab.locales) {
-          prefLocale = lab.locales[lang];
-          break;
-        }
+      /* Fetch the preferred locale, matching the product's preferred locale (s.a.) */
+      let prefLocale = {}
+      if (lang in lab.locales) {
+        prefLocale = lab.locales[lang];
+      } else {
+        // if undefined, create default empty locale
+        prefLocale = setDefaultIfEmpty(prefLocale);
       }
-      // if no preferred locale is not present, fall back to first existing locale
-      if (Object.keys(prefLocale).length === 0 && Object.keys(lab.locales).length > 0) { // is there easier way to access object length?
-        prefLocale = Object.values(lab.locales)[0];
-      }
-      // if still undefined, create default empty locale
-      prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(lab.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
       let detailedColors = {};
@@ -275,9 +280,29 @@
         detailedColors: detailedColors,
         logo: prefLocale.logoUrls[0],
         url: 'label.html#' + lab.id
-      })
+      });
     }
     console.log(labs);
+
+    let comments = [];
+    /* Filter comments belonging to the product's preferred locale (s.a.) */
+    let myComments = commentsProduct.filter(comment => comment.lang === lang)
+    for (let comment of myComments) {
+      let createDate = new Date(comment.createdAt);
+      let createDateInLocale = new Intl.DateTimeFormat(
+        preferences.locale, options).format(createDate);
+      comments.push({
+        text: comment.text,
+        voteBalance: comment.weight,
+        vote: 0,
+        createDateUTC: 'UTC timestamp: ' + comment.createdAt,
+        createDate: createDateInLocale,
+        createUser: comment.createdBy,
+        createUserAvatar: 'images/avatars/' + comment.createdBy + '.png',
+        createUserURL: 'user.html#' + comment.createdBy
+      });
+    }
+    console.log(comments);
 
     /**************
      * Components *
@@ -683,6 +708,7 @@
         productCategories: productCategories,
         containedProducts: containedProducts,
         labels: labs,
+        comments: comments,
         informations: []
       }
     });
