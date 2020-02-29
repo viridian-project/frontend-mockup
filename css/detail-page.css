@@ -147,7 +147,7 @@
   width: 100%;
 }
 
-.detail-score-bar>.score-bar {
+.detail-score-bar .score-bar {
   height: 12px;
 }
 
