@@ -151,7 +151,7 @@
   height: 12px;
 }
 
-.detail-score-bar>.score-bar-indicator-gray {
+.detail-score-bar>.score-blob-gray {
   width: 20px;
   height: 20px;
   border-radius: 10px;

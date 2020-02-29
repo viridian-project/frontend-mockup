@@ -94,9 +94,7 @@
             <p>Score: </p>
           </div>
           <div class="card-score-blob noselect" v-on:click="placeHovercard(prod.id, 'click')" v-on:touchend="placeHovercard(prod.id, 'click')" v-on:mouseover="placeHovercard(prod.id, 'mouseover')" v-on:mouseout="placeHovercard(prod.id, 'mouseout')">
-            <div v-bind:id="'blob-'+prod.id" class="score-bar-indicator" v-bind:style="prod.color">
-              <span>{{ prod.score }}</span>
-            </div>
+            <score-blob v-bind:id="'blob-'+prod.id" v-bind:color="prod.color" v-bind:score="prod.score" v-bind:text="prod.score"></score-blob>
           </div>
           <div class="card-score-bar card-score-bar-regular">
             <div class="score-bar">
@@ -107,7 +105,7 @@
               <div class="score-bar-tick score-bar-tick-twentyfive"></div>
               <div class="score-bar-tick score-bar-tick-fifty"></div>
               <div class="score-bar-tick score-bar-tick-seventyfive"></div>
-              <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
+              <div class="score-blob-gray" v-bind:style="prod.position"></div>
             </div>
             <div class="score-bar-label-row">
               <span class="score-bar-label score-bar-label-min">-100</span>
@@ -126,7 +124,7 @@
             <div class="score-bar-tick score-bar-tick-twentyfive"></div>
             <div class="score-bar-tick score-bar-tick-fifty"></div>
             <div class="score-bar-tick score-bar-tick-seventyfive"></div>
-            <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
+            <div class="score-blob-gray" v-bind:style="prod.position"></div>
           </div>
           <div class="score-bar-label-row">
             <span class="score-bar-label score-bar-label-min">-100</span>
@@ -138,39 +136,27 @@
         <div v-bind:id="'hovercard-'+prod.id" class="hovercard" style="display: none;" data-permanent=false>
           <div class="hovercard-row">
             <div>Environment:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.environment">
-              <span>{{ prod.detailedScore.environment }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.environment" v-bind:score="prod.detailedScore.environment" v-bind:text="prod.detailedScore.environment"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Climate:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.climate">
-              <span>{{ prod.detailedScore.climate }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.climate" v-bind:score="prod.detailedScore.climate" v-bind:text="prod.detailedScore.climate"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Society:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.society">
-              <span>{{ prod.detailedScore.society }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.society" v-bind:score="prod.detailedScore.society" v-bind:text="prod.detailedScore.society"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Health:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.health">
-              <span>{{ prod.detailedScore.health }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.health" v-bind:score="prod.detailedScore.health" v-bind:text="prod.detailedScore.health"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Animal welfare:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.animalWelfare">
-              <span>{{ prod.detailedScore.animalWelfare }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.animalWelfare" v-bind:score="prod.detailedScore.animalWelfare" v-bind:text="prod.detailedScore.animalWelfare"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Economy:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.economy">
-              <span>{{ prod.detailedScore.economy }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.economy" v-bind:score="prod.detailedScore.economy" v-bind:text="prod.detailedScore.economy"></score-blob>
           </div>
         </div>
       </article>
@@ -205,8 +191,9 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
   <script src="js/vue.js"></script>
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
+  <script src="js/components.js"></script>
+  <script src="js/score-color.js"></script>
   <script src="data/products.js"></script>
-  <script src="score-color.js"></script>
   <script src="data/preferences.js"></script>
   <script>
     /* Build the products object based on preferences */

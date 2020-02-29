@@ -10,7 +10,7 @@
   position: relative;
 }
 
-.score-bar-indicator {
+.score-blob {
   width: 40px;
   height: 40px;
   /* border: 1px solid gray; */
@@ -20,9 +20,15 @@
   align-items: center;
   /* color: white; */
   /* text-shadow: 0px 0px 2px black; */
+  font-weight: bold;
+  white-space: nowrap;
 }
 
-.score-bar-indicator-small {
+.extreme-score {
+  color: white;
+}
+
+.score-blob-small {
   width: 30px;
   height: 30px;
   font-size: 0.9em;
@@ -74,14 +80,14 @@
   left: 87.5%;
 }
 
-.score-bar-indicator-gray {
+.score-blob-gray {
   width: 24px;
   height: 24px;
   border: 1px solid gray;
   border-radius: 12px;
   background-color: gray;
   margin-left: -12px;
-  /* parent (=score-bar) position relative means absolute position of child (=score-bar-indicator-gray) will be relative to parent */
+  /* parent (=score-bar) position relative means absolute position of child (=score-blob-gray) will be relative to parent */
   position: absolute;
   top: -5px;
   /* left: 50%; */
@@ -122,14 +128,14 @@
   .score-bar-label {
     font-size: 0.8em;
   }
-  .score-bar-indicator {
+  .score-blob {
     width: 30px;
     height: 30px;
   }
   .score-bar {
     height: 12px;
   }
-  .score-bar-indicator-gray {
+  .score-blob-gray {
     width: 20px;
     height: 20px;
     border-radius: 10px;

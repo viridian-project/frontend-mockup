@@ -125,7 +125,8 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
   <script src="js/vue.js"></script>
   <!-- <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script> -->
-  <script src="score-color.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/score-color.js"></script>
   <script src="data/preferences.js"></script>
   <script src="data/products.js"></script>
   <script src="data/producers.js"></script>
@@ -328,10 +329,8 @@
         <div class="detail-data">
           <div class="data-row score-blob-row">
             <div class="detail-data-text">Score:</div>
-            <div class="total-score-blob detail-data-text noselect">
-              <div class="score-bar-indicator" v-bind:style="prod.color">
-                <span>{{ prod.score }}</span>
-              </div>
+            <div class="total-score-blob">
+              <score-blob v-bind:color="prod.color" v-bind:score="prod.score" v-bind:text="prod.score"></score-blob>
             </div>
           </div>
           <div class="total-score-bar-container">
@@ -344,7 +343,7 @@
                 <div class="score-bar-tick score-bar-tick-twentyfive"></div>
                 <div class="score-bar-tick score-bar-tick-fifty"></div>
                 <div class="score-bar-tick score-bar-tick-seventyfive"></div>
-                <div class="score-bar-indicator-gray" v-bind:style="prod.position"></div>
+                <div class="score-blob-gray" v-bind:style="prod.position"></div>
               </div>
               <div class="score-bar-label-row">
                 <span class="score-bar-label score-bar-label-min">-100</span>
@@ -388,39 +387,27 @@
         <div v-bind:id="'hovercard-' + screen + '-' + entity.id" class="hovercard" style="display: none;" data-permanent=false>
           <div class="hovercard-row">
             <div>Environment:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="entity.detailedColors.environment">
-              <span>{{ entity.detailedScore.environment }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.environment" v-bind:score="entity.detailedScore.environment" v-bind:text="entity.detailedScore.environment"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Climate:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="entity.detailedColors.climate">
-              <span>{{ entity.detailedScore.climate }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.climate" v-bind:score="entity.detailedScore.climate" v-bind:text="entity.detailedScore.climate"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Society:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="entity.detailedColors.society">
-              <span>{{ entity.detailedScore.society }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.society" v-bind:score="entity.detailedScore.society" v-bind:text="entity.detailedScore.society"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Health:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="entity.detailedColors.health">
-              <span>{{ entity.detailedScore.health }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.health" v-bind:score="entity.detailedScore.health" v-bind:text="entity.detailedScore.health"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Animal welfare:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="entity.detailedColors.animalWelfare">
-              <span>{{ entity.detailedScore.animalWelfare }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.animalWelfare" v-bind:score="entity.detailedScore.animalWelfare" v-bind:text="entity.detailedScore.animalWelfare"></score-blob>
           </div>
           <div class="hovercard-row">
             <div>Economy:</div>
-            <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="entity.detailedColors.economy">
-              <span>{{ entity.detailedScore.economy }}</span>
-            </div>
+            <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.economy" v-bind:score="entity.detailedScore.economy" v-bind:text="entity.detailedScore.economy"></score-blob>
           </div>
         </div>
       `
@@ -539,10 +526,7 @@
                 <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: entity.vote === -1 }" v-on:click="voteDown(entity)"></div>
               </div>
               <div class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:mouseover="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseout')">
-                <div v-bind:id="'blob-' + screen + '-' + entity.id" class="score-bar-indicator" v-bind:style="entity.color">
-                  <span>{{ entity.score }}</span>
-                </div>
-                <!-- <div class="card-score-blob" > -->
+                <score-blob v-bind:id="'blob-' + screen + '-' + entity.id" v-bind:color="entity.color" v-bind:score="entity.score" v-bind:text="entity.score"></score-blob>
               </div>
               <div class="entity-name" v-bind:title="entity.name">
                 <a v-bind:href="entity.url">
@@ -597,7 +581,7 @@
           <div class="score-bar-tick score-bar-tick-twentyfive"></div>
           <div class="score-bar-tick score-bar-tick-fifty"></div>
           <div class="score-bar-tick score-bar-tick-seventyfive"></div>
-          <div class="score-bar-indicator-gray" v-bind:style="pos"></div>
+          <div class="score-blob-gray" v-bind:style="pos"></div>
         </div>
       `
     });
@@ -624,9 +608,7 @@
               <tr>
                 <td class="detail-score-label">Environment:</td>
                 <td class="detail-score-blob">
-                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.environment">
-                    <span>{{ prod.detailedScore.environment }}</span>
-                  </div>
+                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.environment" v-bind:score="prod.detailedScore.environment" v-bind:text="prod.detailedScore.environment"></score-blob>
                 </td>
                 <td class="detail-score-bar">
                   <score-bar v-bind:pos="prod.detailedPositions.environment"></score-bar>
@@ -635,9 +617,7 @@
               <tr>
                 <td class="detail-score-label">Climate:</td>
                 <td class="detail-score-blob">
-                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.climate">
-                    <span>{{ prod.detailedScore.climate }}</span>
-                  </div>
+                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.climate" v-bind:score="prod.detailedScore.climate" v-bind:text="prod.detailedScore.climate"></score-blob>
                 </td>
                 <td class="detail-score-bar">
                   <score-bar v-bind:pos="prod.detailedPositions.climate"></score-bar>
@@ -646,9 +626,7 @@
               <tr>
                 <td class="detail-score-label">Society:</td>
                 <td class="detail-score-blob">
-                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.society">
-                    <span>{{ prod.detailedScore.society }}</span>
-                  </div>
+                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.society" v-bind:score="prod.detailedScore.society" v-bind:text="prod.detailedScore.society"></score-blob>
                 </td>
                 <td class="detail-score-bar">
                   <score-bar v-bind:pos="prod.detailedPositions.society"></score-bar>
@@ -657,9 +635,7 @@
               <tr>
                 <td class="detail-score-label">Health:</td>
                 <td class="detail-score-blob">
-                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.health">
-                    <span>{{ prod.detailedScore.health }}</span>
-                  </div>
+                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.health" v-bind:score="prod.detailedScore.health" v-bind:text="prod.detailedScore.health"></score-blob>
                 </td>
                 <td class="detail-score-bar">
                   <score-bar v-bind:pos="prod.detailedPositions.health"></score-bar>
@@ -668,9 +644,7 @@
               <tr>
                 <td class="detail-score-label">Animal welfare:</td>
                 <td class="detail-score-blob">
-                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.animalWelfare">
-                    <span>{{ prod.detailedScore.animalWelfare }}</span>
-                  </div>
+                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.animalWelfare" v-bind:score="prod.detailedScore.animalWelfare" v-bind:text="prod.detailedScore.animalWelfare"></score-blob>
                 </td>
                 <td class="detail-score-bar">
                   <score-bar v-bind:pos="prod.detailedPositions.animalWelfare"></score-bar>
@@ -679,9 +653,7 @@
               <tr>
                 <td class="detail-score-label">Economy:</td>
                 <td class="detail-score-blob">
-                  <div class="score-bar-indicator score-bar-indicator-small" v-bind:style="prod.detailedColors.economy">
-                    <span>{{ prod.detailedScore.economy }}</span>
-                  </div>
+                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.economy" v-bind:score="prod.detailedScore.economy" v-bind:text="prod.detailedScore.economy"></score-blob>
                 </td>
                 <td class="detail-score-bar">
                   <score-bar-with-labels v-bind:pos="prod.detailedPositions.economy"></score-bar-with-labels>

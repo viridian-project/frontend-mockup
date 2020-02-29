@@ -10,7 +10,7 @@ const producers = [{
   "changeReason": "",
   "score": {
     "environment": -32,
-    "climate": -71,
+    "climate": 49,
     "society": 37,
     "health": -31,
     "animalWelfare": 0,
