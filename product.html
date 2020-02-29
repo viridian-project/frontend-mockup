@@ -108,9 +108,6 @@
             <p>{{ comment.text }}</p>
             <div class="comment-meta"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
           </div>
-          <div>
-
-          </div>
         </div>
       </div>
     </section>
@@ -533,35 +530,31 @@
             think it's <strong>not appropriate</strong>.
           </div>
           <div v-for="entity in entities">
-            <table class="entity-table">
-              <tbody>
-                <tr>
-                  <td class="vote hcenter">
-                    <img v-bind:id="'info-' + screen + '-' + entity.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')"
-                      v-on:mouseover="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseout')">
-                    <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: entity.vote === 1 }" v-on:click="voteUp(entity)"></div>
-                    <div class="vote-balance">{{ entity.voteBalance }}</div>
-                    <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: entity.vote === -1 }" v-on:click="voteDown(entity)"></div>
-                  </td>
-                  <td class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:mouseover="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseout')">
-                    <div v-bind:id="'blob-' + screen + '-' + entity.id" class="score-bar-indicator" v-bind:style="entity.color">
-                      <span>{{ entity.score }}</span>
-                    </div>
-                    <!-- <div class="card-score-blob" > -->
-                  </td>
-                  <td class="entity-name" v-bind:title="entity.name">
-                    <a v-bind:href="entity.url">
-                      {{ entity.name }}
-                    </a>
-                  </td>
-                  <td>
-                    <a v-bind:href="entity.url">
-                      <img v-bind:src="entity.logo" v-bind:alt="entity.name + ' Logo'" class="logo">
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="entity-listing">
+              <div class="vote hcenter">
+                <img v-bind:id="'info-' + screen + '-' + entity.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')"
+                  v-on:mouseover="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseout')">
+                <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: entity.vote === 1 }" v-on:click="voteUp(entity)"></div>
+                <div class="vote-balance">{{ entity.voteBalance }}</div>
+                <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: entity.vote === -1 }" v-on:click="voteDown(entity)"></div>
+              </div>
+              <div class="total-score-blob detail-data-text noselect pointer" v-on:click="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'click')" v-on:mouseover="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeScoreHovercard('hovercard-' + screen + '-' + entity.id, 'blob-' + screen + '-' + entity.id, 'mouseout')">
+                <div v-bind:id="'blob-' + screen + '-' + entity.id" class="score-bar-indicator" v-bind:style="entity.color">
+                  <span>{{ entity.score }}</span>
+                </div>
+                <!-- <div class="card-score-blob" > -->
+              </div>
+              <div class="entity-name" v-bind:title="entity.name">
+                <a v-bind:href="entity.url">
+                  {{ entity.name }}
+                </a>
+              </div>
+              <div>
+                <a v-bind:href="entity.url">
+                  <img v-bind:src="entity.logo" v-bind:alt="entity.name + ' Logo'" class="logo">
+                </a>
+              </div>
+            </div>
             <!-- Hovercard with details on the entity score: -->
             <score-hovercard v-bind:screen="screen" v-bind:entity="entity"></score-hovercard>
           </div>
