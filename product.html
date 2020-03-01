@@ -98,24 +98,42 @@
     <section id="detail-comments">
       <div class="detail-box">
         <h4>General comments on the product:</h4>
-        <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
-          <div class="vote hcenter">
-            <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: comment.vote === 1 }" v-on:click="voteUp(comment)"></div>
-            <div class="vote-balance">{{ comment.voteBalance }}</div>
-            <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: comment.vote === -1 }" v-on:click="voteDown(comment)"></div>
-          </div>
-          <div class="comment-column">
-            <p>{{ comment.text }}</p>
-            <div class="comment-meta"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+        <div id="general-comments">
+          <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
+            <div class="vote hcenter">
+              <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: comment.vote === 1 }" v-on:click="voteUp(comment)"></div>
+              <div class="vote-balance">{{ comment.voteBalance }}</div>
+              <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: comment.vote === -1 }" v-on:click="voteDown(comment)"></div>
+            </div>
+            <div class="comment-column">
+              <p>{{ comment.text }}</p>
+              <div class="comment-meta"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
     <section id="detail-infos">
       <div class="button">+ Add information</div>
-      <article v-for="info in informations">
-
-      </article>
+      <div class="detail-box">
+        <h3>Rating this product:</h3>
+        <article v-for="info in informations">
+          <h4>{{ info.title }}</h3>
+            <p>{{ info.description }}</p>
+            <strong v-if="info.sources.length > 1">Sources:</strong>
+            <strong v-else>Source:</strong>
+            <ul>
+              <li v-for="source in info.sources">
+                <span v-if="'authors' in source && source.authors.length > 0">
+                <a v-bind:href="source.url">{{ source.title }}</a>, ({{ source.authors.join(', ') }}) –
+                </span>
+                <span v-else>
+                <a v-bind:href="source.url">{{ source.title }}</a> –
+                </span> accessed <span class="date">{{ source.accessDate }}</span>
+              </li>
+            </ul>
+        </article>
+      </div>
     </section>
   </div>
   <footer>
@@ -136,6 +154,10 @@
   <script src="data/informations.js"></script>
   <script src="data/comments-informations.js"></script>
   <script>
+    /****************
+     * Prepare data *
+     ****************/
+
     let prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
     let index = -1;
     for (let i = 0; index < 0 && i < productSearchResults.length; i++) {
@@ -169,7 +191,7 @@
       detailedPositions[key] = 'left: ' + (product.score[key] + 100) / 2 + '%';
     }
     let createDate = new Date(product.createdAt);
-    let options = {
+    let datetimeOptions = {
       year: 'numeric', // or: '2-digit',
       month: 'short',
       day: 'numeric',
@@ -177,7 +199,7 @@
       minute: 'numeric'
     };
     let createDateInLocale = new Intl.DateTimeFormat(
-      preferences.locale, options).format(createDate);
+      preferences.locale, datetimeOptions).format(createDate);
 
     let prod = {
       name: prefLocale.name,
@@ -288,7 +310,7 @@
     for (let comment of myComments) {
       let createDate = new Date(comment.createdAt);
       let createDateInLocale = new Intl.DateTimeFormat(
-        preferences.locale, options).format(createDate);
+        preferences.locale, datetimeOptions).format(createDate);
       comments.push({
         text: comment.text,
         voteBalance: comment.weight,
@@ -301,6 +323,53 @@
       });
     }
     console.log(comments);
+
+    let dateOptions = {
+      year: 'numeric', // or: '2-digit',
+      month: 'short',
+      day: 'numeric'
+    };
+
+    let infos = [];
+    for (let info of informations) {
+      /* Fetch the preferred locale, matching the product's preferred locale (s.a.) */
+      let prefLocale = {}
+      if (lang in info.locales) {
+        prefLocale = info.locales[lang];
+      } else {
+        // if undefined, create default empty locale
+        prefLocale = setDefaultIfEmpty(prefLocale);
+      }
+      let createDate = new Date(info.createdAt);
+      let createDateInLocale = new Intl.DateTimeFormat(
+        preferences.locale, datetimeOptions).format(createDate);
+      let sources = [];
+      for (let source of info.sources) {
+        let accessDate = new Date(source.accessDate);
+        let accessDateInLocale = new Intl.DateTimeFormat(
+          preferences.locale, dateOptions).format(accessDate);
+        sources.push({
+          title: source.title,
+          authors: source.authors,
+          url: source.url,
+          accessDate: accessDateInLocale
+        })
+      }
+      infos.push({
+        id: info.id,
+        title: prefLocale.title,
+        description: prefLocale.description,
+        sources: sources,
+        voteBalance: info.weight,
+        vote: 0,
+        createDateUTC: 'UTC timestamp: ' + info.createdAt,
+        createDate: createDateInLocale,
+        createUser: info.createdBy,
+        createUserAvatar: 'images/avatars/' + info.createdBy + '.png',
+        createUserURL: 'user.html#' + info.createdBy
+      });
+    }
+    console.log(infos);
 
     /**************
      * Components *
@@ -674,7 +743,7 @@
         containedProducts: containedProducts,
         labels: labs,
         comments: comments,
-        informations: []
+        informations: infos
       }
     });
   </script>

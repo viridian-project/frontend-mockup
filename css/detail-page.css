@@ -10,6 +10,10 @@
   background-color: #fefefe;
 }
 
+.detail-box>h3 {
+  margin-top: 12px;
+}
+
 .detail-box>h4 {
   margin-top: 8px;
 }
@@ -364,8 +368,16 @@
 
 
 /*****************
-* Comment        *
+* Comments       *
 *****************/
+
+#general-comments>div.comment:nth-child(odd) {
+  background-color: whitesmoke;
+}
+
+#general-comments>div.comment:nth-child(even) {
+  background-color: lavender;
+}
 
 .comment {
   display: flex;
@@ -374,7 +386,6 @@
   padding-bottom: 8px;
   padding-left: 16px;
   margin-bottom: 8px;
-  background-color: #e8e8e8;
 }
 
 .comment>div {
