@@ -98,7 +98,7 @@
     <section id="detail-comments">
       <div class="detail-box">
         <h4>General comments on the product:</h4>
-        <div id="general-comments">
+        <div id="detail-comment-container">
           <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
             <div class="vote hcenter">
               <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: comment.vote === 1 }" v-on:click="voteUp(comment)"></div>
@@ -117,22 +117,31 @@
       <div class="button">+ Add information</div>
       <div class="detail-box">
         <h3>Rating this product:</h3>
-        <article v-for="info in informations">
-          <h4>{{ info.title }}</h3>
-            <p>{{ info.description }}</p>
-            <strong v-if="info.sources.length > 1">Sources:</strong>
-            <strong v-else>Source:</strong>
-            <ul>
-              <li v-for="source in info.sources">
-                <span v-if="'authors' in source && source.authors.length > 0">
-                <a v-bind:href="source.url">{{ source.title }}</a>, ({{ source.authors.join(', ') }}) –
-                </span>
-                <span v-else>
-                <a v-bind:href="source.url">{{ source.title }}</a> –
-                </span> accessed <span class="date">{{ source.accessDate }}</span>
-              </li>
-            </ul>
-        </article>
+        <div id="detail-info-container">
+          <article v-for="info in informations">
+            <h4>{{ info.title }}</h3>
+              <p>{{ info.description }}</p>
+              <div class="info-sources-and-users">
+                <div class="info-sources">
+                  <strong v-if="info.sources.length > 1">Sources:</strong>
+                  <strong v-else>Source:</strong>
+                  <ul>
+                    <li v-for="source in info.sources">
+                      <span v-if="'authors' in source && source.authors.length > 0">
+                  <a v-bind:href="source.url">{{ source.title }}</a>, ({{ source.authors.join(', ') }}) –
+                  </span>
+                      <span v-else>
+                  <a v-bind:href="source.url">{{ source.title }}</a> –
+                  </span> accessed <span class="date">{{ source.accessDate }}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="info-users">
+                  <prod-created v-bind:prod="info"></prod-created>
+                </div>
+              </div>
+          </article>
+        </div>
       </div>
     </section>
   </div>
@@ -438,7 +447,7 @@
         <div class="user-created-box">
           <div class="user-date">created <span class="date" v-bind:title="prod.createDateUTC">{{ prod.createDate }}</span> by:</div>
           <div class="user-infos">
-            <img class="avatar" v-bind:src="prod.createUserAvatar">
+            <a v-bind:href="prod.createUserURL"><img class="avatar" v-bind:src="prod.createUserAvatar"></a>
             <div class="user-details">
               <a v-bind:href="prod.createUserURL" class="user-name">{{ prod.createUser }}</a>
               <div class="user-reputation" title="User's reputation score: 12">

@@ -183,7 +183,6 @@
   background: #ceddce;
   padding: 8px;
   font-size: 0.9em;
-  margin-top: 16px;
 }
 
 .user-infos {
@@ -270,7 +269,12 @@
     max-height: 50px;
   }
   .alternating-boxes>div {
+    padding-top: 8px;
     padding-left: 8px;
+    padding-bottom: 0;
+  }
+  .alternating-boxes>div>h4 {
+    margin-bottom: 16px;
   }
   .entity-listing>div {
     padding-right: 8px;
@@ -371,11 +375,11 @@
 * Comments       *
 *****************/
 
-#general-comments>div.comment:nth-child(odd) {
+#detail-comment-container>div.comment:nth-child(odd) {
   background-color: whitesmoke;
 }
 
-#general-comments>div.comment:nth-child(even) {
+#detail-comment-container>div.comment:nth-child(even) {
   background-color: lavender;
 }
 
@@ -412,5 +416,60 @@
   }
   .comment>div {
     padding-right: 8px;
+  }
+}
+
+
+/*****************
+* Infos/Ratings  *
+*****************/
+
+#detail-info-container>article {
+  padding: 16px;
+}
+
+#detail-info-container>article>h4 {
+  margin-top: 8px;
+}
+
+#detail-info-container>article:nth-child(odd) {
+  background-color: whitesmoke;
+}
+
+#detail-info-container>article:nth-child(even) {
+  background-color: lavender;
+}
+
+@media (max-width: 535px) {
+  #detail-info-container>article {
+    padding: 8px;
+    /* padding-right: 8px; */
+  }
+  #detail-info-container>article>h4 {
+    margin-bottom: 16px;
+  }
+}
+
+.info-sources-and-users {
+  display: flex;
+}
+
+.info-sources {
+  width: 70%;
+}
+
+.info-users {
+  width: 30%;
+}
+
+@media (max-width: 590px) {
+  .info-sources-and-users {
+    display: block;
+  }
+  .info-sources {
+    width: 100%;
+  }
+  .info-users {
+    width: 100%;
   }
 }

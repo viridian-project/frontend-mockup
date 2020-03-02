@@ -19,7 +19,7 @@ const informations = [{
   "sources": [{
     "url": "https://www.ausgedachte-url.de/palmoel",
     "accessDate": "2016-06-21",
-    "title": "Die katastrophische Ökobilanz von Palmöl",
+    "title": "Die katastrophale Ökobilanz von Palmöl",
     "authors": ["Annette Musterfrau", "Max Mustermann"]
   }],
   "weight": 21
