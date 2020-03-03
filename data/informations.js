@@ -8,7 +8,7 @@ const informations = [{
   "supersedes": "",
   "supersededBy": "",
   "changeReason": "",
-  "infoCategory": "GENERAL_INFORMATION",
+  "infoCategory": "MEDIA",
   "target": "product-418ff85c-ae31-448f-aebd-d77dd966a514",
   "locales": {
     "de": {

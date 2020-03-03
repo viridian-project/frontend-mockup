@@ -10,12 +10,16 @@
   background-color: #fefefe;
 }
 
-.detail-box>h3 {
-  margin-top: 12px;
+.detail-box>h2 {
+  margin-top: 6px;
 }
 
-.detail-box>h4 {
-  margin-top: 8px;
+.separator {
+  width: 100%;
+  height: 0;
+  border-top: 2px solid #c1c1c1;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 #detail-overview-large {
@@ -38,7 +42,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #c1c1c1;
+  border-left: 2px solid #c1c1c1;
   padding-left: 16px;
 }
 
@@ -52,9 +56,17 @@
   background-position: center;
 }
 
-.detail-header>h2 {
+h1 {
   font-size: 2em;
   margin: 0;
+}
+
+h2 {
+  font-size: 1.625em;
+}
+
+h3 {
+  font-size: 1.375em;
 }
 
 @media (max-width: 768px) {
@@ -66,7 +78,7 @@
     height: 170px;
     border-radius: 85px;
   }
-  .detail-header>h2 {
+  h1 {
     margin-bottom: 16px;
   }
 }
@@ -97,7 +109,6 @@
 *******************/
 
 .score-blob-row {
-  border-top: 1px solid #c1c1c1;
   margin-top: 8px;
 }
 
@@ -119,7 +130,6 @@
 .total-score-bar-container {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid #c1c1c1;
   padding: 8px 16px 16px 16px;
   margin-bottom: 8px;
 }
@@ -188,6 +198,7 @@
 .user-infos {
   display: flex;
   align-items: center;
+  margin-top: 4px;
 }
 
 .avatar {
@@ -428,8 +439,8 @@
   padding: 16px;
 }
 
-#detail-info-container>article>h4 {
-  margin-top: 8px;
+#detail-info-container>article>h3 {
+  margin-top: 6px;
 }
 
 #detail-info-container>article:nth-child(odd) {
@@ -472,4 +483,18 @@
   .info-users {
     width: 100%;
   }
+}
+
+.info-ratings,
+.info-comments {
+  margin-left: 16px;
+}
+
+
+/*********************
+* Information badges *
+*********************/
+
+.badge-media {
+  background-color: hotpink;
 }
