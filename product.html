@@ -100,11 +100,7 @@
         <h2>General comments on the product:</h2>
         <div id="detail-comment-container">
           <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
-            <div class="vote hcenter">
-              <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: comment.vote === 1 }" v-on:click="voteUp(comment)"></div>
-              <div class="vote-balance">{{ comment.voteBalance }}</div>
-              <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: comment.vote === -1 }" v-on:click="voteDown(comment)"></div>
-            </div>
+            <vote-wedges v-bind:entity="comment"></vote-wedges>
             <div class="comment-column">
               <p>{{ comment.text }}</p>
               <div class="comment-meta"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
@@ -116,11 +112,16 @@
     <section id="detail-infos">
       <div class="button">+ Add information</div>
       <div class="detail-box">
-        <h2>Rating this product:</h2>
+        <h2>Product's score based on rating the following information:</h2>
         <div id="detail-info-container">
           <article v-for="info in informations">
-            <h3>{{ info.title }} <span v-bind:class="info.badgeClass" v-bind:title="info.badgeTooltip">{{ info.badgeLabel }}</span></h3>
-            <p>{{ info.description }}</p>
+            <div class="info-vote-and-text">
+              <vote-wedges v-bind:entity="info"></vote-wedges>
+              <div>
+                <h3>{{ info.title }} <span class="info-badge" v-bind:class="info.badgeClass" v-bind:title="info.badgeTooltip">{{ info.badgeLabel }}</span></h3>
+                <p>{{ info.description }}</p>
+              </div>
+            </div>
             <div class="info-sources-and-users">
               <div class="info-sources">
                 <strong v-if="info.sources.length > 1">Sources:</strong>
@@ -450,6 +451,33 @@
      * Components *
      **************/
 
+    const voteUp = (entity) => {
+      if (entity.vote < 1) {
+        entity.voteBalance += 1;
+        entity.vote += 1;
+      }
+    }
+    const voteDown = (entity) => {
+      if (entity.vote > -1) {
+        entity.voteBalance -= 1;
+        entity.vote -= 1;
+      }
+    }
+
+    Vue.component('vote-wedges', {
+      props: ['entity'],
+      methods: {
+        voteUp: voteUp,
+        voteDown: voteDown
+      },
+      template: `
+        <div class="vote hcenter">
+          <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: entity.vote === 1 }" v-on:click="voteUp(entity)"></div>
+          <div class="vote-balance">{{ entity.voteBalance }}</div>
+          <div class="vote-wedge vote-wedge-down" v-bind:class="{ voted: entity.vote === -1 }" v-on:click="voteDown(entity)"></div>
+        </div>
+      `
+    });
     Vue.component('prod-header', {
       // data: function() {
       //   return {
@@ -643,18 +671,8 @@
             hovercard.style.display = 'none';
           }
         },
-        voteUp: (entity) => {
-          if (entity.vote < 1) {
-            entity.voteBalance += 1;
-            entity.vote += 1;
-          }
-        },
-        voteDown: (entity) => {
-          if (entity.vote > -1) {
-            entity.voteBalance -= 1;
-            entity.vote -= 1;
-          }
-        }
+        voteUp: voteUp,
+        voteDown: voteDown
       },
       template: `
         <div>
