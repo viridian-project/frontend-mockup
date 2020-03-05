@@ -101,9 +101,9 @@
         <div id="detail-comment-container">
           <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
             <vote-wedges v-bind:entity="comment"></vote-wedges>
-            <div class="comment-column">
+            <div class="column">
               <p>{{ comment.text }}</p>
-              <div class="comment-meta"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+              <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
             </div>
           </div>
         </div>
@@ -144,6 +144,13 @@
             <div class="separator"></div>
             <div class="info-ratings">
               <h4>Ratings:</h4>
+              <div v-for="rating in info.ratings" class="rating" v-bind:class="{ negative: rating.voteBalance < 0 }">
+                <vote-wedges v-bind:entity="rating"></vote-wedges>
+                <div class="column">
+                  <score-table v-bind:entity="rating"></score-table>
+                  <div class="meta-compact"><a v-bind:href="rating.createUserURL" class="user-name">{{ rating.createUser }}</a> – <span class="date" v-bind:title="rating.createDateUTC">{{ rating.createDate }}</span></div>
+                </div>
+              </div>
             </div>
             <div class="separator"></div>
             <div class="info-comments">
@@ -170,6 +177,7 @@
   <script src="data/score-inheritance.js"></script>
   <script src="data/comments-product.js"></script>
   <script src="data/informations.js"></script>
+  <script src="data/ratings.js"></script>
   <script src="data/comments-informations.js"></script>
   <script>
     /****************
@@ -324,7 +332,7 @@
 
     let comments = [];
     /* Filter comments belonging to the product's preferred locale (s.a.) */
-    let myComments = commentsProduct.filter(comment => comment.lang === lang)
+    let myComments = commentsProduct.filter(comment => comment.lang === lang);
     for (let comment of myComments) {
       let createDate = new Date(comment.createdAt);
       let createDateInLocale = new Intl.DateTimeFormat(
@@ -358,9 +366,6 @@
         // if undefined, create default empty locale
         prefLocale = setDefaultIfEmpty(prefLocale);
       }
-      let createDate = new Date(info.createdAt);
-      let createDateInLocale = new Intl.DateTimeFormat(
-        preferences.locale, datetimeOptions).format(createDate);
       let sources = [];
       for (let source of info.sources) {
         let accessDate = new Date(source.accessDate);
@@ -428,6 +433,37 @@
           badgeTooltip = "Other kind of information";
           break;
       }
+      let infoRatings = [];
+      /* Filter ratings belonging to this information */
+      let myRatings = ratings.filter(rating => rating.information === info.id);
+      for (let rating of myRatings) {
+        let detailedColors = {};
+        let detailedPositions = {};
+        for (let key in rating.score) {
+          if (rating.score[key] !== undefined) {
+            let c = calcScoreColor(rating.score[key]);
+            detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+            detailedPositions[key] = 'left: ' + (rating.score[key] + 100) / 2 + '%';
+          }
+        }
+        let createDate = new Date(rating.createdAt);
+        let createDateInLocale = new Intl.DateTimeFormat(
+          preferences.locale, datetimeOptions).format(createDate);
+        infoRatings.push({
+          detailedScore: rating.score,
+          detailedColors: detailedColors,
+          detailedPositions: detailedPositions,
+          vote: 0,
+          voteBalance: rating.weight,
+          createDateUTC: 'UTC timestamp: ' + rating.createdAt,
+          createDate: createDateInLocale,
+          createUser: rating.createdBy,
+          createUserURL: 'user.html#' + rating.createdBy,
+        })
+      }
+      let createDate = new Date(info.createdAt);
+      let createDateInLocale = new Intl.DateTimeFormat(
+        preferences.locale, datetimeOptions).format(createDate);
       infos.push({
         id: info.id,
         badgeClass: badgeClass,
@@ -442,7 +478,8 @@
         createDate: createDateInLocale,
         createUser: info.createdBy,
         createUserAvatar: 'images/avatars/' + info.createdBy + '.png',
-        createUserURL: 'user.html#' + info.createdBy
+        createUserURL: 'user.html#' + info.createdBy,
+        ratings: infoRatings
       });
     }
     console.log(infos);
@@ -681,7 +718,7 @@
             think it's <strong>not appropriate</strong>.
           </div>
           <div v-for="entity in entities">
-            <div class="entity-listing">
+            <div class="entity-listing" v-bind:class="{ negative: entity.voteBalance < 0 }">
               <div class="vote hcenter">
                 <img v-bind:id="'info-' + screen + '-' + entity.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')"
                   v-on:mouseover="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseout')">
@@ -762,69 +799,75 @@
         </div>
       `
     });
+    Vue.component('score-table', {
+      props: ['entity'],
+      template: `
+        <table class="score-table">
+          <tbody>
+            <tr v-if="'environment' in entity.detailedColors">
+              <td class="detail-score-label">Environment:</td>
+              <td class="detail-score-blob">
+                <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.environment" v-bind:score="entity.detailedScore.environment" v-bind:text="entity.detailedScore.environment"></score-blob>
+              </td>
+              <td class="detail-score-bar">
+                <score-bar v-bind:pos="entity.detailedPositions.environment"></score-bar>
+              </td>
+            </tr>
+            <tr v-if="'climate' in entity.detailedColors">
+              <td class="detail-score-label">Climate:</td>
+              <td class="detail-score-blob">
+                <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.climate" v-bind:score="entity.detailedScore.climate" v-bind:text="entity.detailedScore.climate"></score-blob>
+              </td>
+              <td class="detail-score-bar">
+                <score-bar v-bind:pos="entity.detailedPositions.climate"></score-bar>
+              </td>
+            </tr>
+            <tr v-if="'society' in entity.detailedColors">
+              <td class="detail-score-label">Society:</td>
+              <td class="detail-score-blob">
+                <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.society" v-bind:score="entity.detailedScore.society" v-bind:text="entity.detailedScore.society"></score-blob>
+              </td>
+              <td class="detail-score-bar">
+                <score-bar v-bind:pos="entity.detailedPositions.society"></score-bar>
+              </td>
+            </tr>
+            <tr v-if="'health' in entity.detailedColors">
+              <td class="detail-score-label">Health:</td>
+              <td class="detail-score-blob">
+                <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.health" v-bind:score="entity.detailedScore.health" v-bind:text="entity.detailedScore.health"></score-blob>
+              </td>
+              <td class="detail-score-bar">
+                <score-bar v-bind:pos="entity.detailedPositions.health"></score-bar>
+              </td>
+            </tr>
+            <tr v-if="'animalWelfare' in entity.detailedColors">
+              <td class="detail-score-label">Animal welfare:</td>
+              <td class="detail-score-blob">
+                <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.animalWelfare" v-bind:score="entity.detailedScore.animalWelfare" v-bind:text="entity.detailedScore.animalWelfare"></score-blob>
+              </td>
+              <td class="detail-score-bar">
+                <score-bar v-bind:pos="entity.detailedPositions.animalWelfare"></score-bar>
+              </td>
+            </tr>
+            <tr v-if="'economy' in entity.detailedColors">
+              <td class="detail-score-label">Economy:</td>
+              <td class="detail-score-blob">
+                <score-blob class="score-blob-small" v-bind:color="entity.detailedColors.economy" v-bind:score="entity.detailedScore.economy" v-bind:text="entity.detailedScore.economy"></score-blob>
+              </td>
+              <td class="detail-score-bar">
+                <score-bar-with-labels v-bind:pos="entity.detailedPositions.economy"></score-bar-with-labels>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      `
+    });
     Vue.component('prod-detailed', {
       props: ['prod'],
       template: `
         <div class="detail-score">
           <h4>Detailed Score:</h4>
-          <table class="score-table">
-            <tbody>
-              <tr>
-                <td class="detail-score-label">Environment:</td>
-                <td class="detail-score-blob">
-                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.environment" v-bind:score="prod.detailedScore.environment" v-bind:text="prod.detailedScore.environment"></score-blob>
-                </td>
-                <td class="detail-score-bar">
-                  <score-bar v-bind:pos="prod.detailedPositions.environment"></score-bar>
-                </td>
-              </tr>
-              <tr>
-                <td class="detail-score-label">Climate:</td>
-                <td class="detail-score-blob">
-                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.climate" v-bind:score="prod.detailedScore.climate" v-bind:text="prod.detailedScore.climate"></score-blob>
-                </td>
-                <td class="detail-score-bar">
-                  <score-bar v-bind:pos="prod.detailedPositions.climate"></score-bar>
-                </td>
-              </tr>
-              <tr>
-                <td class="detail-score-label">Society:</td>
-                <td class="detail-score-blob">
-                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.society" v-bind:score="prod.detailedScore.society" v-bind:text="prod.detailedScore.society"></score-blob>
-                </td>
-                <td class="detail-score-bar">
-                  <score-bar v-bind:pos="prod.detailedPositions.society"></score-bar>
-                </td>
-              </tr>
-              <tr>
-                <td class="detail-score-label">Health:</td>
-                <td class="detail-score-blob">
-                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.health" v-bind:score="prod.detailedScore.health" v-bind:text="prod.detailedScore.health"></score-blob>
-                </td>
-                <td class="detail-score-bar">
-                  <score-bar v-bind:pos="prod.detailedPositions.health"></score-bar>
-                </td>
-              </tr>
-              <tr>
-                <td class="detail-score-label">Animal welfare:</td>
-                <td class="detail-score-blob">
-                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.animalWelfare" v-bind:score="prod.detailedScore.animalWelfare" v-bind:text="prod.detailedScore.animalWelfare"></score-blob>
-                </td>
-                <td class="detail-score-bar">
-                  <score-bar v-bind:pos="prod.detailedPositions.animalWelfare"></score-bar>
-                </td>
-              </tr>
-              <tr>
-                <td class="detail-score-label">Economy:</td>
-                <td class="detail-score-blob">
-                  <score-blob class="score-blob-small" v-bind:color="prod.detailedColors.economy" v-bind:score="prod.detailedScore.economy" v-bind:text="prod.detailedScore.economy"></score-blob>
-                </td>
-                <td class="detail-score-bar">
-                  <score-bar-with-labels v-bind:pos="prod.detailedPositions.economy"></score-bar-with-labels>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <score-table v-bind:entity="prod"></score-table>
         </div>
       `
     });

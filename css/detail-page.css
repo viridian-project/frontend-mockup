@@ -144,12 +144,12 @@ h3 {
 ************************/
 
 .detail-score {
-  font-weight: bold;
   margin-bottom: 16px;
 }
 
 .score-table {
   width: 100%;
+  font-weight: bold;
 }
 
 .score-table>tbody>tr>td {
@@ -317,21 +317,21 @@ h3 {
 
 .vote-wedge:hover {
   border-bottom-color: #888;
-  /* alt: #b58962; */
+  /* or: dodgerblue; */
   border-top-color: #888;
-  /* alt: #b58962; */
+  /* or: dodgerblue; */
   cursor: pointer;
 }
 
 .vote-wedge-up {
   border-bottom: 20px solid #aaa;
-  /* alt: #dfba99; */
+  /* or: skyblue; */
   margin-bottom: 8px;
 }
 
 .vote-wedge-down {
   border-top: 20px solid #aaa;
-  /* alt: #dfba99; */
+  /* or: skyblue; */
   margin-top: 8px;
 }
 
@@ -387,9 +387,9 @@ h3 {
 }
 
 
-/*****************
-* Comments       *
-*****************/
+/***********************
+* Comments and Ratings *
+************************/
 
 #detail-comment-container>div.comment:nth-child(odd) {
   background-color: whitesmoke;
@@ -399,7 +399,8 @@ h3 {
   background-color: lavender;
 }
 
-.comment {
+.comment,
+.rating {
   display: flex;
   align-items: center;
   padding-top: 8px;
@@ -408,17 +409,29 @@ h3 {
   margin-bottom: 8px;
 }
 
-.comment>div {
-  padding-right: 16px;
+.comment>div,
+.rating>div {
+  padding-right: 8px;
 }
 
-.comment-column {
+.info-ratings,
+.info-comments {
+  margin-left: 32px;
+}
+
+.rating {
+  background-color: lightgray;
+  padding: 8px;
+  margin-bottom: 32px;
+}
+
+.column {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.comment-meta {
+.meta-compact {
   text-align: right;
 }
 
@@ -437,7 +450,7 @@ h3 {
 
 
 /*****************
-* Infos/Ratings  *
+* Infos          *
 *****************/
 
 #detail-info-container>article {
@@ -495,11 +508,6 @@ h3 {
   .info-users {
     width: 100%;
   }
-}
-
-.info-ratings,
-.info-comments {
-  margin-left: 16px;
 }
 
 
