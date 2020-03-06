@@ -5,6 +5,7 @@ const commentsProduct = [{
   "status": "ACTIVE",
   "target": "product-418ff85c-ae31-448f-aebd-d77dd966a514",
   "lang": "de",
+  "title": "Bitte Hersteller upvoten",
   "text": "Bei diesem Produkt finde ich es besonders wichtig, dass es von diesem Hersteller kommt! Bitte upvoten!",
   "weight": 5,
   "flag": {}
@@ -15,6 +16,7 @@ const commentsProduct = [{
   "status": "ACTIVE",
   "target": "product-418ff85c-ae31-448f-aebd-d77dd966a514",
   "lang": "de",
+  "title": "",
   "text": "Ovomaltine ist einfach sooooo lecker....",
   "weight": -3,
   "flag": {}

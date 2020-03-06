@@ -102,6 +102,7 @@
           <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
             <vote-wedges v-bind:entity="comment"></vote-wedges>
             <div class="column">
+              <h3 v-if="'title' in comment && comment.title">{{ comment.title }}</h3>
               <p>{{ comment.text }}</p>
               <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
             </div>
@@ -112,7 +113,7 @@
     <section id="detail-infos">
       <div class="button">+ Add information</div>
       <div class="detail-box">
-        <h2>Product's score based on rating the following information:</h2>
+        <h2>The product score is based on these ratings:</h2>
         <div id="detail-info-container">
           <article v-for="info in informations">
             <div class="info-vote-and-text">
@@ -155,6 +156,14 @@
             <div class="separator"></div>
             <div class="info-comments">
               <h4>Comments:</h4>
+              <div v-for="comment in info.comments" class="comment info-comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
+                <vote-wedges v-bind:entity="comment"></vote-wedges>
+                <div class="column">
+                  <h3 v-if="'title' in comment && comment.title">{{ comment.title }}</h3>
+                  <p>{{ comment.text }}</p>
+                  <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+                </div>
+              </div>
             </div>
           </article>
         </div>
@@ -338,6 +347,7 @@
       let createDateInLocale = new Intl.DateTimeFormat(
         preferences.locale, datetimeOptions).format(createDate);
       comments.push({
+        title: comment.title,
         text: comment.text,
         voteBalance: comment.weight,
         vote: 0,
@@ -459,7 +469,26 @@
           createDate: createDateInLocale,
           createUser: rating.createdBy,
           createUserURL: 'user.html#' + rating.createdBy,
-        })
+        });
+      }
+      let infoComments = [];
+      /* Filter comments belonging to this information and to the product's preferred locale (s.a.) */
+      let myComments = commentsInformations.filter(comment => (comment.target === 'information-' + info.id) && (comment.lang === lang));
+      for (let comment of myComments) {
+        let createDate = new Date(comment.createdAt);
+        let createDateInLocale = new Intl.DateTimeFormat(
+          preferences.locale, datetimeOptions).format(createDate);
+        infoComments.push({
+          title: comment.title,
+          text: comment.text,
+          voteBalance: comment.weight,
+          vote: 0,
+          createDateUTC: 'UTC timestamp: ' + comment.createdAt,
+          createDate: createDateInLocale,
+          createUser: comment.createdBy,
+          createUserAvatar: 'images/avatars/' + comment.createdBy + '.png',
+          createUserURL: 'user.html#' + comment.createdBy
+        });
       }
       let createDate = new Date(info.createdAt);
       let createDateInLocale = new Intl.DateTimeFormat(
@@ -479,7 +508,8 @@
         createUser: info.createdBy,
         createUserAvatar: 'images/avatars/' + info.createdBy + '.png',
         createUserURL: 'user.html#' + info.createdBy,
-        ratings: infoRatings
+        ratings: infoRatings,
+        comments: infoComments
       });
     }
     console.log(infos);
@@ -750,6 +780,7 @@
       props: ['screen', 'producers', 'labels', 'product-categories', 'contained-products'],
       template: `
         <div class="alternating-boxes">
+          <h3>The product inherits these scores:</h3>
           <div class="producers" v-if="producers.length > 0">
             <h4 v-if="producers.length > 1">Producers:</h4>
             <h4 v-else>Producer:</h4>

@@ -425,10 +425,19 @@ h3 {
   margin-bottom: 32px;
 }
 
+.info-comment {
+  background-color: lightgray;
+}
+
 .column {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.column>h3 {
+  margin-top: 6px;
+  margin-bottom: 0;
 }
 
 .meta-compact {
