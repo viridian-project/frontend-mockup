@@ -1,5 +1,5 @@
 var preferences = {
-  preferredLang: 'de',
+  preferredLanguages: ['de', 'en'],
   locale: undefined,
   // locale: 'en-US',
   // locale: 'de-DE',
@@ -14,4 +14,3 @@ var preferences = {
     economy: 0.1666667
   }
 }
-var prefLanguages = [preferences['preferredLang'], 'en'];

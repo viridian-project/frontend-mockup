@@ -202,7 +202,7 @@
     /* Fetch the preferred locale */
     let prefLocale = {};
     let lang = undefined;
-    for (let language of prefLanguages) {
+    for (let language of preferences.preferredLanguages) {
       if (language in product.locales) {
         prefLocale = product.locales[language];
         lang = language;
