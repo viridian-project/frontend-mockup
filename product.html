@@ -201,18 +201,15 @@
     let product = productSearchResults[index];
     /* Fetch the preferred locale */
     let prefLocale = {};
-    let lang = undefined;
     for (let language of preferences.preferredLanguages) {
       if (language in product.locales) {
         prefLocale = product.locales[language];
-        lang = language;
         break;
       }
     }
     // if no preferred locale is present, fall back to first existing locale
     if (Object.keys(prefLocale).length === 0 && Object.keys(product.locales).length > 0) { // is there easier way to access object length?
       prefLocale = Object.values(product.locales)[0];
-      lang = Object.keys(product.locales)[0];
     }
     // if still undefined, create default empty locale
     prefLocale = setDefaultIfEmpty(prefLocale);
@@ -263,14 +260,20 @@
 
     let prdcrs = [];
     for (let producer of producers) {
-      /* Fetch the preferred locale, matching the product's preferred locale (s.a.) */
-      let prefLocale = {}
-      if (lang in producer.locales) {
-        prefLocale = producer.locales[lang];
-      } else {
-        // if undefined, create default empty locale
-        prefLocale = setDefaultIfEmpty(prefLocale);
+      /* Fetch the preferred locale */
+      let prefLocale = {};
+      for (let language of preferences.preferredLanguages) {
+        if (language in producer.locales) {
+          prefLocale = producer.locales[language];
+          break;
+        }
       }
+      // if no preferred locale is present, fall back to first existing locale
+      if (Object.keys(prefLocale).length === 0 && Object.keys(producer.locales).length > 0) { // is there easier way to access object length?
+        prefLocale = Object.values(producer.locales)[0];
+      }
+      // if still undefined, create default empty locale
+      prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(producer.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
       let detailedColors = {};
@@ -302,14 +305,20 @@
 
     let labs = [];
     for (let lab of labels) {
-      /* Fetch the preferred locale, matching the product's preferred locale (s.a.) */
-      let prefLocale = {}
-      if (lang in lab.locales) {
-        prefLocale = lab.locales[lang];
-      } else {
-        // if undefined, create default empty locale
-        prefLocale = setDefaultIfEmpty(prefLocale);
+      /* Fetch the preferred locale */
+      let prefLocale = {};
+      for (let language of preferences.preferredLanguages) {
+        if (language in lab.locales) {
+          prefLocale = lab.locales[language];
+          break;
+        }
       }
+      // if no preferred locale is present, fall back to first existing locale
+      if (Object.keys(prefLocale).length === 0 && Object.keys(lab.locales).length > 0) { // is there easier way to access object length?
+        prefLocale = Object.values(lab.locales)[0];
+      }
+      // if still undefined, create default empty locale
+      prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(lab.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
       let detailedColors = {};
@@ -340,8 +349,11 @@
     console.log(labs);
 
     let comments = [];
-    /* Filter comments belonging to the product's preferred locale (s.a.) */
-    let myComments = commentsProduct.filter(comment => comment.lang === lang);
+    /* Show comments in one of the user's preferred languages first: */
+    /* INFO: This code may be unnecessary if we perform DB queries that do the selection and sorting for us */
+    let myComments = commentsProduct.filter(comment => preferences.preferredLanguages.indexOf(comment.lang) >= 0);
+    /* Sort comments by weight in descending order: */
+    myComments.sort((a, b) => b.weight - a.weight);
     for (let comment of myComments) {
       let createDate = new Date(comment.createdAt);
       let createDateInLocale = new Intl.DateTimeFormat(
@@ -368,14 +380,20 @@
 
     let infos = [];
     for (let info of informations) {
-      /* Fetch the preferred locale, matching the product's preferred locale (s.a.) */
-      let prefLocale = {}
-      if (lang in info.locales) {
-        prefLocale = info.locales[lang];
-      } else {
-        // if undefined, create default empty locale
-        prefLocale = setDefaultIfEmpty(prefLocale);
+      /* Fetch the preferred locale */
+      let prefLocale = {};
+      for (let language of preferences.preferredLanguages) {
+        if (language in info.locales) {
+          prefLocale = info.locales[language];
+          break;
+        }
       }
+      // if no preferred locale is present, fall back to first existing locale
+      if (Object.keys(prefLocale).length === 0 && Object.keys(info.locales).length > 0) { // is there easier way to access object length?
+        prefLocale = Object.values(info.locales)[0];
+      }
+      // if still undefined, create default empty locale
+      prefLocale = setDefaultIfEmpty(prefLocale);
       let sources = [];
       for (let source of info.sources) {
         let accessDate = new Date(source.accessDate);
@@ -471,9 +489,13 @@
           createUserURL: 'user.html#' + rating.createdBy,
         });
       }
-      let infoComments = [];
       /* Filter comments belonging to this information and to the product's preferred locale (s.a.) */
-      let myComments = commentsInformations.filter(comment => (comment.target === 'information-' + info.id) && (comment.lang === lang));
+      let infoComments = [];
+      /* Show comments in one of the user's preferred languages first: */
+      /* INFO: This code may be unnecessary if we perform DB queries that do the selection and sorting for us */
+      let myComments = commentsInformations.filter(comment => (comment.target === 'information-' + info.id) && (preferences.preferredLanguages.indexOf(comment.lang) >= 0));
+      /* Sort comments by weight in descending order: */
+      myComments.sort((a, b) => b.weight - a.weight);
       for (let comment of myComments) {
         let createDate = new Date(comment.createdAt);
         let createDateInLocale = new Intl.DateTimeFormat(
