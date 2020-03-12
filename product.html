@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>The Viridian Network</title>
+  <title>Product page &sdot; The Viridian Network</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/score-bar.css">
   <link rel="stylesheet" type="text/css" href="css/hovercard.css">
@@ -98,15 +98,10 @@
     <section id="detail-comments">
       <div class="detail-box">
         <h2>General comments on the product:</h2>
-        <div id="detail-comment-container">
-          <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
-            <vote-wedges v-bind:entity="comment"></vote-wedges>
-            <div class="column">
-              <h3 v-if="'title' in comment && comment.title">{{ comment.title }}</h3>
-              <p>{{ comment.text }}</p>
-              <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
-            </div>
-          </div>
+        <comments class="detail-comment-container" v-bind:comments="comments"></comments>
+        <div v-if="commentsUnpref.length > 0">
+          <h3>Comments in other languages:</h3>
+          <comments class="detail-comment-container" v-bind:comments="commentsUnpref"></comments>
         </div>
       </div>
     </section>
@@ -156,13 +151,10 @@
             <div class="separator"></div>
             <div class="info-comments">
               <h4>Comments:</h4>
-              <div v-for="comment in info.comments" class="comment info-comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
-                <vote-wedges v-bind:entity="comment"></vote-wedges>
-                <div class="column">
-                  <h3 v-if="'title' in comment && comment.title">{{ comment.title }}</h3>
-                  <p>{{ comment.text }}</p>
-                  <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
-                </div>
+              <comments v-bind:comments="info.comments" class="info-comment-container"></comments>
+              <div v-if="info.commentsUnpref.length > 0">
+                <h4>Comments in other languages:</h4>
+                <comments v-bind:comments="info.commentsUnpref" class="info-comment-container"></comments>
               </div>
             </div>
           </article>
@@ -348,29 +340,37 @@
     }
     console.log(labs);
 
-    let comments = [];
-    /* Show comments in one of the user's preferred languages first: */
     /* INFO: This code may be unnecessary if we perform DB queries that do the selection and sorting for us */
-    let myComments = commentsProduct.filter(comment => preferences.preferredLanguages.indexOf(comment.lang) >= 0);
+    /* Show comments in one of the user's preferred languages first: */
+    let prefComments = commentsProduct.filter(comment => preferences.preferredLanguages.indexOf(comment.lang) >= 0); // comments in preferred languages
+    let unprefComments = commentsProduct.filter(comment => preferences.preferredLanguages.indexOf(comment.lang) < 0); // comments in "unpreferred" languages
     /* Sort comments by weight in descending order: */
-    myComments.sort((a, b) => b.weight - a.weight);
-    for (let comment of myComments) {
-      let createDate = new Date(comment.createdAt);
-      let createDateInLocale = new Intl.DateTimeFormat(
-        preferences.locale, datetimeOptions).format(createDate);
-      comments.push({
-        title: comment.title,
-        text: comment.text,
-        voteBalance: comment.weight,
-        vote: 0,
-        createDateUTC: 'UTC timestamp: ' + comment.createdAt,
-        createDate: createDateInLocale,
-        createUser: comment.createdBy,
-        createUserAvatar: 'images/avatars/' + comment.createdBy + '.png',
-        createUserURL: 'user.html#' + comment.createdBy
-      });
+    prefComments.sort((a, b) => b.weight - a.weight);
+    unprefComments.sort((a, b) => b.weight - a.weight);
+    const prepareComments = (comms) => {
+      let arr = [];
+      for (let comment of comms) {
+        let createDate = new Date(comment.createdAt);
+        let createDateInLocale = new Intl.DateTimeFormat(
+          preferences.locale, datetimeOptions).format(createDate);
+        arr.push({
+          title: comment.title,
+          text: comment.text,
+          voteBalance: comment.weight,
+          vote: 0,
+          createDateUTC: 'UTC timestamp: ' + comment.createdAt,
+          createDate: createDateInLocale,
+          createUser: comment.createdBy,
+          createUserAvatar: 'images/avatars/' + comment.createdBy + '.png',
+          createUserURL: 'user.html#' + comment.createdBy
+        });
+      }
+      return arr;
     }
+    let comments = prepareComments(prefComments);
+    let commentsUnpref = prepareComments(unprefComments);
     console.log(comments);
+    console.log(commentsUnpref);
 
     let dateOptions = {
       year: 'numeric', // or: '2-digit',
@@ -489,29 +489,17 @@
           createUserURL: 'user.html#' + rating.createdBy,
         });
       }
-      /* Filter comments belonging to this information and to the product's preferred locale (s.a.) */
-      let infoComments = [];
-      /* Show comments in one of the user's preferred languages first: */
       /* INFO: This code may be unnecessary if we perform DB queries that do the selection and sorting for us */
-      let myComments = commentsInformations.filter(comment => (comment.target === 'information-' + info.id) && (preferences.preferredLanguages.indexOf(comment.lang) >= 0));
+      /* Show comments belonging to this information in one of the user's preferred languages first: */
+      let prefComments = commentsInformations.filter(comment => (comment.target === 'information-' + info.id) && (preferences.preferredLanguages.indexOf(comment.lang) >= 0)); // comments in unpreferred languages
+      let unprefComments = commentsInformations.filter(comment => (comment.target === 'information-' + info.id) && (preferences.preferredLanguages.indexOf(comment.lang) < 0)); // comments in "unpreferred" languages
       /* Sort comments by weight in descending order: */
-      myComments.sort((a, b) => b.weight - a.weight);
-      for (let comment of myComments) {
-        let createDate = new Date(comment.createdAt);
-        let createDateInLocale = new Intl.DateTimeFormat(
-          preferences.locale, datetimeOptions).format(createDate);
-        infoComments.push({
-          title: comment.title,
-          text: comment.text,
-          voteBalance: comment.weight,
-          vote: 0,
-          createDateUTC: 'UTC timestamp: ' + comment.createdAt,
-          createDate: createDateInLocale,
-          createUser: comment.createdBy,
-          createUserAvatar: 'images/avatars/' + comment.createdBy + '.png',
-          createUserURL: 'user.html#' + comment.createdBy
-        });
-      }
+      prefComments.sort((a, b) => b.weight - a.weight);
+      unprefComments.sort((a, b) => b.weight - a.weight);
+      let infoComments = prepareComments(prefComments);
+      let infoCommentsUnpref = prepareComments(unprefComments);
+      console.log(infoComments);
+      console.log(infoCommentsUnpref);
       let createDate = new Date(info.createdAt);
       let createDateInLocale = new Intl.DateTimeFormat(
         preferences.locale, datetimeOptions).format(createDate);
@@ -531,7 +519,8 @@
         createUserAvatar: 'images/avatars/' + info.createdBy + '.png',
         createUserURL: 'user.html#' + info.createdBy,
         ratings: infoRatings,
-        comments: infoComments
+        comments: infoComments,
+        commentsUnpref: infoCommentsUnpref
       });
     }
     console.log(infos);
@@ -567,6 +556,21 @@
         </div>
       `
     });
+    Vue.component('comments', {
+      props: ['comments'],
+      template: `
+        <div>
+          <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
+            <vote-wedges v-bind:entity="comment"></vote-wedges>
+            <div class="column">
+              <h3 v-if="'title' in comment && comment.title">{{ comment.title }}</h3>
+              <p>{{ comment.text }}</p>
+              <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+            </div>
+          </div>
+        </div>
+      `
+    })
     Vue.component('prod-header', {
       // data: function() {
       //   return {
@@ -934,6 +938,7 @@
         containedProducts: containedProducts,
         labels: labs,
         comments: comments,
+        commentsUnpref: commentsUnpref,
         informations: infos
       }
     });

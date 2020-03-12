@@ -19,4 +19,14 @@ const commentsInformations = [{
   "text": "Ja, gerade das Palmöl, das dieser Hersteller verwendet, soll besonders übel sein!",
   "weight": 3,
   "flag": {}
+}, {
+  "id": "bb42761d-1d4d-45be-b3a4-b5edd4e8e180",
+  "createdBy": "abcUser",
+  "createdAt": "2018-01-29 11:39:21Z",
+  "status": "ACTIVE",
+  "target": "information-ab4dd3e2-a5b0-475c-92dc-ba6cfa5917fa",
+  "lang": "ge",
+  "text": "ლორემ იფსუმ დოლორ სით ამეთ, ალთერუმ ეხფეთენდის უთ ველ, სით ეხ აფეირიან ფერფეთუა ფეთენთიუმ, ცუ ჰას ნათუმ ალთერა. გრაეცი გრაეცის ნო დუო. ად ფერიცულის ცონთენთიონეს სეა. ერუდითი სცაევოლა ფერფეთუა ჰას ეხ, ათ ეუმ რეყუე მუციუს დემოცრითუმ. ყუი ათ მოდუს აცცუსამ, ეხ მელ სალე ფაულო.",
+  "weight": 3,
+  "flag": {}
 }];
