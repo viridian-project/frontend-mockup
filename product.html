@@ -137,14 +137,11 @@
                 <prod-created v-bind:prod="info"></prod-created>
               </div>
             </div>
-            <div class="separator"></div>
-            <div class="info-ratings">
-              <h4>Ratings:</h4>
-              <div v-for="rating in info.ratings" class="rating" v-bind:class="{ negative: rating.voteBalance < 0 }">
-                <vote-wedges v-bind:entity="rating"></vote-wedges>
+            <div v-if="info.rating" class="info-ratings">
+              <h4>Suggested Rating:</h4>
+              <div class="rating" v-bind:class="{ negative: info.rating.voteBalance < 0 }">
                 <div class="column">
-                  <score-table v-bind:entity="rating"></score-table>
-                  <div class="meta-compact"><a v-bind:href="rating.createUserURL" class="user-name">{{ rating.createUser }}</a> – <span class="date" v-bind:title="rating.createDateUTC">{{ rating.createDate }}</span></div>
+                  <score-table v-bind:entity="info.rating"></score-table>
                 </div>
               </div>
             </div>
@@ -185,6 +182,23 @@
      * Prepare data *
      ****************/
 
+    const prepareRating = (rating) => {
+      let detailedColors = {};
+      let detailedPositions = {};
+      for (let key in rating.score) {
+        if (rating.score[key] !== undefined) {
+          let c = calcScoreColor(rating.score[key]);
+          detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
+          detailedPositions[key] = 'left: ' + (rating.score[key] + 100) / 2 + '%';
+        }
+      }
+      return {
+        detailedScore: rating.score,
+        detailedColors: detailedColors,
+        detailedPositions: detailedPositions
+      };
+    }
+
     let prod_id = window.location.href.replace(/(.*)#(.*)/, '$2');
     let index = -1;
     for (let i = 0; index < 0 && i < productSearchResults.length; i++) {
@@ -207,13 +221,7 @@
     prefLocale = setDefaultIfEmpty(prefLocale);
     let score = calcTotalScore(product.score, preferences.scoreWeighting);
     let color = calcScoreColor(score);
-    let detailedColors = {};
-    let detailedPositions = {};
-    for (let key in product.score) {
-      let c = calcScoreColor(product.score[key]);
-      detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
-      detailedPositions[key] = 'left: ' + (product.score[key] + 100) / 2 + '%';
-    }
+    let prodRating = prepareRating(product);
     let createDate = new Date(product.createdAt);
     let datetimeOptions = {
       year: 'numeric', // or: '2-digit',
@@ -237,8 +245,8 @@
       color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
       position: 'left: ' + (score + 100) / 2 + '%',
       detailedScore: product.score,
-      detailedColors: detailedColors,
-      detailedPositions: detailedPositions,
+      detailedColors: prodRating.detailedColors,
+      detailedPositions: prodRating.detailedPositions,
       createDateUTC: 'UTC timestamp: ' + product.createdAt,
       createDate: createDateInLocale,
       createUser: product.createdBy,
@@ -268,11 +276,7 @@
       prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(producer.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
-      let detailedColors = {};
-      for (let key in producer.score) {
-        let c = calcScoreColor(producer.score[key]);
-        detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
-      }
+      let producerRating = prepareRating(producer);
       let voteBalance = 0;
       for (let si of scoreInheritance) {
         if (si.source === 'producer-' + producer.id) {
@@ -288,7 +292,7 @@
         vote: 0,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         detailedScore: producer.score,
-        detailedColors: detailedColors,
+        detailedColors: producerRating.detailedColors,
         logo: prefLocale.logoUrls[0],
         url: 'producer.html#' + producer.id
       });
@@ -313,11 +317,7 @@
       prefLocale = setDefaultIfEmpty(prefLocale);
       let score = calcTotalScore(lab.score, preferences.scoreWeighting);
       let color = calcScoreColor(score);
-      let detailedColors = {};
-      for (let key in lab.score) {
-        let c = calcScoreColor(lab.score[key]);
-        detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
-      }
+      let labRating = prepareRating(lab);
       let voteBalance = 0;
       for (let si of scoreInheritance) {
         if (si.source === 'label-' + lab.id) {
@@ -333,7 +333,7 @@
         vote: 0,
         color: 'background-color: rgb(' + color[0] + ', ' + color[1] + ', ' + color[2] + ');',
         detailedScore: lab.score,
-        detailedColors: detailedColors,
+        detailedColors: labRating.detailedColors,
         logo: prefLocale.logoUrls[0],
         url: 'label.html#' + lab.id
       });
@@ -353,6 +353,11 @@
         let createDate = new Date(comment.createdAt);
         let createDateInLocale = new Intl.DateTimeFormat(
           preferences.locale, datetimeOptions).format(createDate);
+        let commentRating = null;
+        if ('rating' in comment) {
+          let rating = ratings.filter(r => comment.rating === 'rating-' + r.id)[0];
+          commentRating = prepareRating(rating);
+        }
         arr.push({
           title: comment.title,
           text: comment.text,
@@ -362,7 +367,8 @@
           createDate: createDateInLocale,
           createUser: comment.createdBy,
           createUserAvatar: 'images/avatars/' + comment.createdBy + '.png',
-          createUserURL: 'user.html#' + comment.createdBy
+          createUserURL: 'user.html#' + comment.createdBy,
+          rating: commentRating
         });
       }
       return arr;
@@ -461,33 +467,12 @@
           badgeTooltip = "Other kind of information";
           break;
       }
-      let infoRatings = [];
-      /* Filter ratings belonging to this information */
-      let myRatings = ratings.filter(rating => rating.information === info.id);
-      for (let rating of myRatings) {
-        let detailedColors = {};
-        let detailedPositions = {};
-        for (let key in rating.score) {
-          if (rating.score[key] !== undefined) {
-            let c = calcScoreColor(rating.score[key]);
-            detailedColors[key] = 'background-color: rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ');';
-            detailedPositions[key] = 'left: ' + (rating.score[key] + 100) / 2 + '%';
-          }
-        }
-        let createDate = new Date(rating.createdAt);
-        let createDateInLocale = new Intl.DateTimeFormat(
-          preferences.locale, datetimeOptions).format(createDate);
-        infoRatings.push({
-          detailedScore: rating.score,
-          detailedColors: detailedColors,
-          detailedPositions: detailedPositions,
-          vote: 0,
-          voteBalance: rating.weight,
-          createDateUTC: 'UTC timestamp: ' + rating.createdAt,
-          createDate: createDateInLocale,
-          createUser: rating.createdBy,
-          createUserURL: 'user.html#' + rating.createdBy,
-        });
+      let infoRating = null;
+      /* Filter rating belonging to this information */
+      let myRatings = ratings.filter(rating => rating.infoTarget === 'information-' + info.id);
+      if (myRatings.length > 0) {
+        let rating = myRatings[0];
+        infoRating = prepareRating(lab);
       }
       /* INFO: This code may be unnecessary if we perform DB queries that do the selection and sorting for us */
       /* Show comments belonging to this information in one of the user's preferred languages first: */
@@ -518,7 +503,7 @@
         createUser: info.createdBy,
         createUserAvatar: 'images/avatars/' + info.createdBy + '.png',
         createUserURL: 'user.html#' + info.createdBy,
-        ratings: infoRatings,
+        rating: infoRating,
         comments: infoComments,
         commentsUnpref: infoCommentsUnpref
       });
@@ -560,12 +545,22 @@
       props: ['comments'],
       template: `
         <div>
-          <div v-for="comment in comments" class="comment" v-bind:class="{ negative: comment.voteBalance < 0 }">
-            <vote-wedges v-bind:entity="comment"></vote-wedges>
-            <div class="column">
-              <h3 v-if="'title' in comment && comment.title">{{ comment.title }}</h3>
-              <p>{{ comment.text }}</p>
-              <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+          <div v-for="comment in comments" v-bind:class="{ negative: comment.voteBalance < 0 }">
+            <div class="comment">
+              <vote-wedges v-bind:entity="comment"></vote-wedges>
+              <div class="column">
+                <h3 v-if="'title' in comment && comment.title">{{ comment.title }}</h3>
+                <p>{{ comment.text }}</p>
+                <div class="meta-compact"><a v-bind:href="comment.createUserURL" class="user-name">{{ comment.createUser }}</a> – <span class="date" v-bind:title="comment.createDateUTC">{{ comment.createDate }}</span></div>
+              </div>
+            </div>
+            <div v-if="comment.rating !== null" class="info-ratings">
+              <h4>Suggested Rating:</h4>
+              <div class="rating" v-bind:class="{ negative: comment.rating.voteBalance < 0 }">
+                <div class="column">
+                  <score-table v-bind:entity="comment.rating"></score-table>
+                </div>
+              </div>
             </div>
           </div>
         </div>

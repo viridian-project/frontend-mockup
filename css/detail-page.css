@@ -391,11 +391,11 @@ h3 {
 * Comments and Ratings *
 ************************/
 
-.detail-comment-container>div.comment:nth-child(odd) {
+.detail-comment-container>div:nth-child(odd) {
   background-color: whitesmoke;
 }
 
-.detail-comment-container>div.comment:nth-child(even) {
+.detail-comment-container>div:nth-child(even) {
   background-color: lavender;
 }
 
@@ -425,7 +425,7 @@ h3 {
   margin-bottom: 32px;
 }
 
-.info-comment-container>div.comment {
+.info-comment-container>div {
   background-color: lightgray;
 }
 
