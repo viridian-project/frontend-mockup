@@ -472,7 +472,7 @@
       let myRatings = ratings.filter(rating => rating.infoTarget === 'information-' + info.id);
       if (myRatings.length > 0) {
         let rating = myRatings[0];
-        infoRating = prepareRating(lab);
+        infoRating = prepareRating(rating);
       }
       /* INFO: This code may be unnecessary if we perform DB queries that do the selection and sorting for us */
       /* Show comments belonging to this information in one of the user's preferred languages first: */
