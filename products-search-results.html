@@ -201,7 +201,7 @@
     for (let product of productSearchResults) {
       /* Fetch the preferred locale */
       let prefLocale = {};
-      for (let lang of prefLanguages) {
+      for (let lang of preferences.preferredLanguages) {
         if (lang in product.locales) {
           prefLocale = product.locales[lang];
           break;
