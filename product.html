@@ -23,7 +23,7 @@
           <ul>
             <li>
               <a title="Search" href="#" onclick="document.getElementById('header-top').classList.add('slided-to-left-1-of-2');">
-                <img src="icons/md-search.svg" alt="Search"><span id="search-span">Search</span>
+                <img src="icons/ionicons/md-search.svg" alt="Search"><span id="search-span">Search</span>
               </a>
             </li>
           </ul>
@@ -31,18 +31,18 @@
       </div>
       <div id="search-header">
         <a title="Back" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left-1-of-2');">
-          <img src="icons/md-arrow-back.svg" alt="Back">
+          <img src="icons/ionicons/md-arrow-back.svg" alt="Back">
         </a>
         <nav>
           <ul>
             <li>
               <a title="Search by Barcode" href="#">
-                <img src="icons/barcode.svg" alt="Search by Barcode"><span id="barcode-search-span">Search by Barcode</span>
+                <img src="icons/fontawesome/barcode.svg" alt="Search by Barcode"><span id="barcode-search-span">Search by Barcode</span>
               </a>
             </li>
             <li>
               <a title="Search by Product Name" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left-1-of-2'); document.getElementById('header-top').classList.add('slided-to-left-2-of-2');">
-                <img src="icons/font.svg" alt="Search by Product Name"><span id="product-name-search-span">Search by Product Name</span>
+                <img src="icons/fontawesome/font.svg" alt="Search by Product Name"><span id="product-name-search-span">Search by Product Name</span>
               </a>
             </li>
           </ul>
@@ -50,23 +50,23 @@
       </div>
       <div id="search-textinput-header">
         <a title="Back" href="#" onclick="document.getElementById('header-top').classList.remove('slided-to-left-2-of-2'); document.getElementById('header-top').classList.add('slided-to-left-1-of-2');">
-          <img src="icons/md-arrow-back.svg" alt="Back">
+          <img src="icons/ionicons/md-arrow-back.svg" alt="Back">
         </a>
         <div><input type="text" name="product-name" id="product-name"></div>
         <a title="Submit" href="products-search-results.html">
-          <img src="icons/md-send.svg" alt="Submit">
+          <img src="icons/ionicons/md-send.svg" alt="Submit">
         </a>
       </div>
     </div>
     <ul id="header-tabs">
       <li>
-        <a title="Products" class="active-tab" href="products.html"><img src="icons/md-cube.svg" alt="Products"><span id="products-span">Products</span></a>
+        <a title="Products" class="active-tab" href="products.html"><img src="icons/ionicons/md-cube.svg" alt="Products"><span id="products-span">Products</span></a>
       </li>
       <li>
-        <a title="Labels" href="labels.html"><img src="icons/award.svg" alt="Labels"><span id="labels-span">Labels</span></a>
+        <a title="Labels" href="labels.html"><img src="icons/fontawesome/award.svg" alt="Labels"><span id="labels-span">Labels</span></a>
       </li>
       <li>
-        <a title="Companies" href="companies.html"><img src="icons/building.svg" alt="Companies"><span id="companies-span">Companies</span></a>
+        <a title="Companies" href="companies.html"><img src="icons/fontawesome/building.svg" alt="Companies"><span id="companies-span">Companies</span></a>
       </li>
     </ul>
   </header>
@@ -635,7 +635,7 @@
             <div class="user-details">
               <a v-bind:href="prod.createUserURL" class="user-name">{{ prod.createUser }}</a>
               <div class="user-reputation" title="User's reputation score: 12">
-                <img src="icons/md-heart.svg" alt="Reputation" class="inline-icon">
+                <img src="icons/ionicons/md-heart.svg" alt="Reputation" class="inline-icon">
                 <span>12</span>
               </div>
             </div>
@@ -771,7 +771,7 @@
           <div v-for="entity in entities">
             <div class="entity-listing" v-bind:class="{ negative: entity.voteBalance < 0 }">
               <div class="vote hcenter">
-                <img v-bind:id="'info-' + screen + '-' + entity.id" class="vote-info" src="icons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')"
+                <img v-bind:id="'info-' + screen + '-' + entity.id" class="vote-info" src="icons/ionicons/md-information-circle.svg" alt="information" v-on:click="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')" v-on:touchend="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'click')"
                   v-on:mouseover="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseover')" v-on:mouseout="placeInfoHovercard('info-hovercard-' + screen + '-' + entityName, 'info-' + screen + '-' + entity.id, 'mouseout')">
                 <div class="vote-wedge vote-wedge-up" v-bind:class="{ voted: entity.vote === 1 }" v-on:click="voteUp(entity)"></div>
                 <div class="vote-balance">{{ entity.voteBalance }}</div>
