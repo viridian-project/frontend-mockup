@@ -12,7 +12,7 @@
   font-family: 'Comfortaa';
   font-style: normal;
   font-weight: 400;
-  src: local('Comfortaa Regular'), local('Comfortaa-Regular'), url('../fonts/Comfortaa/static/Comfortaa-Regular.ttf') format('truetype');
+  src: local('Comfortaa Regular'), local('Comfortaa-Regular'), url('../fonts/Comfortaa/Comfortaa-Regular.ttf') format('truetype');
 }
 
 
@@ -493,3 +493,4 @@ footer {
   flex-direction: row;
   align-items: center;
 }
+
