@@ -1,0 +1,1 @@
+rsync -aPvin --delete *.html css data fonts icons images js /home/mvoge/private/viridian/website/hugo/static/mockup/
