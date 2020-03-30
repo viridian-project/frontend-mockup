@@ -95,6 +95,10 @@ a:hover {
   color: #0055ff;
 }
 
+header {
+  z-index: 1000;
+}
+
 header a:hover {
   color: inherit;
 }
